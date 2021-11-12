@@ -15,7 +15,6 @@ namespace karuiflow {
 		Device* device;
 	};
 
-
 	class Tensor {
 	public:
 		Tensor(
@@ -44,7 +43,7 @@ namespace karuiflow {
 
 	protected:
 		Storage* m_Data;
-		Storage* m_Gradient;
+		Storage* m_Gradient = nullptr;
 		Kernel* m_ParentOp;
 		const TensorSpecs m_Specs;
 		bool m_RequiresGrad;

@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{1800585C-AD1D-4356-8DFA-F86876785807}</ProjectGuid>
+    <ProjectGuid>{7B75CCFA-8848-485F-996B-24B6EA85B46C}</ProjectGuid>
     <RootNamespace>KaruiFlowCUDA</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
