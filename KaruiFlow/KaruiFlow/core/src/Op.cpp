@@ -1,0 +1,40 @@
+#include "../headers/Op.h"
+
+
+namespace karuiflow {
+	Tensor* Op::operator()(std::vector<Tensor*> inputs) {
+		std::vector<TensorSpecs> inputSpecs;
+		for (auto t : inputs)
+			inputSpecs.push_back(t->getTensorSpecs());
+		// Gathering meta data
+		assertDeviceSame(inputSpecs);
+		bool requiredGrad = isRequiresGrad(inputs);
+		TensorSpecs specs = inferOutputTensorSpecs(inputSpecs);
+		Kernel* kernel = instantiateKernel(inputSpecs);
+
+		// Invoking the kernel and constructing the output tensor
+		std::vector<Storage*> inputData;
+		for (auto t : inputs)
+			inputData.push_back(t->getDataStorage());
+		Storage* output = new Storage(specs.dtype, specs.shape, specs.device);
+		kernel->forward(inputData, output);
+
+		// Construct new Tensor
+		Tensor* outTensor = new Tensor(output, specs, kernel, inputs, requiredGrad);
+		return outTensor;
+	}
+
+	void Op::assertDeviceSame(std::vector<TensorSpecs> inputs) {
+		Device* device = inputs[0].device;
+		for (auto spec : inputs)
+			if (!device->equalTo(spec.device))
+				throw OpException(getOpName(), "Inconsistent devices among input tensors.");
+	}
+
+	bool Op::isRequiresGrad(std::vector<Tensor*> inputs) {
+		bool requiresGrad = false;
+		for (auto tensor : inputs)
+			requiresGrad |= tensor->requiresGrad();
+		return requiresGrad;
+	}
+}
