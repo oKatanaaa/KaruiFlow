@@ -16,6 +16,8 @@ namespace karuiflow {
 	};
 
 	class Tensor {
+		friend class Parameter;
+
 	public:
 		Tensor(
 			Storage* data, TensorSpecs specs, Kernel* parentOp,
@@ -39,6 +41,7 @@ namespace karuiflow {
 		void zeroGradient();
 
 	protected:
+		Tensor() = delete;
 		void initGradient();
 
 	protected:

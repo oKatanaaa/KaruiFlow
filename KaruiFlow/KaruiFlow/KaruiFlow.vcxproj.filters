@@ -42,6 +42,9 @@
     <ClInclude Include="core\headers\Op.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\headers\Parameter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\src\DeviceCPU.cpp">

@@ -147,6 +147,7 @@
     <ClInclude Include="core\headers\memory\Memory.h" />
     <ClInclude Include="core\headers\memory\Storage.h" />
     <ClInclude Include="core\headers\Op.h" />
+    <ClInclude Include="core\headers\Parameter.h" />
     <ClInclude Include="core\headers\Tensor.h" />
   </ItemGroup>
   <ItemGroup>
