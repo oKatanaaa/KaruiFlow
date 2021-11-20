@@ -30,16 +30,19 @@ namespace karuiflow {
 		/*
 		* Computes gradient of the math function with respect to its arguments.
 		* 
-		* @param inputs
+		* @param[in] inputs
 		* Arguments of the function (the actual data to process). Order matters.
-		* @param inputGradients
+		* @param[in] requiresGrad
+		* A vector of booleans. If ith element is False, that means that the ith input
+		* does not require the gradient and it should not be computed to save memory and compute.
+		* @param[in] outerGradient
+		* Used for computing jacobian vector products.
+		* @param[out] outputGradients
 		* Where to store the computed gradients. Order must be the same as in `inputs`.
 		* It might be the case that some of the pointers are NULL. That means that the corresponding
 		* tensor does not require gradients.
-		* @param outerGradient
-		* Used for computing jacobian vector products.
 		*/
 		virtual void backward(std::vector<Storage*> inputs, std::vector<bool> requiresGrad, 
-			Storage* outerGradient, std::vector<Storage*> outputGrads) = 0;
+			Storage* outerGradient, std::vector<Storage*> outputGradients) = 0;
 	};
 }
