@@ -1,7 +1,6 @@
-#include "../headers/memory/Device.h"
+#include "../headers/memory/DeviceCPU.h"
 #include "../headers/memory/Exceptions.h"
 
-namespace karuiflow {
 	template<typename T>
 	void add(void* _x, void* _y, void* _out, size_t n) {
 		T* x = (T*)_x;
@@ -12,42 +11,36 @@ namespace karuiflow {
 			out[i] = x[i] + y[i];
 	}
 
-	class CPUDevice : public Device {
-	public:
-		void allocateMemory(void** ptr, int bytes) {
-			*ptr = (void*)new char[bytes];
-			if (*ptr == nullptr)
-				throw MemoryAllocationError(bytes, "cpu");
-		}
+	void karuiflow::DeviceCPU::allocateMemory(void** ptr, size_t bytes) {
+		*ptr = (void*)new char[bytes];
+		if (*ptr == nullptr)
+			throw MemoryAllocationError(bytes, "cpu");
+	}
 
-		void deallocateMemory(void** ptr) {
-			delete[] *ptr;
-		}
+	void karuiflow::DeviceCPU::deallocateMemory(void* ptr) {
+		delete ptr;
+	}
 
-		void copyDeviceToCpu(void* src, void* dst, size_t bytes) {
-			memcpy(dst, src, bytes);
-		}
+	void karuiflow::DeviceCPU::copyDeviceToCpu(void* src, void* dst, size_t bytes) {
+		memcpy(dst, src, bytes);
+	}
 
-		void copyCpuToDevice(void* src, void* dst, size_t bytes) {
-			memcpy(dst, src, bytes);
-		}
+	void karuiflow::DeviceCPU::copyCpuToDevice(void* src, void* dst, size_t bytes) {
+		memcpy(dst, src, bytes);
+	}
 
-		void copyDeviceToDevice(void* src, void* dst, size_t bytes) {
-			memcpy(dst, src, bytes);
-		}
+	void karuiflow::DeviceCPU::copyDeviceToDevice(void* src, void* dst, size_t bytes) {
+		memcpy(dst, src, bytes);
+	}
 
-		std::string getDeviceName() {
-			return "cpu";
-		}
+	std::string karuiflow::DeviceCPU::getDeviceName() {
+		return "cpu";
+	}
 
-		std::function<void(void*, void*, void*, size_t)> getAdder(DType dtype) {
-			if (dtype.getName() == Float32().getName())
-				return add<float>;
-			else if (dtype.getName() == Int32().getName())
-				return add<int>;
-		}
+	std::function<void(void*, void*, void*, size_t)> karuiflow::DeviceCPU::getAdder(karuiflow::DType dtype) {
+		if (dtype.getName() == karuiflow::Float32().getName())
+			return add<float>;
+		else if (dtype.getName() == karuiflow::Int32().getName())
+			return add<int>;
+	}
 
-	};
-
-	
-}

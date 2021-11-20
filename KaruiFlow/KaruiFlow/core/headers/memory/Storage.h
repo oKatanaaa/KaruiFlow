@@ -29,6 +29,7 @@ namespace karuiflow {
 		size_t getSizeBytes();
 		DType getDtype() { return m_Dtype; }
 		Device* getDevice() { return m_Device; }
+		void* getData() { return m_Data; }
 
 	public:
 		/*

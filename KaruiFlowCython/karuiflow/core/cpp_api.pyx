@@ -1,5 +1,6 @@
 from libcpp.vector cimport vector
 
+# Memory API
 cdef extern from "KaruiFlow.h" namespace "karuiflow":
     cdef cppclass Device:
         pass
@@ -29,6 +30,11 @@ cdef extern from "KaruiFlow.h" namespace "karuiflow":
         DType getDtype()
         void* getData()
 
+
+cdef extern from "KaruiFlow.h" namespace "karuiflow":
+    cdef cppclass Kernel:
+        void forward(vector[Storage*] inputs, Storage* output)
+        vector[Storage] backward(vector[Storage*] inputs, vector[bool] requiresGrad, Storage)
 
 
 cdef class PyDeviceCPU:

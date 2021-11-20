@@ -6,9 +6,9 @@ from numpy import get_include
 import os
 from glob import glob
 
-ext = Extension(
-    'memory',
-    sources=glob('**/*.pyx') + glob('*/**/*.pyx'),
+extensions = Extension(
+    '*',
+    sources=glob('karuiflow/**/*.pyx'),
     libraries=['KaruiFlow'],
     language='c++',
     include_dirs=['../KaruiFlow/KaruiFlow/core/headers/'],
@@ -18,7 +18,7 @@ ext = Extension(
 
 setup(
     name='karuiflow',
-    ext_modules=cythonize(ext),
+    ext_modules=cythonize(extensions),
     packages=find_packages(),
     classifiers=[
         'Programming Language :: Python :: 3.7',

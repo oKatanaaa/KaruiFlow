@@ -14,7 +14,7 @@ namespace karuiflow {
 
 	public:
 		virtual void allocateMemory(void **ptr, size_t bytes) = 0;
-		virtual void deallocateMemory(void** ptr) = 0;
+		virtual void deallocateMemory(void* ptr) = 0;
 		virtual void copyDeviceToCpu(void* src, void* dst, size_t bytes) = 0;
 		virtual void copyCpuToDevice(void* src, void* dst, size_t bytes) = 0;
 		virtual void copyDeviceToDevice(void* src, void* dst, size_t bytes) = 0;

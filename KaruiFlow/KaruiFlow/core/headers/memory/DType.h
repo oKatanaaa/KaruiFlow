@@ -9,7 +9,7 @@ namespace karuiflow {
 		size_t m_Size;
 		std::string m_Name;
 
-	protected:
+	public:
 		DType() { };
 
 	public:

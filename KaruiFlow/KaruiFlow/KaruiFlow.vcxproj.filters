@@ -45,6 +45,12 @@
     <ClInclude Include="core\headers\Parameter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\headers\KaruiFlow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\headers\memory\DeviceCPU.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\src\DeviceCPU.cpp">

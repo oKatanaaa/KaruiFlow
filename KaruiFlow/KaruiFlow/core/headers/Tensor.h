@@ -25,6 +25,11 @@ namespace karuiflow {
 			m_Data(data), m_Specs(specs), m_ParentOp(parentOp),
 			m_InputTensors(inputTensors), m_RequiresGrad(requiresGrad) {};
 
+		// Used in cases when the tensor is created by user, not by an operation
+		Tensor(Storage* data, TensorSpecs specs, bool requiresGrad) : 
+			m_Data(data), m_Specs(specs), m_ParentOp(nullptr), 
+			m_InputTensors(std::vector<Tensor*>()), m_RequiresGrad(requiresGrad) {};
+
 	public:
 		TensorSpecs getTensorSpecs() { return m_Specs; }
 		Storage* getDataStorage() { return m_Data; }
