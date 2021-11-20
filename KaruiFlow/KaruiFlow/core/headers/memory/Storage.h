@@ -17,6 +17,9 @@ namespace karuiflow {
 		};
 		~Storage() { destroy(); };
 
+	public:
+		static Storage* createSimilar(Storage* other);
+
 	private:
 		void initialize();
 

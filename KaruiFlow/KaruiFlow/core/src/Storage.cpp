@@ -67,4 +67,8 @@ namespace karuiflow {
 		std::function<void(void*, void*, void*, size_t)> adder = m_Device->getAdder(m_Dtype);
 		adder(m_Data, other->m_Data, m_Data, getSize());
 	}
+
+	Storage* Storage::createSimilar(Storage* other) {
+		return new Storage(other->getDtype(), other->getShape(), other->getDevice());
+	}
 }

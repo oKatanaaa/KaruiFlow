@@ -39,6 +39,7 @@ namespace karuiflow {
 		* @param outerGradient
 		* Used for computing jacobian vector products.
 		*/
-		virtual std::vector<Storage*> backward(std::vector<Storage*> inputs, std::vector<bool> requiresGrad, Storage* outerGradient) = 0;
+		virtual void backward(std::vector<Storage*> inputs, std::vector<bool> requiresGrad, 
+			Storage* outerGradient, std::vector<Storage*> outputGrads) = 0;
 	};
 }

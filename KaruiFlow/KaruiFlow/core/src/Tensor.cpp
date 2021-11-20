@@ -26,20 +26,25 @@ namespace karuiflow {
 			// This is a leaf of the graph
 			return;
 
-		std::vector<Storage*> inputData;
-		std::vector<bool> requiresGrad;
+		std::vector<Storage*> inputData(m_InputTensors.size());
+		std::vector<bool> requiresGrad(m_InputTensors.size());
+		std::vector<Storage*> inputGradients(m_InputTensors.size());
 		for (int i = 0; i < m_InputTensors.size(); i++) {
-			inputData.push_back(m_InputTensors[i]->getDataStorage());
-			requiresGrad.push_back(m_InputTensors[i]->requiresGrad());
+			inputData[i] = m_InputTensors[i]->getDataStorage();
+			requiresGrad[i] = m_InputTensors[i]->requiresGrad();
+
+			Storage* gradient = nullptr;
+			if (requiresGrad[i])
+				gradient = Storage::createSimilar(inputData[i]);
+			inputGradients[i] = gradient;
 		}
 
-		std::vector<Storage*> inputGradients = m_ParentOp->backward(inputData, requiresGrad, m_Gradient);
+		m_ParentOp->backward(inputData, requiresGrad, outerGrad, inputGradients);
 
 		// The storage for the outer gradient must be destroyed to free the resources.
 		delete outerGrad;
 
 		for (int i = 0; i < m_InputTensors.size(); i++)
 			m_InputTensors[i]->backward(inputGradients[i]);
-
 	}
 }
