@@ -23,7 +23,7 @@ namespace karuiflow {
 		Float32()
 		{
 			m_Size = sizeof(float);
-			m_Name = "Float32";
+			m_Name = "float32";
 		};
 	};
 
@@ -32,7 +32,7 @@ namespace karuiflow {
 		Int32()
 		{
 			m_Size = sizeof(int);
-			m_Name = "Int32";
+			m_Name = "int32";
 		};
 	};
  }
