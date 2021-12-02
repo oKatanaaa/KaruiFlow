@@ -47,4 +47,8 @@ namespace karuiflow {
 		for (int i = 0; i < m_InputTensors.size(); i++)
 			m_InputTensors[i]->backward(inputGradients[i]);
 	}
+
+	void Tensor::zeroGradient() {
+
+	}
 }

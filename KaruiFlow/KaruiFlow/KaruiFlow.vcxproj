@@ -150,11 +150,15 @@
     <ClInclude Include="core\headers\memory\Storage.h" />
     <ClInclude Include="core\headers\Op.h" />
     <ClInclude Include="core\headers\Parameter.h" />
+    <ClInclude Include="core\headers\PythonKernel.h" />
+    <ClInclude Include="core\headers\PythonOp.h" />
     <ClInclude Include="core\headers\Tensor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\src\DeviceCPU.cpp" />
     <ClCompile Include="core\src\Op.cpp" />
+    <ClCompile Include="core\src\PythonKernel.cpp" />
+    <ClCompile Include="core\src\PythonOp.cpp" />
     <ClCompile Include="core\src\Storage.cpp" />
     <ClCompile Include="core\src\Tensor.cpp" />
   </ItemGroup>

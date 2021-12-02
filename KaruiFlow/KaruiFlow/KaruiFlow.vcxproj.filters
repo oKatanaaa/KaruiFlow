@@ -51,6 +51,12 @@
     <ClInclude Include="core\headers\memory\DeviceCPU.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\headers\PythonKernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\headers\PythonOp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\src\DeviceCPU.cpp">
@@ -63,6 +69,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="core\src\Op.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\src\PythonKernel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\src\PythonOp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

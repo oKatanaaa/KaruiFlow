@@ -14,7 +14,7 @@ namespace karuiflow {
 	}
 
 	size_t Storage::getSizeBytes() {
-		return getSize() * m_Dtype.getSizeBytes();
+		return getSize() * m_Dtype->getSizeBytes();
 	}
 
 	void Storage::initialize() {
@@ -70,5 +70,10 @@ namespace karuiflow {
 
 	Storage* Storage::createSimilar(Storage* other) {
 		return new Storage(other->getDtype(), other->getShape(), other->getDevice());
+	}
+
+	Storage::~Storage() {
+		destroy();
+		delete m_Dtype;
 	}
 }

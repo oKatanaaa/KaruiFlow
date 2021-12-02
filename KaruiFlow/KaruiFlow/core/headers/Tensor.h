@@ -10,7 +10,7 @@ namespace karuiflow {
 	typedef std::vector<int> Shape;
 
 	struct TensorSpecs {
-		DType dtype;
+		DType* dtype;
 		Shape shape;
 		Device* device;
 	};

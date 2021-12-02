@@ -18,6 +18,7 @@ namespace karuiflow {
 		virtual void copyDeviceToCpu(void* src, void* dst, size_t bytes) = 0;
 		virtual void copyCpuToDevice(void* src, void* dst, size_t bytes) = 0;
 		virtual void copyDeviceToDevice(void* src, void* dst, size_t bytes) = 0;
+		virtual void setZero(void* src, size_t bytes) = 0;
 
 		/*
 		* Returns a function with the following interface:
@@ -36,7 +37,7 @@ namespace karuiflow {
 		* An approproate adder for the specified data type. Conversion of void* to the appropriate type
 		* will be done inside of this function.
 		*/
-		virtual std::function<void(void*, void*, void*, size_t)> getAdder(DType dtype) = 0;
+		virtual std::function<void(void*, void*, void*, size_t)> getAdder(DType* dtype) = 0;
 
 	public:
 		virtual std::string getDeviceName() = 0;

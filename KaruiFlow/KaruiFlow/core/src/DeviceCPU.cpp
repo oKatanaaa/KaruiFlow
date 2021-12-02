@@ -33,14 +33,18 @@
 		memcpy(dst, src, bytes);
 	}
 
+	void karuiflow::DeviceCPU::setZero(void* src, size_t bytes) {
+		memset(src, 0, bytes);
+	}
+
 	std::string karuiflow::DeviceCPU::getDeviceName() {
 		return "cpu";
 	}
 
-	std::function<void(void*, void*, void*, size_t)> karuiflow::DeviceCPU::getAdder(karuiflow::DType dtype) {
-		if (dtype.getName() == karuiflow::Float32().getName())
+	std::function<void(void*, void*, void*, size_t)> karuiflow::DeviceCPU::getAdder(karuiflow::DType* dtype) {
+		if (dtype->getName() == karuiflow::Float32().getName())
 			return add<float>;
-		else if (dtype.getName() == karuiflow::Int32().getName())
+		else if (dtype->getName() == karuiflow::Int32().getName())
 			return add<int>;
 	}
 

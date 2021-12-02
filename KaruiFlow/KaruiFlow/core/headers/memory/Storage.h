@@ -11,11 +11,11 @@ namespace karuiflow {
 	*/
 	class Storage {
 	public:
-		Storage(DType dtype, std::vector<int> shape, Device* device) :
+		Storage(DType* dtype, std::vector<int> shape, Device* device) :
 			m_Dtype(dtype), m_Shape(shape), m_Device(device) {
 			initialize();
 		};
-		~Storage() { destroy(); };
+		~Storage();
 
 	public:
 		static Storage* createSimilar(Storage* other);
@@ -30,7 +30,8 @@ namespace karuiflow {
 		* Returns number of bytes used by this storage.
 		*/
 		size_t getSizeBytes();
-		DType getDtype() { return m_Dtype; }
+
+		DType* getDtype() { return m_Dtype; }
 		Device* getDevice() { return m_Device; }
 		void* getData() { return m_Data; }
 
@@ -48,9 +49,11 @@ namespace karuiflow {
 		*/
 		void copyData(Storage* other);
 		void assignAdd(Storage* other);
+
+		void setZero();
 	
 	private:
-		DType m_Dtype;
+		DType* m_Dtype;
 		Device* m_Device;
 		std::vector<int> m_Shape;
 		void* m_Data;

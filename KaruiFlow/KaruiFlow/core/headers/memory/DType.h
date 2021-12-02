@@ -10,7 +10,7 @@ namespace karuiflow {
 		std::string m_Name;
 
 	public:
-		DType() { };
+		DType() : m_Size(0), m_Name("none") { };
 
 	public:
 		size_t getSizeBytes() { return m_Size; }

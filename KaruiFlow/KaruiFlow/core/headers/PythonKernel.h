@@ -4,6 +4,7 @@
 #include "memory/Memory.h"
 #include "Kernel.h"
 
+
 struct _object;
 typedef _object PyObject;
 
@@ -11,10 +12,10 @@ typedef _object PyObject;
 /*
 * Both functions will be declared in Cython as Public API in order to be accessible
 * from C++ code.
-* The functions are used to call the Cython\Python versions of the corrsponding methods.
+* The functions are used to call the Cython\Python versions of the corresponding methods.
  */
-void callPyForward(PyObject* obj, std::vector<karuiflow::Storage*> inputs, karuiflow::Storage* output);
-void callPyBackward(PyObject* obj, std::vector<karuiflow::Storage*> inputs, std::vector<bool> requiresGrad,
+extern "C" void callPyForward(PyObject * obj, std::vector<karuiflow::Storage*> inputs, karuiflow::Storage * output);
+extern "C" void callPyBackward(PyObject * obj, std::vector<karuiflow::Storage*> inputs, std::vector<bool> requiresGrad,
 	karuiflow::Storage* outerGradient, std::vector<karuiflow::Storage*> outputGradients);
 
 
