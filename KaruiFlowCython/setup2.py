@@ -11,7 +11,7 @@ extensions = Extension(
     sources=glob('karuiflow/**/*.pyx'),
     libraries=['KaruiFlow'],
     language='c++',
-    include_dirs=['../KaruiFlow/KaruiFlow/core/headers/'],
+    include_dirs=['../KaruiFlow/KaruiFlow/core/headers/', get_include()],
     library_dirs=['../KaruiFlow/x64/Release'],
     extra_compile_args=['/openmp']
 )

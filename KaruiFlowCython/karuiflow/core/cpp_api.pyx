@@ -1,40 +1,10 @@
+# distutils: language = c++
+
 from libcpp.vector cimport vector
+cimport cpython.ref as cpy_ref
 
 # Memory API
-cdef extern from "KaruiFlow.h" namespace "karuiflow":
-    cdef cppclass Device:
-        pass
 
-    cdef cppclass DeviceCPU:
-        void allocateMemory(void **ptr, size_t bytes)
-        void deallocateMemory(void* ptr)
-        void copyDeviceToCpu(void* src, void* dst, size_t bytes)
-        void copyCpuToDevice(void* src, void* dst, size_t bytes)
-        void copyDeviceToDevice(void* src, void* dst, size_t bytes)
-
-    cdef cppclass DType:
-        pass
-
-    cdef cppclass Float32:
-        Float32()
-
-    cdef cppclass Int32:
-        Int32()
-
-    cdef cppclass Storage:
-        Storage(DType dtype, vector[int] shape, Device* device)
-
-        vector[int] getShape()
-        size_t getSize()
-        size_t getSizeBytes()
-        DType getDtype()
-        void* getData()
-
-
-cdef extern from "KaruiFlow.h" namespace "karuiflow":
-    cdef cppclass Kernel:
-        void forward(vector[Storage*] inputs, Storage* output)
-        vector[Storage] backward(vector[Storage*] inputs, vector[bool] requiresGrad, Storage)
 
 
 cdef class PyDeviceCPU:
@@ -56,18 +26,18 @@ cdef class PyDeviceCPU:
             del self._this
 
 
-cdef class PyStorage:
+cdef class NoneStorage:
     cdef Storage* _this
 
     def __cinit__(self, device, dtype, list shape):
         cdef:
-            DType _dtype
+            DType* _dtype
             vector[int] _shape = <vector[int]>shape
             Device* _device
         if dtype == 'float32':
-            _dtype = <DType>Float32()
+            _dtype = <DType*>(new Float32())
         elif dtype == 'int32':
-            _dtype = <DType>Int32()
+            _dtype = <DType*>(new Int32())
 
         if device == 'cpu':
             _device = <Device*>(new DeviceCPU())

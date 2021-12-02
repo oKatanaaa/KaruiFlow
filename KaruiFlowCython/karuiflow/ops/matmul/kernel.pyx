@@ -2,7 +2,7 @@ import numpy as np
 
 cimport numpy as cnp
 
-from ..python_kernel cimport _PythonKernel
+from karuiflow.core.python_kernel cimport _PythonKernel
 
 
 cdef class MatmulKernel(_PythonKernel):

@@ -11,14 +11,14 @@ ext = Extension(
     sources=glob('**/*.pyx') + glob('*/**/*.pyx'),
     libraries=['KaruiFlow'],
     language='c++',
-    include_dirs=['../KaruiFlow/KaruiFlow/core/headers/'],
+    include_dirs=['../KaruiFlow/KaruiFlow/core/headers/', get_include()],
     library_dirs=['../KaruiFlow/x64/Release'],
     extra_compile_args=['/openmp']
 )
 
 setup(
     name='karuiflow',
-    ext_modules=cythonize(ext),
+    ext_modules=cythonize([ext]),
     packages=find_packages(),
     classifiers=[
         'Programming Language :: Python :: 3.7',

@@ -1,2 +1,1 @@
-from .memory import PyDeviceCPU
-from .memory import PyStorage
+from .python_kernel import PyPythonKernel
