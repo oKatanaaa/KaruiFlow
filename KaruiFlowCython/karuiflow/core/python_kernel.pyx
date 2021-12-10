@@ -72,13 +72,9 @@ cdef public api:
 
 
 cdef class PyPythonKernel:
-    def __cinit__(self):
-        self.python_kernel = new PythonKernel(<cpy_ref.PyObject*>self)
-
-    cdef void forward(self, list inputs, cnp.ndarray output):
+    cpdef void forward(self, list inputs, cnp.ndarray output):
         raise RuntimeError("forward method not implemented.")
 
-    cdef void backward(self, list inputs, list requiresGrad,
+    cpdef void backward(self, list inputs, list requiresGrad,
                       cnp.ndarray outerGradient, list outputGradients):
         raise RuntimeError("backward method not implemented.")
-

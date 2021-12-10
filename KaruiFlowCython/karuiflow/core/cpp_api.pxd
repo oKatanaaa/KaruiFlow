@@ -39,12 +39,3 @@ cdef extern from "KaruiFlow.h" namespace "karuiflow":
         vector[int] shape;
         Device* device;
 
-
-cdef extern from "KaruiFlow.h" namespace "karuiflow":
-    cdef cppclass PythonKernel:
-        PythonKernel()
-        PythonKernel(cpy_ref.PyObject* obj)
-
-    cdef cppclass PythonOp:
-        PythonKernel * instantiateKernel(vector[TensorSpecs] inputs)
-        TensorSpecs inferOutputTensorSpecs(vector[TensorSpecs] inputs)
