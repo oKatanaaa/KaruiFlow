@@ -6,7 +6,7 @@ namespace karuiflow {
 		if (m_Obj == nullptr)
 			throw std::runtime_error("No PyObject was set.");
 
-		return (Kernel*)callPyInstantiateKernel(m_Obj, inputs);
+		return callPyInstantiateKernel(m_Obj, inputs);
 	}
 
 	TensorSpecs PythonOp::inferOutputTensorSpecs(std::vector<TensorSpecs> inputs) {
@@ -14,5 +14,12 @@ namespace karuiflow {
 			throw std::runtime_error("No PyObject was set.");
 
 		return callPyInferOutputTensorSpecs(m_Obj, inputs);
+	}
+
+	std::string PythonOp::getOpName() {
+		if (m_Obj == nullptr)
+			throw std::runtime_error("No PyObject was set.");
+
+		return callPyGetOpName(m_Obj);
 	}
 }

@@ -57,6 +57,12 @@
     <ClInclude Include="core\headers\PythonOp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="operations\matmul\Op.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\matmul\CPUKernels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\src\DeviceCPU.cpp">
@@ -77,5 +83,17 @@
     <ClCompile Include="core\src\PythonOp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="operations\matmul\Op.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\matmul\CPUKernels.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\src\Device.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="operations\README.md" />
   </ItemGroup>
 </Project>

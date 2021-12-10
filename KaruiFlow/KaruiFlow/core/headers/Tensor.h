@@ -15,6 +15,8 @@ namespace karuiflow {
 		Device* device;
 	};
 
+	std::string shapeToString(Shape& shape);
+
 	class Tensor {
 		friend class Parameter;
 

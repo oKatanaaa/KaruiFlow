@@ -40,7 +40,10 @@ namespace karuiflow {
 		virtual std::function<void(void*, void*, void*, size_t)> getAdder(DType* dtype) = 0;
 
 	public:
+		
 		virtual std::string getDeviceName() = 0;
-		bool equalTo(Device* other) { return getDeviceName() == other->getDeviceName(); }
+		virtual int getDeviceId() = 0;
+		std::string getUniqueIdentifier();
+		bool equalTo(Device* other);
 	};
 }

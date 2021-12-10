@@ -37,4 +37,23 @@ namespace karuiflow {
 			requiresGrad |= tensor->requiresGrad();
 		return requiresGrad;
 	}
+
+
+	OpException::OpException(std::string opName, std::string msg) {
+		m_Message += "Exception in operation: " + opName + ". Message: " + msg;
+	}
+
+	InconsistentShapes::InconsistentShapes(std::string opName, std::vector<Shape> shapes)
+		: OpException(opName, "") {
+		m_Message += "Received tensors with inconsistent shapes: ";
+		for (Shape shape : shapes)
+			m_Message += shapeToString(shape) + " ";
+	}
+
+	UnsuppotedShapes::UnsuppotedShapes(std::string opName, std::vector<Shape> shapes)
+		: OpException(opName, "") {
+		m_Message += "Received tensors with unsupported shapes: ";
+		for (Shape shape : shapes)
+			m_Message += shapeToString(shape) + " ";
+	}
 }

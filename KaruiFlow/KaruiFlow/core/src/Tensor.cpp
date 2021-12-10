@@ -5,6 +5,18 @@
 
 namespace karuiflow {
 
+	std::string shapeToString(Shape& shape) {
+		std::string str;
+		str += "[";
+		for (int i = 0; i < shape.size(); i++) {
+			str += std::to_string(shape[i]);
+			if (i + 1 < shape.size())
+				str += ", ";
+		}
+		str += "]";
+		return str;
+	}
+
 	void Tensor::initGradient() {
 		m_Gradient = new Storage(m_Specs.dtype, m_Specs.shape, m_Specs.device);
 		m_GradInitialized = true;

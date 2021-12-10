@@ -6,3 +6,4 @@
 #include "Parameter.h"
 #include "Op.h"
 #include "PythonKernel.h"
+#include "PythonOp.h"

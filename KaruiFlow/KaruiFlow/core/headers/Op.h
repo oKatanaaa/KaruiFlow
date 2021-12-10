@@ -47,8 +47,17 @@ namespace karuiflow {
 	
 	class OpException : public Exception {
 	public:
-		OpException(std::string opName, std::string msg) {
-			m_Message += "Exception in operation: " + opName + ". Message: " + msg;
-		}
+		OpException() = default;
+		OpException(std::string opName, std::string msg);
+	};
+
+	class InconsistentShapes : public OpException {
+	public:
+		InconsistentShapes(std::string opName, std::vector<Shape> shapes);
+	};
+
+	class UnsuppotedShapes : public OpException {
+	public:
+		UnsuppotedShapes(std::string opName, std::vector<Shape> shapes);
 	};
 }

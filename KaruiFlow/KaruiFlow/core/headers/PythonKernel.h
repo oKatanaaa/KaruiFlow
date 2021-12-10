@@ -26,11 +26,11 @@ namespace karuiflow {
 		PythonKernel();
 		PythonKernel(PyObject* obj);
 
-		void forward(std::vector<Storage*> inputs, Storage* output);
+		void forward(std::vector<Storage*> inputs, Storage* output) override;
 		void backward(std::vector<Storage*> inputs, std::vector<bool> requiresGrad,
-			Storage* outerGradient, std::vector<Storage*> outputGradients);
+			Storage* outerGradient, std::vector<Storage*> outputGradients) override;
 
-	private:
+	protected:
 		PyObject* m_Obj;
 	};
 
