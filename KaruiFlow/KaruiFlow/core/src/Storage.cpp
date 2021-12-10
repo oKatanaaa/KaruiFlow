@@ -55,6 +55,14 @@ namespace karuiflow {
 		}
 	}
 
+	void Storage::copyData(void* data) {
+		m_Device->copyCpuToDevice(data, m_Data, getSizeBytes());
+	}
+
+	void Storage::setZero() {
+		m_Device->setZero(m_Data, getSizeBytes());
+	}
+
 	void Storage::assignAdd(Storage* other) {
 		if (m_Device->getDeviceName() != other->m_Device->getDeviceName()) {
 			std::string msg = "Cannot do assignAdd with storage because devices are different.";
