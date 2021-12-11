@@ -26,7 +26,7 @@ namespace karuiflow {
 		m_Device->deallocateMemory(&m_Data);
 	}
 
-	void Storage::copyData(Storage* other) {
+	void Storage::copyFrom(Storage* other) {
 		size_t bytes = getSizeBytes();
 		if (bytes != other->getSizeBytes()) {
 			std::string msg = "Storages are not of the same size.";
@@ -55,8 +55,12 @@ namespace karuiflow {
 		}
 	}
 
-	void Storage::copyData(void* data) {
+	void Storage::copyFrom(void* data) {
 		m_Device->copyCpuToDevice(data, m_Data, getSizeBytes());
+	}
+
+	void Storage::copyTo(void* data) {
+		m_Device->copyDeviceToCpu(m_Data, data, getSizeBytes());
 	}
 
 	void Storage::setZero() {

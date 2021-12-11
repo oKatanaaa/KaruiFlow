@@ -153,6 +153,7 @@
     <ClInclude Include="core\headers\PythonKernel.h" />
     <ClInclude Include="core\headers\PythonOp.h" />
     <ClInclude Include="core\headers\Tensor.h" />
+    <ClInclude Include="KaruiFlow.h" />
     <ClInclude Include="operations\KaruiFlowOperations.h" />
     <ClInclude Include="operations\matmul\CPUKernels.h" />
     <ClInclude Include="operations\matmul\Op.h" />

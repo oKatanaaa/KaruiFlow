@@ -47,7 +47,7 @@ namespace karuiflow {
 		* @param other
 		* Storage which to copy the data from.
 		*/
-		void copyData(Storage* other);
+		void copyFrom(Storage* other);
 		/*
 		* Copies data from a host memory (CPU side) into the current Storage.
 		* It will copy as many bytes as the storage stores (you can find this value using
@@ -55,10 +55,20 @@ namespace karuiflow {
 		* @param data
 		* Pointer to the data array to copy from.
 		*/
-		void copyData(void* data);
+		void copyFrom(void* data);
+		/*
+		* Copies data into a host memory (CPU side) from the current Storage.
+		* It will copy as many bytes as the storage stores (you can find this value using
+		* getSizeBytes method).
+		* @param data
+		* Pointer to the data array to copy into.
+		*/
+		void copyTo(void* data);
+
 		void assignAdd(Storage* other);
 
 		void setZero();
+		void setOnes();
 	
 	private:
 		DType* m_Dtype;

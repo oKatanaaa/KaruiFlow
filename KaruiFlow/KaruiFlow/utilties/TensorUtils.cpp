@@ -6,7 +6,7 @@ namespace karuiflow {
 	Tensor* toTensor(void* data, DType* dtype, Shape shape, bool requiresGrad) {
 		Device* device = new DeviceCPU();
 		Storage* storage = new Storage(dtype, shape, device);
-		storage->copyData((void*)data);
+		storage->copyFrom((void*)data);
 
 		TensorSpecs specs = { dtype, shape, device };
 

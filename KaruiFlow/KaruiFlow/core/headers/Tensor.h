@@ -39,14 +39,16 @@ namespace karuiflow {
 		void setRequiresGrad(bool requiresGrad) { m_RequiresGrad = requiresGrad; }
 		bool requiresGrad() { return m_RequiresGrad; }
 
-	public:
 		/*
 		* Invokes backpropagation for this tensor and all the
 		* previous tensors in the computational graph that require gradient.
 		*/
 		void backward(Storage* outerGrad);
 		void zeroGradient();
-
+		void copyGradientTo(void* data);
+		void copyFrom(void* data);
+		void copyTo(void* data);
+		
 	protected:
 		Tensor() = delete;
 		void initGradient();
