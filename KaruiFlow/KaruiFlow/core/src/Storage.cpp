@@ -32,7 +32,7 @@ namespace karuiflow {
 			std::string msg = "Storages are not of the same size.";
 			msg += std::string("Expected ") + std::to_string(getSizeBytes()) + std::string("bytes, ");
 			msg += std::string("but received ") + std::to_string(other->getSizeBytes());
-			throw Exception(msg);
+			throw std::runtime_error(Exception(msg).what());
 		}
 
 		std::string thisDeviceName = m_Device->getDeviceName();
@@ -72,7 +72,7 @@ namespace karuiflow {
 			std::string msg = "Cannot do assignAdd with storage because devices are different.";
 			msg += "Expected device=" + m_Device->getDeviceName() + ", but received ";
 			msg += other->m_Device->getDeviceName();
-			throw Exception(msg);
+			throw std::runtime_error(Exception(msg).what());
 		}
 
 		// Full interface is: void adder(void* x, void* y, void* out, int n)
