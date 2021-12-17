@@ -57,7 +57,7 @@
     <ClInclude Include="core\headers\PythonOp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="operations\matmul\Op.h">
+    <ClInclude Include="operations\matmul\Matmul.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="operations\matmul\CPUKernels.h">
@@ -66,7 +66,7 @@
     <ClInclude Include="operations\KaruiFlowOperations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="utilties\TensorUtils.h">
+    <ClInclude Include="utilities\TensorUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="KaruiFlow.h">
@@ -92,7 +92,7 @@
     <ClCompile Include="core\src\PythonOp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="operations\matmul\Op.cpp">
+    <ClCompile Include="operations\matmul\Matmul.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="operations\matmul\CPUKernels.cpp">
@@ -101,7 +101,7 @@
     <ClCompile Include="core\src\Device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utilties\TensorUtils.cpp">
+    <ClCompile Include="utilities\TensorUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

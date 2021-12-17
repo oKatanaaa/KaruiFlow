@@ -1,6 +1,7 @@
 #include "../headers/memory/DeviceCPU.h"
 #include "../headers/memory/Exceptions.h"
 
+
 namespace karuiflow {
 	template<typename T>
 	void add(void* _x, void* _y, void* _out, size_t n) {
@@ -15,7 +16,7 @@ namespace karuiflow {
 	void DeviceCPU::allocateMemory(void** ptr, size_t bytes) {
 		*ptr = (void*)new char[bytes];
 		if (*ptr == nullptr)
-			throw MemoryAllocationError(bytes, "cpu");
+			throw std::runtime_error(MemoryAllocationError(bytes, "cpu").what());
 	}
 
 	void DeviceCPU::deallocateMemory(void* ptr) {
@@ -42,7 +43,7 @@ namespace karuiflow {
 		return "cpu";
 	}
 
-	int getDeviceId() {
+	int DeviceCPU::getDeviceId() {
 		return 0;
 	}
 

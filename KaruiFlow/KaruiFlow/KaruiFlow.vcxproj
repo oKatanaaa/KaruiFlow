@@ -54,6 +54,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 11.2.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -137,6 +138,18 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <CudaCompile>
+      <NvccCompilation>compile</NvccCompilation>
+    </CudaCompile>
+    <CudaCompile>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
+      <ExtensibleWholeProgramCompilation>false</ExtensibleWholeProgramCompilation>
+    </CudaCompile>
+    <CudaLink>
+      <PerformDeviceLink>false</PerformDeviceLink>
+      <LinkOut>$(OutDir)$(TargetName)$(TargetExt)</LinkOut>
+    </CudaLink>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="core\headers\KaruiFlowCore.h" />
@@ -156,8 +169,8 @@
     <ClInclude Include="KaruiFlow.h" />
     <ClInclude Include="operations\KaruiFlowOperations.h" />
     <ClInclude Include="operations\matmul\CPUKernels.h" />
-    <ClInclude Include="operations\matmul\Op.h" />
-    <ClInclude Include="utilties\TensorUtils.h" />
+    <ClInclude Include="operations\matmul\Matmul.h" />
+    <ClInclude Include="utilities\TensorUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\src\Device.cpp" />
@@ -168,13 +181,14 @@
     <ClCompile Include="core\src\Storage.cpp" />
     <ClCompile Include="core\src\Tensor.cpp" />
     <ClCompile Include="operations\matmul\CPUKernels.cpp" />
-    <ClCompile Include="operations\matmul\Op.cpp" />
-    <ClCompile Include="utilties\TensorUtils.cpp" />
+    <ClCompile Include="operations\matmul\Matmul.cpp" />
+    <ClCompile Include="utilities\TensorUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="operations\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 11.2.targets" />
   </ImportGroup>
 </Project>

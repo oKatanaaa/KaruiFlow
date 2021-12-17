@@ -1,14 +1,16 @@
 # distutils: language = c++
 
-from libcpp.vector cimport vector
-from libcpp.string cimport string
-from libcpp cimport bool
-cimport numpy as cnp
-cimport cpython.ref as cpy_ref
+IF CIMPORTS == 1:
+    from libcpp.vector cimport vector
+    from libcpp.string cimport string
+    from libcpp cimport bool
+    cimport numpy as cnp
+    cimport cpython.ref as cpy_ref
 
-from .cpp_api cimport Storage, PythonKernel, DType
+    from .cpp_api cimport Storage
 
 import numpy as np
+
 
 
 cdef cnp.ndarray float_buff(void* data, vector[int] shape, int n_elems):

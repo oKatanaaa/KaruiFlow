@@ -18,6 +18,6 @@ namespace karuiflow {
 		std::function<void(void*, void*, void*, size_t)> getAdder(DType* dtype) override;
 
 		std::string getDeviceName() override;
-		int getDeviceId();
+		int getDeviceId() override;
 	};
 }
