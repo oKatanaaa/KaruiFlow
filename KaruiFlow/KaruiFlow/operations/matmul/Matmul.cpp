@@ -1,5 +1,5 @@
 #include "Matmul.h"
-#include "CPUKernels.h"
+#include "MatMulCPUKernels.h"
 
 
 namespace karuiflow {
@@ -14,7 +14,7 @@ namespace karuiflow {
 			return new MatMulNumpyKernel();
 
 		if (device->getDeviceName() == "cuda")
-			throw std::runtime_error("Cuda is not supported.");
+			throw KF_ERROR(std::runtime_error("Cuda is not supported."));
 	}
 
 	TensorSpecs MatMul::inferOutputTensorSpecs(std::vector<TensorSpecs> inputs) {
@@ -39,7 +39,7 @@ namespace karuiflow {
 		// Case 1
 		if (dimA == 3 and dimB == 3) {
 			if (shapeA[0] != shapeB[0] || shapeA[2] != shapeB[1])
-				throw InconsistentShapes(getOpName(), { shapeA, shapeB });
+				throw std::runtime_error(InconsistentShapes(getOpName(), { shapeA, shapeB }).what());
 
 			shapeC.push_back(shapeA[0]);
 			shapeC.push_back(shapeA[1]);
@@ -48,7 +48,7 @@ namespace karuiflow {
 		// Case 2
 		else if (dimA == 3 && dimB == 2) {
 			if (shapeA[2] != shapeB[0])
-				throw InconsistentShapes(getOpName(), { shapeA, shapeB });
+				throw KF_ERROR(InconsistentShapes(getOpName(), { shapeA, shapeB }));
 
 			shapeC.push_back(shapeA[0]);
 			shapeC.push_back(shapeA[1]);
@@ -57,22 +57,22 @@ namespace karuiflow {
 		// Case 3
 		else if (dimA == 2 && dimB == 3) {
 			if (shapeA[1] != shapeB[1])
-				throw InconsistentShapes(getOpName(), { shapeA, shapeB });
+				throw KF_ERROR(InconsistentShapes(getOpName(), { shapeA, shapeB }));
 
 			shapeC.push_back(shapeB[0]);
 			shapeC.push_back(shapeA[0]);
 			shapeC.push_back(shapeB[2]);
 		}
 		// Case 4
-		else if (dimA == 3 && dimB == 3) {
+		else if (dimA == 2 && dimB == 2) {
 			if (shapeA[1] != shapeB[0])
-				throw InconsistentShapes(getOpName(), { shapeA, shapeB });
+				throw KF_ERROR(InconsistentShapes(getOpName(), { shapeA, shapeB }));
 
 			shapeC.push_back(shapeA[0]);
 			shapeC.push_back(shapeB[1]);
 		}
 		else {
-			throw UnsuppotedShapes(getOpName(), { shapeA, shapeB });
+			throw KF_ERROR(UnsuppotedShapes(getOpName(), { shapeA, shapeB }));
 		}
 
 		DType* dtype;

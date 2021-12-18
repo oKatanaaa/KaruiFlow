@@ -168,8 +168,18 @@
     <ClInclude Include="core\headers\Tensor.h" />
     <ClInclude Include="KaruiFlow.h" />
     <ClInclude Include="operations\KaruiFlowOperations.h" />
-    <ClInclude Include="operations\matmul\CPUKernels.h" />
+    <ClInclude Include="operations\log\Log.h" />
+    <ClInclude Include="operations\log\LogCPUKernels.h" />
+    <ClInclude Include="operations\matmul\MatMulCPUKernels.h" />
     <ClInclude Include="operations\matmul\Matmul.h" />
+    <ClInclude Include="operations\relu\Relu.h" />
+    <ClInclude Include="operations\relu\ReluCPUKernels.h" />
+    <ClInclude Include="operations\sigmoid\Sigmoid.h" />
+    <ClInclude Include="operations\sigmoid\SigmoidCPUKernels.h" />
+    <ClInclude Include="operations\softmax\Softmax.h" />
+    <ClInclude Include="operations\softmax\SoftmaxCPUKernels.h" />
+    <ClInclude Include="operations\sum\Sum.h" />
+    <ClInclude Include="operations\sum\SumCPUKernels.h" />
     <ClInclude Include="utilities\TensorUtils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -180,8 +190,18 @@
     <ClCompile Include="core\src\PythonOp.cpp" />
     <ClCompile Include="core\src\Storage.cpp" />
     <ClCompile Include="core\src\Tensor.cpp" />
-    <ClCompile Include="operations\matmul\CPUKernels.cpp" />
+    <ClCompile Include="operations\log\Log.cpp" />
+    <ClCompile Include="operations\log\LogCPUKernels.cpp" />
+    <ClCompile Include="operations\matmul\MatMulCPUKernels.cpp" />
     <ClCompile Include="operations\matmul\Matmul.cpp" />
+    <ClCompile Include="operations\relu\Relu.cpp" />
+    <ClCompile Include="operations\relu\ReluCPUKernels.cpp" />
+    <ClCompile Include="operations\sigmoid\Sigmoid.cpp" />
+    <ClCompile Include="operations\sigmoid\SigmoidCPUKernels.cpp" />
+    <ClCompile Include="operations\softmax\Softmax.cpp" />
+    <ClCompile Include="operations\softmax\SoftmaxCPUKernels.cpp" />
+    <ClCompile Include="operations\sum\Sum.cpp" />
+    <ClCompile Include="operations\sum\SumCPUKernels.cpp" />
     <ClCompile Include="utilities\TensorUtils.cpp" />
   </ItemGroup>
   <ItemGroup>

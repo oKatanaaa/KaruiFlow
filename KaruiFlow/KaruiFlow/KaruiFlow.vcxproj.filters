@@ -60,7 +60,7 @@
     <ClInclude Include="operations\matmul\Matmul.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="operations\matmul\CPUKernels.h">
+    <ClInclude Include="operations\matmul\MatMulCPUKernels.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="operations\KaruiFlowOperations.h">
@@ -70,6 +70,36 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="KaruiFlow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\relu\Relu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\relu\ReluCPUKernels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\log\Log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\log\LogCPUKernels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\sigmoid\Sigmoid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\sigmoid\SigmoidCPUKernels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\softmax\Softmax.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\softmax\SoftmaxCPUKernels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\sum\Sum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\sum\SumCPUKernels.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,13 +125,43 @@
     <ClCompile Include="operations\matmul\Matmul.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="operations\matmul\CPUKernels.cpp">
+    <ClCompile Include="operations\matmul\MatMulCPUKernels.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="core\src\Device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="utilities\TensorUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\relu\Relu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\relu\ReluCPUKernels.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\log\Log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\log\LogCPUKernels.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\sigmoid\Sigmoid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\sigmoid\SigmoidCPUKernels.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\softmax\Softmax.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\softmax\SoftmaxCPUKernels.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\sum\Sum.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\sum\SumCPUKernels.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

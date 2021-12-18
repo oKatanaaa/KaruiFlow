@@ -4,6 +4,7 @@
 #include "memory/Memory.h"
 #include "Kernel.h"
 #include "Tensor.h"
+#define KF_ERROR(exc) (std::runtime_error(exc.what()))
 
 
 namespace karuiflow {

@@ -28,7 +28,7 @@ namespace karuiflow {
 		Device* device = inputs[0].device;
 		for (auto spec : inputs)
 			if (!device->equalTo(spec.device))
-				throw OpException(getOpName(), "Inconsistent devices among input tensors.");
+				throw std::runtime_error(OpException(getOpName(), "Inconsistent devices among input tensors.").what());
 	}
 
 	bool Op::isRequiresGrad(std::vector<Tensor*> inputs) {
