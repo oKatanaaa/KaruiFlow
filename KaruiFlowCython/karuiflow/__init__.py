@@ -1,7 +1,7 @@
 import numpy as np
 
-from .core import PyTensor
+from .core import *
 
 
 def tensor(data: np.ndarray, requires_grad=False):
-    return PyTensor(data, requires_grad)
+    return Tensor(data, requires_grad)

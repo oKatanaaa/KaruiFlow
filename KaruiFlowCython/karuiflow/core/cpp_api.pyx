@@ -23,15 +23,15 @@ cdef void* get_pointer(cnp.ndarray arr, str dtype):
         return <void*>&float_buff[0]
 
 
-cdef class PyTensor:
+cdef class Tensor:
 
     @staticmethod
-    cdef PyTensor from_pointer(CppTensor* tensor):
-        cdef PyTensor obj = PyTensor.__new__(PyTensor)
+    cdef Tensor from_pointer(CppTensor* tensor):
+        cdef Tensor obj = Tensor.__new__(Tensor)
         obj.tensor = tensor
         return obj
 
-    def __cinit__(self, data: np.ndarray, requires_grad=False):
+    def __init__(self, data: np.ndarray, requires_grad=False):
         cdef:
             vector[int] shape = data.shape
             float[:] float_data
@@ -41,7 +41,6 @@ cdef class PyTensor:
         if data.dtype == np.float32:
             float_data = data.reshape(-1)
             self.tensor = toTensor(<float *> &float_data[0], shape, <bool> requires_grad)
-            print('Created float32 tensor.')
         elif data.dtype == np.int32:
             int_data = data.reshape(-1)
             self.tensor = toTensor(<int *> &int_data[0], shape, <bool> requires_grad)
@@ -51,7 +50,7 @@ cdef class PyTensor:
     def numpy(self):
         cdef:
             cnp.ndarray arr = np.empty(dtype=self.dtype, shape=self.shape)
-            void* arr_p = get_pointer(arr, self.dtype)
+            void* arr_p = get_pointer(arr, self.dtype.decode("utf-8"))
         self.tensor.copyTo(arr_p)
         return arr
 
@@ -81,13 +80,34 @@ cdef class PyTensor:
     cdef CppTensor* get_cpp_pointer(self):
         return self.tensor
 
-NUMPY_KERNELS = []
+    def __repr__(self):
+        return f'' \
+               f'Tensor(dtype={self.dtype}, shape={self.shape}, ' \
+               f'data={str(self.numpy())})'
+
+
+NUMPY_KERNEL_CLASSES = {}
+NUMPY_KERNEL_INSTANCES = []
+
+
+class register_numpy_kernel:
+    def __init__(self, kernel_name):
+        self.kernel_name = kernel_name
+
+    def __call__(self, cls):
+        cached_cls = NUMPY_KERNEL_CLASSES.get(self.kernel_name)
+        assert cached_cls is None, f'Kernel with this name has already been registered. ' \
+                                   f'Name={self.kernel_name}, cls={cached_cls}'
+        NUMPY_KERNEL_CLASSES[self.kernel_name] = cls
+
 
 def add_numpy_kernel(kernel):
-    NUMPY_KERNELS.append(kernel)
+    NUMPY_KERNEL_INSTANCES.append(kernel)
+
 
 def get_numpy_kernels():
-    return NUMPY_KERNELS
+    return NUMPY_KERNEL_INSTANCES
+
 
 include "python_kernel_definition.pxi"
 include "kernels_definition.pxi"

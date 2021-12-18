@@ -1,33 +1,33 @@
 IF CIMPORTS == 1:
-    from .python_kernel_declaration cimport PyPythonKernel
+    from .python_kernel_declaration cimport PythonKernel
+    from .cpp_api import NUMPY_KERNEL_CLASSES
     import numpy as np
 
 cimport cpython.ref as cpy_ref
 
-cdef public api cpy_ref.PyObject* callPyGetMatMul():
-    object = MatMulKernel()
-    return <cpy_ref.PyObject*>object
+cdef cpy_ref.PyObject* instantiate_kernel(str kernel_name):
+    kernel = NUMPY_KERNEL_CLASSES[kernel_name]()
+    add_numpy_kernel(kernel)
+    return <cpy_ref.PyObject *> kernel
 
-cdef class MatMulKernel(PyPythonKernel):
-    cpdef void forward(self, list inputs, cnp.ndarray output):
-        assert len(inputs) == 2, f'MatMulKernel.forward / len(inputs) must be 2, but received {len(inputs)}.'
-        A, B = inputs
-        np.dot(A, B, out=output)
+cdef public api:
+    cpy_ref.PyObject* callPyGetMatMul():
+        return instantiate_kernel('matmul')
 
-    cpdef void backward(self, list inputs, list requiresGrad,
-                      cnp.ndarray outerGradient, list outputGradients):
-        assert len(inputs) == 2, f'MatMulKernel.backward / len(inputs) must be 2, but received {len(inputs)}.'
-        assert len(requiresGrad) == 2, f'MatMulKernel.backward / len(requiresGrad) must be 2, ' \
-                                       f'but received {len(requiresGrad)}.'
-        assert len(outputGradients) == 2, f'MatMulKernel.backward / len(outputGradients) must be 2, ' \
-                                          f'but received {len(outputGradients)}.'
-        A, B = inputs
-        A_requires_grad, B_required_grad = requiresGrad
-        # Output buffers
-        A_grad, B_grad = outputGradients
+    cpy_ref.PyObject * callPyGetRelu():
+        return instantiate_kernel('relu')
 
-        if A_requires_grad:
-            np.dot(outerGradient, B.T, out=A_grad)
+    cpy_ref.PyObject * callPyGetSigmoid():
+        return instantiate_kernel('sigmoid')
 
-        if B_required_grad:
-            np.dot(A.T, outerGradient, out=B_grad)
+    cpy_ref.PyObject * callPyGetSoftmax():
+        return instantiate_kernel('softmax')
+
+    cpy_ref.PyObject * callPyGetSum(vector[int] dim):
+        cdef list _dim = dim
+        kernel = NUMPY_KERNEL_CLASSES['sum'](_dim)
+        add_numpy_kernel(kernel)
+        return <cpy_ref.PyObject *>kernel
+
+    cpy_ref.PyObject * callPyGetLog():
+        return instantiate_kernel('log')

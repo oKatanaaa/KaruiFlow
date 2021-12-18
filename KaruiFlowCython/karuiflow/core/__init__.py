@@ -1,6 +1,4 @@
-from .cpp_api import PyTensor, PyPythonKernel, MatMul
-
-"""
-Every Numpy kernel ever created will be stored in this collection.
-"""
-PYTHON_KERNELS_COLLECTION = []
+# noinspection PyUnresolvedReferences
+from .cpp_api import Tensor, PythonKernel
+from .cpp_api import MatMul, Relu, Sum, Log, Sigmoid, Softmax
+from .numpy_kernels import *

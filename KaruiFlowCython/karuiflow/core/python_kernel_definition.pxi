@@ -17,13 +17,13 @@ cdef cnp.ndarray float_buff(void* data, vector[int] shape, int n_elems):
     cdef:
         list _shape = <list>shape
         cnp.ndarray buff = np.asarray(<float[:n_elems]>data)
-    return np.reshape(buff, shape=_shape)
+    return np.reshape(buff, newshape=_shape)
 
 cdef cnp.ndarray int_buff(void* data, vector[int] shape, int n_elems):
     cdef:
         list _shape = <list>shape
         cnp.ndarray buff = np.asarray(<int[:n_elems]>data)
-    return np.reshape(buff, shape=_shape)
+    return np.reshape(buff, newshape=_shape)
 
 cdef cnp.ndarray convert_storage_to_numpy(Storage* storage):
     cdef:
@@ -49,7 +49,6 @@ cdef list convert_storages_to_numpy(vector[Storage*] storages):
     for _storage in storages:
         np_buff = convert_storage_to_numpy(_storage)
         np_storages.append(np_buff)
-
     return np_storages
 
 
@@ -58,9 +57,8 @@ cdef public api:
         cdef:
             list _inputs = convert_storages_to_numpy(inputs)
             cnp.ndarray np_output = convert_storage_to_numpy(output)
-
         method = getattr(obj, "forward")
-        method(obj, _inputs, np_output)
+        method(_inputs, np_output)
 
     void callPyBackward(object obj, vector[Storage *] inputs, vector[bool] requiresGrad,
                       Storage * outerGradient, vector[Storage *] outputGradients):
@@ -73,10 +71,10 @@ cdef public api:
         method(_inputs, _requiresGrad, _outerGradient, _outputGradients)
 
 
-cdef class PyPythonKernel:
-    cpdef void forward(self, list inputs, cnp.ndarray output):
+cdef class PythonKernel:
+    def forward(self, list inputs, cnp.ndarray output):
         raise RuntimeError("forward method not implemented.")
 
-    cpdef void backward(self, list inputs, list requiresGrad,
+    def backward(self, list inputs, list requiresGrad,
                       cnp.ndarray outerGradient, list outputGradients):
         raise RuntimeError("backward method not implemented.")

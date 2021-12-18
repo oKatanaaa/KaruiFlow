@@ -66,13 +66,12 @@ cdef extern from "TensorUtils.h" namespace "karuiflow":
     CppTensor* toTensor(int* data, vector[int] shape, bool requiresGrad)
 
 
-cdef class PyTensor:
+cdef class Tensor:
     cdef CppTensor* tensor
 
     cdef CppTensor* get_cpp_pointer(self)
     @staticmethod
-    cdef PyTensor from_pointer(CppTensor * tensor)
+    cdef Tensor from_pointer(CppTensor * tensor)
 
 include "python_kernel_declaration.pxi"
-include "kernels_declaration.pxi"
 include "operations_declaration.pxi"
