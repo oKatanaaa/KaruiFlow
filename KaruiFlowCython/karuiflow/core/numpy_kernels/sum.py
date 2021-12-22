@@ -19,7 +19,10 @@ class SumKernel(PythonKernel):
                                        f'but received {len(requiresGrad)}.'
         assert len(outputGradients) == 1, f'SumKernel.backward / len(outputGradients) must be 1, ' \
                                           f'but received {len(outputGradients)}.'
+        print('sum backward')
         if requiresGrad[0]:
             grad0 = np.ones_like(inputs[0])
-            np.multiply(grad0, np.expand_dims(outerGradient, axis=self.axes), out=outputGradients[0])
+            np.multiply(grad0, np.expand_dims(outerGradient, axis=self.dim), out=outputGradients[0])
+        print(outputGradients)
+        print('sum backward finished')
 

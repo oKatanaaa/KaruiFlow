@@ -1,5 +1,6 @@
 # distutils: language = c++
 # Cython: language_level=3
+# cython: profile=True
 
 DEF CIMPORTS = 1
 
@@ -12,6 +13,7 @@ DEF CIMPORTS = 2
 
 
 cdef extern from "KaruiFlowCore.h" namespace "karuiflow":
+
     cdef cppclass Device:
         string getDeviceName()
 
@@ -38,25 +40,26 @@ cdef extern from "KaruiFlowCore.h" namespace "karuiflow":
 
     cdef cppclass Storage:
         void setZero();
-        void setOnes();
         Storage* createSimilar()
         vector[int] getShape()
         int getSize()
         int getSizeBytes()
         void* getData()
         DType* getDtype()
+        void copyTo(void * data)
+        void copyFrom(void * data)
 
     cdef cppclass CppTensor "karuiflow::Tensor":
         TensorSpecs getTensorSpecs()
         void setRequiresGrad(bool requiresGrad)
         bool requiresGrad()
 
-        void backward(Storage* outerGrad)
+        void backward(Storage* outerGrad) except +
 
         Storage* getDataStorage()
         Storage* getGradientStorage()
 
-        void copyGradientTo(void* data)
+        void copyGradientTo(void* data) except +
         void copyTo(void* data)
         void copyFrom(void* data)
 
@@ -75,3 +78,4 @@ cdef class Tensor:
 
 include "python_kernel_declaration.pxi"
 include "operations_declaration.pxi"
+include "logging_declaration.pxi"

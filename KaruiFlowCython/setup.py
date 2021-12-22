@@ -16,11 +16,12 @@ extensions = Extension(
     libraries=['KaruiFlow'],
     language='c++',
     include_dirs=[
+        '../KaruiFlow/KaruiFlow/',
         '../KaruiFlow/KaruiFlow/core/headers/',
         '../KaruiFlow/KaruiFlow/utilities/',
         '../KaruiFlow/KaruiFlow/operations/',
         get_include()],
-    library_dirs=['../KaruiFlow/x64/Release'],
+    library_dirs=['../KaruiFlow/x64/Debug'],
     extra_compile_args=['/openmp']
 )
 

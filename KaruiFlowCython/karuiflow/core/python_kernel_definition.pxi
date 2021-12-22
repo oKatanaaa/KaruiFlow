@@ -1,4 +1,5 @@
 # distutils: language = c++
+#
 
 IF CIMPORTS == 1:
     from libcpp.vector cimport vector
@@ -10,6 +11,7 @@ IF CIMPORTS == 1:
     from .cpp_api cimport Storage
 
 import numpy as np
+import logging
 
 
 
@@ -40,34 +42,44 @@ cdef cnp.ndarray convert_storage_to_numpy(Storage* storage):
 
     return buff
 
-cdef list convert_storages_to_numpy(vector[Storage*] storages):
+cdef list convert_storages_to_numpy(vector[Storage*] storages, list requires_convertation):
     cdef:
         list np_storages = []
         Storage* _storage
         cnp.ndarray np_buff
 
-    for _storage in storages:
+    for i in range(storages.size()):
+        _storage = storages[i]
+        _requires_convertation = requires_convertation[i]
+        if not _requires_convertation:
+            np_storages.append(None)
+            continue
+
         np_buff = convert_storage_to_numpy(_storage)
         np_storages.append(np_buff)
     return np_storages
 
 
-cdef public api:
-    void callPyForward(object obj, vector[Storage*] inputs, Storage* output):
+cdef public:
+    void callPyForward(object obj, vector[Storage*] inputs, Storage* output) with gil:
+        logging.debug('Received forward call on Python side.')
         cdef:
-            list _inputs = convert_storages_to_numpy(inputs)
+            list _inputs = convert_storages_to_numpy(inputs, [True] * inputs.size())
             cnp.ndarray np_output = convert_storage_to_numpy(output)
         method = getattr(obj, "forward")
+        logging.debug(f'Calling forward in {obj}.')
         method(_inputs, np_output)
 
     void callPyBackward(object obj, vector[Storage *] inputs, vector[bool] requiresGrad,
-                      Storage * outerGradient, vector[Storage *] outputGradients):
+                      Storage * outerGradient, vector[Storage *] outputGradients) with gil:
+        logging.debug('Received backward call on Python side.')
         cdef:
-            list _inputs = convert_storages_to_numpy(inputs)
+            list _inputs = convert_storages_to_numpy(inputs, [True] * inputs.size())
             list _requiresGrad = <list>requiresGrad
             cnp.ndarray _outerGradient = convert_storage_to_numpy(outerGradient)
-            list _outputGradients = convert_storages_to_numpy(outputGradients)
+            list _outputGradients = convert_storages_to_numpy(outputGradients, requiresGrad)
         method = getattr(obj, "backward")
+        logging.debug(f'Calling backward in {obj}.')
         method(_inputs, _requiresGrad, _outerGradient, _outputGradients)
 
 

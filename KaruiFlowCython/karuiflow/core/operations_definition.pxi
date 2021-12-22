@@ -1,5 +1,18 @@
 from libcpp.vector cimport vector
 
+
+OPERATION_WRAPPER_INSTANCES = []
+
+
+def get_operation_wrapper_instances():
+    return OPERATION_WRAPPER_INSTANCES
+
+
+def save_op(op):
+    OPERATION_WRAPPER_INSTANCES.append(op)
+    return op
+
+
 cdef class PyOp:
     def __cinit__(self, *args, **kwargs):
         pass
@@ -35,7 +48,7 @@ cdef class Relu(PyOp):
 
 cdef class Sum(PyOp):
     def __cinit__(self,  *args, **kwargs):
-        cdef list dim = kwargs['dim']
+        cdef list dim = list(kwargs['dim'])
         self.set_op(<Op *> (new CppSum(dim)))
 
 

@@ -3,6 +3,11 @@ import numpy as np
 from ..cpp_api import PythonKernel, register_numpy_kernel
 
 
+def flatten(x):
+    dim = x.shape[-1]
+    return x.reshape(-1, dim)
+
+
 @register_numpy_kernel('softmax')
 class SoftmaxKernel(PythonKernel):
     def forward(self, inputs: list, output: np.ndarray):
@@ -18,7 +23,14 @@ class SoftmaxKernel(PythonKernel):
         assert len(outputGradients) == 1, f'SoftmaxKernel.backward / len(outputGradients) must be 1, ' \
                                           f'but received {len(outputGradients)}.'
         if requiresGrad[0]:
+            print(inputs, requiresGrad, outerGradient, outputGradients)
             exp = np.exp(inputs[0])
             softmax = np.divide(exp, np.sum(exp, axis=-1, keepdims=True), dtype='float32')
-            jacobian = softmax[:, None] * (np.identity(softmax.size) - softmax[None, :])
-            np.dot(outerGradient, jacobian, out=outputGradients[0])
+            softmax = flatten(softmax)
+            outer_grad = flatten(outerGradient)
+            outer_grad = np.expand_dims(outer_grad, axis=1)
+
+            jacobian = np.expand_dims(softmax, axis=1) * (np.identity(softmax.shape[-1])[None, ...] - softmax[..., None])
+            grad = np.matmul(outer_grad, jacobian)
+            np.copyto(outputGradients[0].reshape(-1), grad.reshape(-1))
+            print(inputs, requiresGrad, outerGradient, outputGradients)

@@ -19,15 +19,15 @@ class MatMulKernel(PythonKernel):
                                        f'but received {len(requiresGrad)}.'
         assert len(outputGradients) == 2, f'MatMulKernel.backward / len(outputGradients) must be 2, ' \
                                           f'but received {len(outputGradients)}.'
-        print('Matmul /Backward / Received inputs.')
+        print('Matmul /Backward / Received inputs.', inputs, requiresGrad)
         A, B = inputs
-        A_requires_grad, B_required_grad = requiresGrad
+        A_requires_grad, B_requires_grad = requiresGrad
         # Output buffers
         A_grad, B_grad = outputGradients
 
         if A_requires_grad:
             np.dot(outerGradient, B.T, out=A_grad)
 
-        if B_required_grad:
+        if B_requires_grad:
             np.dot(A.T, outerGradient, out=B_grad)
 

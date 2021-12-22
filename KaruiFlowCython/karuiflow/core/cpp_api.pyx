@@ -1,4 +1,6 @@
 # distutils: language = c++
+# cython: profile=True
+
 DEF CIMPORTS = 1
 
 IF CIMPORTS == 1:
@@ -47,6 +49,15 @@ cdef class Tensor:
         else:
             raise RuntimeError('Unknown data type.')
 
+    def backward(self):
+        cdef:
+            Storage* storage = self.tensor.getDataStorage()
+            Storage* outerGradient = storage.createSimilar()
+            float[:] float_ones = np.ones(outerGradient.getSize(), dtype='float32')
+        outerGradient.copyFrom(<void*>&float_ones[0])
+        self.tensor.backward(outerGradient)
+        print('Finished calling backward.')
+
     def numpy(self):
         cdef:
             cnp.ndarray arr = np.empty(dtype=self.dtype, shape=self.shape)
@@ -58,9 +69,9 @@ cdef class Tensor:
     def grad(self):
         cdef:
             cnp.ndarray arr = np.empty(dtype=self.dtype, shape=self.shape).reshape(-1)
-            void* arr_p = get_pointer(arr, self.dtype)
+            void* arr_p = get_pointer(arr, self.dtype.decode("utf-8"))
         self.tensor.copyGradientTo(arr_p)
-        return arr
+        return arr.reshape(self.shape)
 
     @property
     def dtype(self):
@@ -112,3 +123,4 @@ def get_numpy_kernels():
 include "python_kernel_definition.pxi"
 include "kernels_definition.pxi"
 include "operations_definition.pxi"
+include "logging_definition.pxi"
