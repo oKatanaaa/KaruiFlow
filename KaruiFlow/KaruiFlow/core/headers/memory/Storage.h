@@ -18,7 +18,7 @@ namespace karuiflow {
 		~Storage();
 
 	public:
-		static Storage* createSimilar(Storage* other);
+		Storage* createSimilar();
 
 	private:
 		void initialize();
@@ -67,8 +67,7 @@ namespace karuiflow {
 
 		void assignAdd(Storage* other);
 
-		void setZero();
-		void setOnes();
+		void setZeros();
 	
 	private:
 		DType* m_Dtype;

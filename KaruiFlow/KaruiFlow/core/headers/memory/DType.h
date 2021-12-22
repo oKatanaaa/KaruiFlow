@@ -11,10 +11,12 @@ namespace karuiflow {
 
 	public:
 		DType() : m_Size(0), m_Name("none") { };
-
+		DType(size_t size, std::string name) : m_Size(size), m_Name(name) { };
+		
 	public:
 		size_t getSizeBytes() { return m_Size; }
 		std::string getName() { return m_Name; }
+		DType* copy() { return new DType(m_Size, m_Name); }
 	};
 
 

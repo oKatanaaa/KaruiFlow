@@ -35,7 +35,7 @@ namespace karuiflow {
 		memcpy(dst, src, bytes);
 	}
 
-	void DeviceCPU::setZero(void* src, size_t bytes) {
+	void DeviceCPU::setZeros(void* src, size_t bytes) {
 		memset(src, 0, bytes);
 	}
 

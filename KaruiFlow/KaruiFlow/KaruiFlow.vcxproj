@@ -20,9 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{0C3612EA-64F0-4371-8495-05FE233AA63E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{dcb4fda1-efe1-46a6-8e7e-cb211a63bc2e}</ProjectGuid>
-    <RootNamespace>KaruiFlow</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -30,27 +29,23 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <SpectreMitigation>false</SpectreMitigation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
+    <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <SpectreMitigation>false</SpectreMitigation>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -75,89 +70,104 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)\dependencies\spdlog-1.9.2\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(SolutionDir)\dependencies\spdlog-1.9.2\src;$(VC_SourcePath);</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)\dependencies\spdlog-1.9.2\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(SolutionDir)\dependencies\spdlog-1.9.2\src;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MinimalRebuild>
+      </MinimalRebuild>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <ControlFlowGuard>false</ControlFlowGuard>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
+      <FloatingPointExceptions>true</FloatingPointExceptions>
+      <GuardSignedReturns>
+      </GuardSignedReturns>
     </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MinimalRebuild>
+      </MinimalRebuild>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <ControlFlowGuard>false</ControlFlowGuard>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
+      <FloatingPointExceptions>true</FloatingPointExceptions>
+      <GuardSignedReturns>
+      </GuardSignedReturns>
     </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-    <CudaCompile>
-      <NvccCompilation>compile</NvccCompilation>
-    </CudaCompile>
-    <CudaCompile>
-      <TargetMachinePlatform>64</TargetMachinePlatform>
-      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
-      <ExtensibleWholeProgramCompilation>false</ExtensibleWholeProgramCompilation>
-    </CudaCompile>
-    <CudaLink>
-      <PerformDeviceLink>false</PerformDeviceLink>
-      <LinkOut>$(OutDir)$(TargetName)$(TargetExt)</LinkOut>
-    </CudaLink>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="core\src\LoggingUtils.cpp" />
+    <ClCompile Include="core\src\Device.cpp" />
+    <ClCompile Include="core\src\DeviceCPU.cpp" />
+    <ClCompile Include="core\src\Op.cpp" />
+    <ClCompile Include="core\src\PythonKernel.cpp" />
+    <ClCompile Include="core\src\PythonOp.cpp" />
+    <ClCompile Include="core\src\Storage.cpp" />
+    <ClCompile Include="core\src\Tensor.cpp" />
+    <ClCompile Include="operations\log\Log.cpp" />
+    <ClCompile Include="operations\log\LogCPUKernels.cpp" />
+    <ClCompile Include="operations\matmul\Matmul.cpp" />
+    <ClCompile Include="operations\matmul\MatMulCPUKernels.cpp" />
+    <ClCompile Include="operations\relu\Relu.cpp" />
+    <ClCompile Include="operations\relu\ReluCPUKernels.cpp" />
+    <ClCompile Include="operations\sigmoid\Sigmoid.cpp" />
+    <ClCompile Include="operations\sigmoid\SigmoidCPUKernels.cpp" />
+    <ClCompile Include="operations\softmax\Softmax.cpp" />
+    <ClCompile Include="operations\softmax\SoftmaxCPUKernels.cpp" />
+    <ClCompile Include="operations\sum\Sum.cpp" />
+    <ClCompile Include="operations\sum\SumCPUKernels.cpp" />
+    <ClCompile Include="utilities\TensorUtils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core\headers\Exception.h" />
     <ClInclude Include="core\headers\KaruiFlowCore.h" />
     <ClInclude Include="core\headers\Kernel.h" />
+    <ClInclude Include="core\headers\LoggingUtils.h" />
     <ClInclude Include="core\headers\memory\Device.h" />
     <ClInclude Include="core\headers\memory\DeviceCPU.h" />
     <ClInclude Include="core\headers\memory\DType.h" />
-    <ClInclude Include="core\headers\Exception.h" />
     <ClInclude Include="core\headers\memory\Exceptions.h" />
     <ClInclude Include="core\headers\memory\Memory.h" />
     <ClInclude Include="core\headers\memory\Storage.h" />
@@ -170,8 +180,8 @@
     <ClInclude Include="operations\KaruiFlowOperations.h" />
     <ClInclude Include="operations\log\Log.h" />
     <ClInclude Include="operations\log\LogCPUKernels.h" />
-    <ClInclude Include="operations\matmul\MatMulCPUKernels.h" />
     <ClInclude Include="operations\matmul\Matmul.h" />
+    <ClInclude Include="operations\matmul\MatMulCPUKernels.h" />
     <ClInclude Include="operations\relu\Relu.h" />
     <ClInclude Include="operations\relu\ReluCPUKernels.h" />
     <ClInclude Include="operations\sigmoid\Sigmoid.h" />
@@ -181,31 +191,6 @@
     <ClInclude Include="operations\sum\Sum.h" />
     <ClInclude Include="operations\sum\SumCPUKernels.h" />
     <ClInclude Include="utilities\TensorUtils.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="core\src\Device.cpp" />
-    <ClCompile Include="core\src\DeviceCPU.cpp" />
-    <ClCompile Include="core\src\Op.cpp" />
-    <ClCompile Include="core\src\PythonKernel.cpp" />
-    <ClCompile Include="core\src\PythonOp.cpp" />
-    <ClCompile Include="core\src\Storage.cpp" />
-    <ClCompile Include="core\src\Tensor.cpp" />
-    <ClCompile Include="operations\log\Log.cpp" />
-    <ClCompile Include="operations\log\LogCPUKernels.cpp" />
-    <ClCompile Include="operations\matmul\MatMulCPUKernels.cpp" />
-    <ClCompile Include="operations\matmul\Matmul.cpp" />
-    <ClCompile Include="operations\relu\Relu.cpp" />
-    <ClCompile Include="operations\relu\ReluCPUKernels.cpp" />
-    <ClCompile Include="operations\sigmoid\Sigmoid.cpp" />
-    <ClCompile Include="operations\sigmoid\SigmoidCPUKernels.cpp" />
-    <ClCompile Include="operations\softmax\Softmax.cpp" />
-    <ClCompile Include="operations\softmax\SoftmaxCPUKernels.cpp" />
-    <ClCompile Include="operations\sum\Sum.cpp" />
-    <ClCompile Include="operations\sum\SumCPUKernels.cpp" />
-    <ClCompile Include="utilities\TensorUtils.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="operations\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

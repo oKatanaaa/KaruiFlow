@@ -37,7 +37,7 @@ namespace karuiflow {
 		*/
 		
 		// Case 1
-		if (dimA == 3 and dimB == 3) {
+		if (dimA == 3 && dimB == 3) {
 			if (shapeA[0] != shapeB[0] || shapeA[2] != shapeB[1])
 				throw std::runtime_error(InconsistentShapes(getOpName(), { shapeA, shapeB }).what());
 

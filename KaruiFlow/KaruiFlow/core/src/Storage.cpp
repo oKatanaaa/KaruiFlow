@@ -2,6 +2,7 @@
 
 #include "../headers/memory/Storage.h"
 #include "../headers/memory/Exceptions.h"
+#include <spdlog/spdlog.h>
 
 namespace karuiflow {
 
@@ -23,7 +24,7 @@ namespace karuiflow {
 	}
 
 	void Storage::destroy() {
-		m_Device->deallocateMemory(&m_Data);
+		m_Device->deallocateMemory(m_Data);
 	}
 
 	void Storage::copyFrom(Storage* other) {
@@ -63,8 +64,8 @@ namespace karuiflow {
 		m_Device->copyDeviceToCpu(m_Data, data, getSizeBytes());
 	}
 
-	void Storage::setZero() {
-		m_Device->setZero(m_Data, getSizeBytes());
+	void Storage::setZeros() {
+		m_Device->setZeros(m_Data, getSizeBytes());
 	}
 
 	void Storage::assignAdd(Storage* other) {
@@ -75,13 +76,16 @@ namespace karuiflow {
 			throw std::runtime_error(Exception(msg).what());
 		}
 
+		spdlog::debug("Adding two storages.");
 		// Full interface is: void adder(void* x, void* y, void* out, int n)
 		std::function<void(void*, void*, void*, size_t)> adder = m_Device->getAdder(m_Dtype);
+		
 		adder(m_Data, other->m_Data, m_Data, getSize());
+		spdlog::debug("Addition has been finished.");
 	}
 
-	Storage* Storage::createSimilar(Storage* other) {
-		return new Storage(other->getDtype(), other->getShape(), other->getDevice());
+	Storage* Storage::createSimilar() {
+		return new Storage(m_Dtype->copy(), m_Shape, m_Device);
 	}
 
 	Storage::~Storage() {

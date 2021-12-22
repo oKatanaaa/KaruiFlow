@@ -18,7 +18,7 @@ namespace karuiflow {
 		virtual void copyDeviceToCpu(void* src, void* dst, size_t bytes) = 0;
 		virtual void copyCpuToDevice(void* src, void* dst, size_t bytes) = 0;
 		virtual void copyDeviceToDevice(void* src, void* dst, size_t bytes) = 0;
-		virtual void setZero(void* src, size_t bytes) = 0;
+		virtual void setZeros(void* src, size_t bytes) = 0;
 
 		/*
 		* Returns a function with the following interface:
