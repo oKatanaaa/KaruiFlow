@@ -7,8 +7,6 @@ from ..cpp_api import PythonKernel, register_numpy_kernel
 class MatMulKernel(PythonKernel):
     def forward(self, inputs: list, output: np.ndarray):
         assert len(inputs) == 2, f'MatMulKernel.forward / len(inputs) must be 2, but received {len(inputs)}.'
-        print('Matmul /Backward / Received inputs.')
-
         A, B = inputs
         np.dot(A, B, out=output)
 
@@ -19,7 +17,6 @@ class MatMulKernel(PythonKernel):
                                        f'but received {len(requiresGrad)}.'
         assert len(outputGradients) == 2, f'MatMulKernel.backward / len(outputGradients) must be 2, ' \
                                           f'but received {len(outputGradients)}.'
-        print('Matmul /Backward / Received inputs.', inputs, requiresGrad)
         A, B = inputs
         A_requires_grad, B_requires_grad = requiresGrad
         # Output buffers

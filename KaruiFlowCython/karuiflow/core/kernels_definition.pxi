@@ -1,7 +1,5 @@
 IF CIMPORTS == 1:
-    from .python_kernel_declaration cimport PythonKernel
     from .cpp_api import NUMPY_KERNEL_CLASSES
-    import numpy as np
 
 cimport cpython.ref as cpy_ref
 
