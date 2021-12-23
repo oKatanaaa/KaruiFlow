@@ -21,6 +21,7 @@ namespace karuiflow {
 		friend class Parameter;
 
 	public:
+		Tensor() = default;
 		Tensor(
 			Storage* data, TensorSpecs specs, Kernel* parentOp,
 			std::vector<Tensor*> inputTensors, bool requiresGrad) :
@@ -46,19 +47,17 @@ namespace karuiflow {
 		void backward(Storage* outerGrad);
 		void zeroGradient();
 		void copyGradientTo(void* data);
-		void copyFrom(void* data);
 		void copyTo(void* data);
 		
 	protected:
-		Tensor() = delete;
 		void initGradient();
 
 	protected:
 		Storage* m_Data;
 		Storage* m_Gradient = nullptr;
-		Kernel* m_ParentOp;
-		const TensorSpecs m_Specs;
-		bool m_RequiresGrad;
+		Kernel* m_ParentOp = nullptr;
+		TensorSpecs m_Specs;
+		bool m_RequiresGrad = false;
 		bool m_GradInitialized = false;
 		std::vector<Tensor*> m_InputTensors;
 	};

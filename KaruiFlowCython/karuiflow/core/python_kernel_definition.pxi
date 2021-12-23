@@ -1,5 +1,4 @@
 # distutils: language = c++
-#
 
 IF CIMPORTS == 1:
     from libcpp.vector cimport vector

@@ -38,6 +38,7 @@ def get_numpy_kernels():
     return NUMPY_KERNEL_INSTANCES
 
 include "tensor_definition.pxi"
+include "parameter_definition.pxi"
 include "python_kernel_definition.pxi"
 include "kernels_definition.pxi"
 include "operations_definition.pxi"

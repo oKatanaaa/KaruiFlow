@@ -22,7 +22,7 @@ extensions = Extension(
         '../KaruiFlow/KaruiFlow/operations/',
         get_include()],
     library_dirs=['../KaruiFlow/x64/Debug'],
-    extra_compile_args=['/openmp']
+    #extra_compile_args=['/openmp']
 )
 
 print(find_packages())

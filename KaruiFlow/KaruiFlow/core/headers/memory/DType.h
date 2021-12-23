@@ -1,5 +1,5 @@
 #pragma once
-#include<string>
+#include <string>
 
 namespace karuiflow {
 	class DType
@@ -17,6 +17,7 @@ namespace karuiflow {
 		size_t getSizeBytes() { return m_Size; }
 		std::string getName() { return m_Name; }
 		DType* copy() { return new DType(m_Size, m_Name); }
+		bool equalTo(DType* other) { return getName() == other->getName(); }
 	};
 
 

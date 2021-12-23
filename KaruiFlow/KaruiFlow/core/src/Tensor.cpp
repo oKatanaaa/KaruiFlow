@@ -99,10 +99,6 @@ namespace karuiflow {
 		m_Gradient->copyTo(data);
 	}
 
-	void Tensor::copyFrom(void* data) {
-		m_Data->copyFrom(data);
-	}
-
 	void Tensor::copyTo(void* data) {
 		m_Data->copyTo(data);
 	}

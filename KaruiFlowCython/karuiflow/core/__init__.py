@@ -1,5 +1,5 @@
 # noinspection PyUnresolvedReferences
-from .cpp_api import Tensor, PythonKernel
+from .cpp_api import Tensor, Parameter, PythonKernel
 from .cpp_api import MatMul, Relu, Sum, Log, Sigmoid, Softmax, save_op
 from .cpp_api import set_debug_log_level, set_info_log_level, set_warn_log_level, set_err_log_level
 from .cpp_api import get_numpy_kernels

@@ -60,12 +60,24 @@ namespace karuiflow {
 		* Copies data into a host memory (CPU side) from the current Storage.
 		* It will copy as many bytes as the storage stores (you can find this value using
 		* getSizeBytes method).
+		* 
 		* @param data
 		* Pointer to the data array to copy into.
 		*/
 		void copyTo(void* data);
 
 		void assignAdd(Storage* other);
+		/*
+		* Adds values stored in `data` to the values stored in the storage. It is assumed
+		* that the `data` is located on CPU side. The storage can be located on any device.
+		* WARNING! It is assumed that `data` has as many elements as the storage has!
+		* 
+		* @param data
+		* Pointer to the data array which to add with the storage's data.
+		* @param dtype
+		* Data type of the `data` pointer.
+		*/
+		void assignAdd(void* data, DType* dtype);
 
 		void setZeros();
 	

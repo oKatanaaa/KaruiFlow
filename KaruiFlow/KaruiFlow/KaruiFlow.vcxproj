@@ -142,6 +142,7 @@
     <ClCompile Include="core\src\Device.cpp" />
     <ClCompile Include="core\src\DeviceCPU.cpp" />
     <ClCompile Include="core\src\Op.cpp" />
+    <ClCompile Include="core\src\Parameter.cpp" />
     <ClCompile Include="core\src\PythonKernel.cpp" />
     <ClCompile Include="core\src\PythonOp.cpp" />
     <ClCompile Include="core\src\Storage.cpp" />

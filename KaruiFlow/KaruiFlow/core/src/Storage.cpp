@@ -1,8 +1,11 @@
 #include <functional>
+#include <spdlog/spdlog.h>
+#include <memory>
 
 #include "../headers/memory/Storage.h"
 #include "../headers/memory/Exceptions.h"
-#include <spdlog/spdlog.h>
+#include "../headers/memory/DeviceCPU.h"
+
 
 namespace karuiflow {
 
@@ -82,6 +85,37 @@ namespace karuiflow {
 		
 		adder(m_Data, other->m_Data, m_Data, getSize());
 		spdlog::debug("Addition has been finished.");
+	}
+
+	void Storage::assignAdd(void* data, DType* dtype) {
+		if (!dtype->equalTo(m_Dtype)) {
+			std::string msg = "Cannot assignAdd data because of DType incompatibility: ";
+			msg += "expected " + m_Dtype->getName() + ", ";
+			msg += "but received " + dtype->getName() + ".";
+			throw std::runtime_error(msg);
+		}
+
+		/*
+		* Steps are as follows:
+		* 1. Move storage's data to the CPU side.
+		* 2. Perform addition.
+		* 3. Move the result back to the device side.
+		*/
+
+		// Move data to a temporary buffer
+		void* buff = (void*)new char[getSizeBytes()];
+		m_Device->copyDeviceToCpu(m_Data, buff, getSizeBytes());
+
+		// Perform addition
+		DeviceCPU tempDevice;
+		// Full interface is: void adder(void* x, void* y, void* out, int n)
+		std::function<void(void*, void*, void*, size_t)> adder = tempDevice.getAdder(m_Dtype);
+		adder(data, buff, buff, getSize());
+
+		// Move data back to 
+		m_Device->copyCpuToDevice(buff, m_Data, getSizeBytes());
+
+		delete[] buff;
 	}
 
 	Storage* Storage::createSimilar() {

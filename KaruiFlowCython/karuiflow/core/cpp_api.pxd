@@ -50,6 +50,7 @@ cdef extern from "KaruiFlowCore.h" namespace "karuiflow":
 
 
 include "tensor_declaration.pxi"
+include "parameter_declaration.pxi"
 include "python_kernel_declaration.pxi"
 include "operations_declaration.pxi"
 include "logging_declaration.pxi"
