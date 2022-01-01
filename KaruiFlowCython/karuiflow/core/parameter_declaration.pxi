@@ -8,3 +8,5 @@ cdef extern from "KaruiFlowCore.h" namespace "karuiflow":
 cdef class Parameter(Tensor):
     cdef CppParameter* parameter
 
+    @staticmethod
+    cdef Parameter from_pointer(CppParameter * parameter)

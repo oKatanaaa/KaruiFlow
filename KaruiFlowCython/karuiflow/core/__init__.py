@@ -1,8 +1,8 @@
 # noinspection PyUnresolvedReferences
 from .cpp_api import Tensor, Parameter, PythonKernel
-from .cpp_api import MatMul, Relu, Sum, Log, Sigmoid, Softmax, save_op
+from .cpp_api import MatMul, Relu, Sum, Log, Sigmoid, Softmax, Add, Mul, save_op
 from .cpp_api import set_debug_log_level, set_info_log_level, set_warn_log_level, set_err_log_level
-from .cpp_api import get_numpy_kernels
+from .cpp_api import get_numpy_kernels, register_add_op, register_mul_op
 from .numpy_kernels import *
 from .utils import astensor
 
@@ -43,3 +43,5 @@ def windows_enable_ansi_terminal_mode():
 
 init_logger()
 windows_enable_ansi_terminal_mode()
+register_add_op(Add)
+register_mul_op(Mul)

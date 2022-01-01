@@ -1,4 +1,16 @@
 cdef class Parameter(Tensor):
+    @staticmethod
+    cdef Parameter from_pointer(CppParameter* parameter):
+        cdef Parameter obj = Parameter.__new__(Parameter)
+        obj.parameter = parameter
+        obj.tensor = <CppTensor*>parameter
+        return obj
+
+    @staticmethod
+    def from_tensor(Tensor tensor):
+        cdef CppTensor* _tensor = tensor.get_cpp_pointer()
+        return Parameter.from_pointer(new CppParameter(_tensor))
+
     def __init__(self, data: np.ndarray, requires_grad=True):
         super().__init__(data=data, requires_grad=requires_grad)
         self.parameter = new CppParameter(self.tensor)

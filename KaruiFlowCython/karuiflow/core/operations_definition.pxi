@@ -65,3 +65,13 @@ cdef class Sigmoid(PyOp):
 cdef class Softmax(PyOp):
     def __cinit__(self, *args, **kwargs):
         self.set_op(<Op *> (new CppSoftmax()))
+
+
+cdef class Add(PyOp):
+    def __cinit__(self, *args, **kwargs):
+        self.set_op(<Op *> (new CppAdd()))
+
+
+cdef class Mul(PyOp):
+    def __cinit__(self, *args, **kwargs):
+        self.set_op(<Op *> (new CppMul()))

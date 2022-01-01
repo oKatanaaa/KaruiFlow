@@ -11,6 +11,7 @@ class _RequiredParameter(object):
     def __repr__(self):
         return "<required parameter>"
 
+
 required = _RequiredParameter()
 
 
@@ -42,6 +43,7 @@ class Optimizer(object):
         param_groups = list(params)
         if len(param_groups) == 0:
             raise ValueError("optimizer got an empty parameter list")
+
         if not isinstance(param_groups[0], dict):
             param_groups = [{'params': param_groups}]
 

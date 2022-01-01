@@ -72,6 +72,14 @@ cdef class Tensor:
         cdef string device_name = self.tensor.getTensorSpecs().device.getDeviceName()
         return device_name
 
+    @property
+    def is_leaf(self):
+        return self.tensor.isLeaf()
+
+    def clone(self):
+        cdef CppTensor* tensor = self.tensor.clone()
+        return Tensor.from_pointer(tensor)
+
     cdef CppTensor* get_cpp_pointer(self):
         return self.tensor
 
@@ -79,3 +87,13 @@ cdef class Tensor:
         return f'' \
                f'Tensor(dtype={self.dtype}, shape={self.shape}, ' \
                f'data={str(self.numpy())})'
+
+    def __add__(self, other):
+        assert isinstance(other, Tensor), f"Can add Tensor only with Tensor, but received {type(other)}"
+        add_op = get_add_op()
+        return add_op([self, other])
+
+    def __mul__(self, other):
+        assert isinstance(other, Tensor), f"Can multiply Tensor only with Tensor, but received {type(other)}"
+        mul_op = get_mul_op()
+        return mul_op([self, other])

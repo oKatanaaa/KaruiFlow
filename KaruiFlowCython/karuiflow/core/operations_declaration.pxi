@@ -22,6 +22,12 @@ cdef extern from "KaruiFlowOperations.h" namespace "karuiflow":
     cdef cppclass CppSoftmax "karuiflow::Softmax":
         CppSoftmax()
 
+    cdef cppclass CppAdd "karuiflow::Add":
+        CppAdd()
+
+    cdef cppclass CppMul "karuiflow::Mul":
+        CppMul()
+
 
 cdef class PyOp:
     cdef Op* cpp_op
@@ -49,4 +55,12 @@ cdef class Sigmoid(PyOp):
 
 
 cdef class Softmax(PyOp):
+    pass
+
+
+cdef class Add(PyOp):
+    pass
+
+
+cdef class Mul(PyOp):
     pass

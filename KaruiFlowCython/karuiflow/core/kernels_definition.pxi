@@ -29,3 +29,9 @@ cdef public api:
 
     cpy_ref.PyObject * callPyGetLog():
         return instantiate_kernel('log')
+
+    cpy_ref.PyObject * callPyGetAdd():
+        return instantiate_kernel('add')
+
+    cpy_ref.PyObject * callPyGetMul():
+        return instantiate_kernel('mul')

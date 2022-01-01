@@ -1,8 +1,10 @@
 cdef extern from "KaruiFlowCore.h" namespace "karuiflow":
     cdef cppclass CppTensor "karuiflow::Tensor":
+        CppTensor* clone()
         TensorSpecs getTensorSpecs()
         void setRequiresGrad(bool requiresGrad)
         bool requiresGrad()
+        bool isLeaf()
 
         void backward(Storage* outerGrad) except +
 
