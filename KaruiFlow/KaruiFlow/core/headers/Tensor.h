@@ -37,8 +37,10 @@ namespace karuiflow {
 		TensorSpecs getTensorSpecs() { return m_Specs; }
 		Storage* getDataStorage() { return m_Data; }
 		Storage* getGradientStorage() { return m_Gradient; }
+		Tensor* clone();
 		void setRequiresGrad(bool requiresGrad) { m_RequiresGrad = requiresGrad; }
 		bool requiresGrad() { return m_RequiresGrad; }
+		bool isLeaf() { return m_ParentOp == nullptr; }
 
 		/*
 		* Invokes backpropagation for this tensor and all the

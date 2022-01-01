@@ -23,6 +23,13 @@ namespace karuiflow {
 		m_GradInitialized = true;
 	}
 
+	Tensor* Tensor::clone() {
+		Storage* dataCopy = m_Data->createSimilar();
+		dataCopy->copyFrom(m_Data);
+		TensorSpecs specs = TensorSpecs{ m_Specs.dtype->copy(), m_Specs.shape, m_Specs.device };
+		return new Tensor(dataCopy, specs, false);
+	}
+
 	void Tensor::backward(Storage* outerGrad) {
 		spdlog::debug("Executing backward call in a Tensor.");
 

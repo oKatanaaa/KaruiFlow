@@ -6,7 +6,7 @@ namespace karuiflow {
 	/*
 	* Represents parameters of a neural network. In fact it is just a mutable Tensor.
 	*/
-	class Parameter : protected Tensor {
+	class Parameter : public Tensor {
 
 	public:
 		Parameter(Storage* data, TensorSpecs specs, bool requiresGrad) :
