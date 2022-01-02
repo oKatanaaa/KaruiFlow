@@ -4,9 +4,9 @@
 
 namespace karuiflow {
 
-	class Log : public Op {
+	class Mul : public Op {
 	public:
-		Log() = default;
+		Mul() = default;
 
 		std::string getOpName() override;
 

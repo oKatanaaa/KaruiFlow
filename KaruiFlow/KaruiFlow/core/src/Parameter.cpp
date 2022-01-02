@@ -8,5 +8,6 @@ namespace karuiflow {
 
 		m_Specs = TensorSpecs{ tensor->m_Specs.dtype->copy(),  tensor->m_Specs.shape, tensor->m_Specs.device };
 		m_RequiresGrad = true;
+		incRefCount();
 	}
 }

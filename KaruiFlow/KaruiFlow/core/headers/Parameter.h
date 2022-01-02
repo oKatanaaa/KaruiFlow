@@ -10,7 +10,9 @@ namespace karuiflow {
 
 	public:
 		Parameter(Storage* data, TensorSpecs specs, bool requiresGrad) :
-			Tensor(data, specs, nullptr, std::vector<Tensor*>(), requiresGrad) {};
+			Tensor(data, specs, nullptr, std::vector<Tensor*>(), requiresGrad) {
+			incRefCount();
+		};
 		Parameter(Tensor* tensor);
 
 		void assign(Tensor* tensor) { m_Data->copyFrom(tensor->m_Data); };

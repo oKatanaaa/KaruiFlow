@@ -5,6 +5,7 @@
 #include "../headers/memory/Storage.h"
 #include "../headers/memory/Exceptions.h"
 #include "../headers/memory/DeviceCPU.h"
+#include "../headers/LoggingUtils.h"
 
 
 namespace karuiflow {
@@ -68,6 +69,7 @@ namespace karuiflow {
 	}
 
 	void Storage::setZeros() {
+		spdlog::debug("setZero in storage with shape " + shapeToString(m_Shape));
 		m_Device->setZeros(m_Data, getSizeBytes());
 	}
 
@@ -123,7 +125,12 @@ namespace karuiflow {
 	}
 
 	Storage::~Storage() {
+		spdlog::debug("Deallocating storage with shape " + shapeToString(m_Shape));
 		destroy();
+		spdlog::debug("Deallocated memory buffer.");
 		delete m_Dtype;
+		spdlog::debug("Deallocated DType instance.");
+
+		spdlog::debug("Deallocated storage.");
 	}
 }

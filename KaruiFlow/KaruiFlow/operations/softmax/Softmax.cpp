@@ -22,6 +22,6 @@ namespace karuiflow {
 		if (specs.shape.size() != 2)
 			throw KF_ERROR(UnsuppotedShapes(getOpName(), { specs.shape }));
 
-		return TensorSpecs{ inputs[0].dtype, inputs[0].shape, inputs[0].device };
+		return TensorSpecs{ inputs[0].dtype->copy(), inputs[0].shape, inputs[0].device };
 	}
 }

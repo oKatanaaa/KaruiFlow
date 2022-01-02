@@ -3,12 +3,12 @@
 
 
 namespace karuiflow {
-	extern "C" PyObject * callPyGetLog();
+	extern "C" PyObject * callPyGetMul();
 
 	// Dispatches calls to Python side and uses Numpy to perform computation
-	class LogNumpyKernel : public PythonKernel {
+	class MulNumpyKernel : public PythonKernel {
 	public:
-		LogNumpyKernel();
+		MulNumpyKernel();
 	};
 }
 

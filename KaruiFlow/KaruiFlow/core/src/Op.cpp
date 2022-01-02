@@ -1,8 +1,12 @@
+#include <spdlog/spdlog.h>
+
 #include "../headers/Op.h"
+#include "../headers/LoggingUtils.h"
 
 
 namespace karuiflow {
 	Tensor* Op::operator()(std::vector<Tensor*> inputs) {
+		spdlog::debug("Calling" + getOpName() + "operation.");
 		std::vector<TensorSpecs> inputSpecs;
 		for (auto t : inputs)
 			inputSpecs.push_back(t->getTensorSpecs());
@@ -17,6 +21,7 @@ namespace karuiflow {
 		for (auto t : inputs)
 			inputData.push_back(t->getDataStorage());
 		Storage* output = new Storage(specs.dtype, specs.shape, specs.device);
+		spdlog::debug("Calling forward in kernel.");
 		kernel->forward(inputData, output);
 
 		// Construct new Tensor

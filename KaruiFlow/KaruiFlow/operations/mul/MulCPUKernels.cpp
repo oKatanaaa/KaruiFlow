@@ -1,8 +1,8 @@
-#include "LogCPUKernels.h"
+#include "MulCPUKernels.h"
 
 
 namespace karuiflow {
-	LogNumpyKernel::LogNumpyKernel() {
-		m_Obj = callPyGetLog();
+	MulNumpyKernel::MulNumpyKernel() {
+		m_Obj = callPyGetMul();
 	}
 }

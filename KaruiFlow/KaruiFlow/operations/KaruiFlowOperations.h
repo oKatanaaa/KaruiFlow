@@ -5,3 +5,5 @@
 #include "log/Log.h"
 #include "sigmoid/Sigmoid.h"
 #include "softmax/Softmax.h"
+#include "add/Add.h"
+#include "mul/Mul.h"

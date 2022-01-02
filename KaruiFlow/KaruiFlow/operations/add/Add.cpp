@@ -18,6 +18,6 @@ namespace karuiflow {
 	}
 
 	TensorSpecs Add::inferOutputTensorSpecs(std::vector<TensorSpecs> inputs) {
-		return TensorSpecs{ inputs[0].dtype, inputs[0].shape, inputs[0].device };
+		return TensorSpecs{ inputs[0].dtype->copy(), inputs[0].shape, inputs[0].device };
 	}
 }

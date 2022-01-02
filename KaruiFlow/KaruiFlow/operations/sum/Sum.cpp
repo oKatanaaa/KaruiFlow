@@ -1,5 +1,9 @@
+#include <spdlog/spdlog.h>
+
+#include "../../core/headers/LoggingUtils.h"
 #include "Sum.h"
 #include "SumCPUKernels.h"
+
 
 
 namespace karuiflow {
@@ -25,13 +29,20 @@ namespace karuiflow {
 	}
 
 	TensorSpecs Sum::inferOutputTensorSpecs(std::vector<TensorSpecs> inputs) {
+		// No axes specified, full tensor reduction
+		if (m_Dim.size() == 0) {
+			spdlog::debug("SumKernel // No axes specified, full tensor reduction.");
+			return TensorSpecs{ inputs[0].dtype->copy(), Shape(), inputs[0].device };
+		}
+
 		Shape newShape;
 		
 		// Remove dimensions along which the reduction is performed
 		for (int i = 0; i < inputs[0].shape.size(); i++)
 			if (!hasDim(i, m_Dim))
 				newShape.push_back(inputs[0].shape[i]);
-
-		return TensorSpecs{ inputs[0].dtype, newShape, inputs[0].device };
+		spdlog::debug("SumKernel // Specified axes:" + shapeToString(m_Dim));
+		spdlog::debug("SumKernel // Output tensor shape:" + shapeToString(newShape));
+		return TensorSpecs{ inputs[0].dtype->copy(), newShape, inputs[0].device };
 	}
 }
