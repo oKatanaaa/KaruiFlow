@@ -7,13 +7,17 @@ cdef extern from "KaruiFlowCore.h" namespace "karuiflow":
         bool isLeaf()
 
         void backward(Storage* outerGrad) except +
+        void zeroGradient() except +
 
         Storage* getDataStorage()
         Storage* getGradientStorage()
+        CppTensor* getGradient() except +
 
         void copyGradientTo(void* data) except +
         void copyTo(void* data)
         void copyFrom(void* data)
+
+        void decRefCount()
 
 
 cdef extern from "TensorUtils.h" namespace "karuiflow":

@@ -1,4 +1,5 @@
 import numpy as np
+import logging
 
 from ..cpp_api import PythonKernel, register_numpy_kernel
 
@@ -8,7 +9,9 @@ class MulKernel(PythonKernel):
     def forward(self, inputs: list, output: np.ndarray):
         assert len(inputs) == 2, f'{self.__class__.__name__}.forward / len(inputs) must be 2, but received {len(inputs)}.'
         A, B = inputs
+        logging.debug(f'{self.__class__.__name__}.forward / output.shape = {output.shape}')
         np.multiply(A, B, out=output)
+        logging.debug(f'{self.__class__.__name__}.forward successful.')
 
     def backward(self, inputs: list, requiresGrad: list,
                       outerGradient: np.ndarray, outputGradients: list):
@@ -37,4 +40,4 @@ class MulKernel(PythonKernel):
                     dims_to_reduce.append(i)
             grad = np.sum(A, axis=tuple(dims_to_reduce), keepdims=True)
             np.copyto(B_grad, grad)
-
+        logging.debug(f'{self.__class__.__name__}.backward successful.')

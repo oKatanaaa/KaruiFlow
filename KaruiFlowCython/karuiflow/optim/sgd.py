@@ -1,9 +1,9 @@
 from .optimizer import Optimizer, required
-from karuiflow.core import Parameter
+from karuiflow.core import Parameter, tensor
 
 
 class SGD(Optimizer):
-    def __init__(self, params, lr=required, momentum=0):
+    def __init__(self, params, lr=required, momentum=0.):
         if lr is not required and lr < 0.0:
             raise ValueError("Invalid learning rate: {}".format(lr))
         if momentum < 0.0:
@@ -17,8 +17,8 @@ class SGD(Optimizer):
         for group in self.param_groups:
             momentum_buffers = []
             for p in group['params']:
-                if p.grad is not None:
-                    momentum_buffers.append(Parameter(p))
+                if p.requires_grad:
+                    momentum_buffers.append(Parameter.from_tensor(p))
                 else:
                     momentum_buffers.append(None)
             group['momentum_buffers'] = momentum_buffers
@@ -38,10 +38,10 @@ class SGD(Optimizer):
                     continue
 
                 # Update buffer
-                b_update = b * momentum + (1 - momentum) * p.grad
+                b_update = b * tensor(momentum, dtype='float32') + tensor(1 - momentum, dtype='float32') * p.grad
                 b.assign(b_update)
 
                 # Perform gradient step
-                p += b_update * lr
+                p += b_update * tensor(lr, dtype='float32')
 
         return loss

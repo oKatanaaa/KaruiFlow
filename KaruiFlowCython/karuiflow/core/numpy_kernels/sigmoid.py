@@ -1,4 +1,5 @@
 import numpy as np
+import logging
 
 from ..cpp_api import PythonKernel, register_numpy_kernel
 
@@ -9,6 +10,7 @@ class SigmoidKernel(PythonKernel):
         assert len(inputs) == 1, f'SigmoidKernel.forward / len(inputs) must be 1, but received {len(inputs)}.'
         exp = np.exp(-inputs[0])
         np.divide(1.0, (1.0 + exp), out=output, dtype='float32')
+        logging.debug(f'{self.__class__.__name__}.forward successful.')
 
     def backward(self, inputs: list, requiresGrad: list,
                       outerGradient: np.ndarray, outputGradients: list):
@@ -22,4 +24,5 @@ class SigmoidKernel(PythonKernel):
             sig = np.divide(1.0, (1.0 + exp), dtype='float32')
             grad0 = sig * (1 - sig)
             np.multiply(grad0, outerGradient, out=outputGradients[0])
+            logging.debug(f'{self.__class__.__name__}.backward successful.')
 

@@ -1,4 +1,5 @@
 import numpy as np
+import logging
 
 from ..cpp_api import PythonKernel, register_numpy_kernel
 
@@ -7,8 +8,10 @@ from ..cpp_api import PythonKernel, register_numpy_kernel
 class ReluKernel(PythonKernel):
     def forward(self, inputs: list, output: np.ndarray):
         assert len(inputs) == 1, f'ReluKernel.forward / len(inputs) must be 1, but received {len(inputs)}.'
+        logging.debug(f'{self.__class__.__name__}.forward / output.shape = {output.shape}')
         out = np.where(inputs[0] > 0.0, inputs[0], 0.0)
         np.copyto(output, out)
+        logging.debug(f'{self.__class__.__name__}.forward successful.')
 
     def backward(self, inputs: list, requiresGrad: list,
                       outerGradient: np.ndarray, outputGradients: list):
@@ -20,4 +23,5 @@ class ReluKernel(PythonKernel):
         if requiresGrad[0]:
             grad_mask = np.where(inputs[0] > 0.0, 1.0, 0.0)
             np.multiply(outerGradient, grad_mask, out=outputGradients[0])
+        logging.debug(f'{self.__class__.__name__}.backward successful.')
 

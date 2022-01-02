@@ -32,7 +32,7 @@ cdef class Tensor:
             int_data = data.reshape(-1)
             self.tensor = toTensor(<int *> &int_data[0], shape, <bool> requires_grad)
         else:
-            raise RuntimeError('Unknown data type.')
+            raise RuntimeError(f'Unknown data type. Expected int32 or float32, but received {data}')
 
     def backward(self):
         cdef:
@@ -41,6 +41,10 @@ cdef class Tensor:
             float[:] float_ones = np.ones(outerGradient.getSize(), dtype='float32')
         outerGradient.copyFrom(<void*>&float_ones[0])
         self.tensor.backward(outerGradient)
+        del outerGradient
+
+    def zero_grad(self):
+        self.tensor.zeroGradient()
 
     def numpy(self):
         cdef:
@@ -52,10 +56,12 @@ cdef class Tensor:
     @property
     def grad(self):
         cdef:
-            cnp.ndarray arr = np.empty(dtype=self.dtype, shape=self.shape).reshape(-1)
-            void* arr_p = get_pointer(arr, self.dtype.decode("utf-8"))
-        self.tensor.copyGradientTo(arr_p)
-        return arr.reshape(self.shape)
+            CppTensor* grad
+        try:
+            grad = self.tensor.getGradient()
+        except RuntimeError as r:
+            return None
+        return Tensor.from_pointer(grad)
 
     @property
     def dtype(self):
@@ -75,6 +81,10 @@ cdef class Tensor:
     @property
     def is_leaf(self):
         return self.tensor.isLeaf()
+
+    @property
+    def requires_grad(self):
+        return self.tensor.requiresGrad()
 
     def clone(self):
         cdef CppTensor* tensor = self.tensor.clone()
@@ -97,3 +107,7 @@ cdef class Tensor:
         assert isinstance(other, Tensor), f"Can multiply Tensor only with Tensor, but received {type(other)}"
         mul_op = get_mul_op()
         return mul_op([self, other])
+
+    def __dealloc__(self):
+        self.tensor.decRefCount()
+

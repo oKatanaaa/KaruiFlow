@@ -1,4 +1,5 @@
 import numpy as np
+import logging
 
 from ..cpp_api import PythonKernel, register_numpy_kernel
 
@@ -9,6 +10,7 @@ class AddKernel(PythonKernel):
         assert len(inputs) == 2, f'{self.__class__.__name__}.forward / len(inputs) must be 2, but received {len(inputs)}.'
         A, B = inputs
         np.add(A, B, out=output)
+        logging.debug(f'{self.__class__.__name__}.forward successful.')
 
     def backward(self, inputs: list, requiresGrad: list,
                       outerGradient: np.ndarray, outputGradients: list):
@@ -27,4 +29,4 @@ class AddKernel(PythonKernel):
 
         if B_requires_grad:
             np.copyto(B_grad, np.ones_like(B) * outerGradient)
-
+        logging.debug(f'{self.__class__.__name__}.backward successful.')

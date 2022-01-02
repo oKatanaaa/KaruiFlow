@@ -29,7 +29,8 @@ cdef class PyOp:
 
         for tensor in tensors:
             py_tensor = tensor
-            assert isinstance(tensor, Tensor)
+            assert isinstance(tensor, Tensor), 'PyOp must receive a list of Tensors,' \
+                                               f' but received {tensors}'
             input_tensor = py_tensor.get_cpp_pointer()
             input_tensors.push_back(input_tensor)
         output_tensor = self.cpp_op.call(input_tensors)

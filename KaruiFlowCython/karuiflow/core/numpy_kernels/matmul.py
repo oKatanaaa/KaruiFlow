@@ -1,4 +1,5 @@
 import numpy as np
+import logging
 
 from ..cpp_api import PythonKernel, register_numpy_kernel
 
@@ -6,9 +7,12 @@ from ..cpp_api import PythonKernel, register_numpy_kernel
 @register_numpy_kernel('matmul')
 class MatMulKernel(PythonKernel):
     def forward(self, inputs: list, output: np.ndarray):
-        assert len(inputs) == 2, f'MatMulKernel.forward / len(inputs) must be 2, but received {len(inputs)}.'
+        assert len(inputs) == 2, f'{self.__class__.__name__}.forward / len(inputs) must be 2, but received {len(inputs)}.'
         A, B = inputs
+        logging.debug(f'{self.__class__.__name__}.forward / output.shape = {output.shape}')
         np.dot(A, B, out=output)
+        logging.debug(f'{self.__class__.__name__}.forward successful.')
+
 
     def backward(self, inputs: list, requiresGrad: list,
                       outerGradient: np.ndarray, outputGradients: list):
@@ -27,4 +31,5 @@ class MatMulKernel(PythonKernel):
 
         if B_requires_grad:
             np.dot(A.T, outerGradient, out=B_grad)
+        logging.debug(f'{self.__class__.__name__}.backward successful.')
 

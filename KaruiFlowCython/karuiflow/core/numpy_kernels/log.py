@@ -1,4 +1,5 @@
 import numpy as np
+import logging
 
 from ..cpp_api import PythonKernel, register_numpy_kernel
 
@@ -7,6 +8,7 @@ from ..cpp_api import PythonKernel, register_numpy_kernel
 class LogKernel(PythonKernel):
     def forward(self, inputs: list, output: np.ndarray):
         assert len(inputs) == 1, f'LogKernel.forward / len(inputs) must be 1, but received {len(inputs)}.'
+        logging.debug(f'{self.__class__.__name__}.forward / output.shape = {output.shape}')
         np.log(inputs[0], out=output)
 
     def backward(self, inputs: list, requiresGrad: list,
@@ -17,5 +19,5 @@ class LogKernel(PythonKernel):
         assert len(outputGradients) == 1, f'LogKernel.backward / len(outputGradients) must be 1, ' \
                                           f'but received {len(outputGradients)}.'
         if requiresGrad[0]:
-            np.multiply(1. / inputs[0], outerGradient, out=outputGradients[0])
-
+            np.multiply(1. / (inputs[0] + 1e-3), outerGradient, out=outputGradients[0])
+        logging.debug(f'{self.__class__.__name__}.backward successful.')

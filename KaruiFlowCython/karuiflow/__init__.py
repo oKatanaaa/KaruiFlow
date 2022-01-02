@@ -1,9 +1,9 @@
 import numpy as np
 
-from .core import Tensor
+from .core import Tensor, tensor
 from .math import *
 from .nn import Module
+from .optim import SGD
 
 
-def tensor(data: np.ndarray, requires_grad=False):
-    return Tensor(data, requires_grad)
+
