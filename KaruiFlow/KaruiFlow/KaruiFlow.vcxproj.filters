@@ -93,6 +93,12 @@
     <ClCompile Include="operations\mul\MulCPUKernels.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="operations\to\To.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\to\ToKernel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KaruiFlow.h">
@@ -197,5 +203,23 @@
     <ClInclude Include="operations\mul\MulCPUKernels.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\headers\memory\DeviceCUDA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\relu\ReluCUDAKernels.h" />
+    <ClInclude Include="operations\to\To.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\to\ToKernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\src\DeviceCudaAdder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="core\src\DeviceCUDA.cpp" />
+    <CudaCompile Include="operations\relu\ReluCUDAKernels.cu" />
+    <CudaCompile Include="core\src\DeviceCudaAdder.cu" />
   </ItemGroup>
 </Project>

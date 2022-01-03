@@ -53,7 +53,15 @@ namespace karuiflow {
 		void copyGradientTo(void* data);
 		void copyTo(void* data);
 
-		/*For memory management.*/
+		/* 
+		* Objects is Python are being deleted all the time and in the case of Tensor
+		* we cannot tie its lifetime to the lifetime of its Python wrapper. The reason
+		* is that several Tensors may construct a graph and if some nodes are deleted from
+		* that graph, it will cause segmentation fault during backward propagation.
+		* Therefore, lifetime of a C++ Tensor is controlled separatly via reference
+		* counting mechanism. Once reference count of a Tensor reaches zero, the
+		* Tensor destroys itself.
+		*/
 		void incRefCount();
 		void decRefCount();
 		
