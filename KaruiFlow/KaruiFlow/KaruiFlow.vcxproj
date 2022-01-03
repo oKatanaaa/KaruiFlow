@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -73,14 +73,16 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)\dependencies\spdlog-1.9.2\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(CudaToolkitIncludeDir)</IncludePath>
+    <IncludePath>$(SolutionDir)\dependencies\cutensor\11.0\include;$(SolutionDir)\dependencies\spdlog-1.9.2\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(CudaToolkitIncludeDir)</IncludePath>
     <SourcePath>$(SolutionDir)\dependencies\spdlog-1.9.2\src;$(VC_SourcePath);</SourcePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(CudaToolkitLibDir)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\KaruiFlowCUDA\x64\Release;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(CudaToolkitLibDir)</LibraryPath>
+    <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)\dependencies\spdlog-1.9.2\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(CudaToolkitIncludeDir)</IncludePath>
+    <IncludePath>$(SolutionDir)\dependencies\cutensor\11.0\include;$(SolutionDir)\dependencies\spdlog-1.9.2\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(CudaToolkitIncludeDir)</IncludePath>
     <SourcePath>$(SolutionDir)\dependencies\spdlog-1.9.2\src;$(VC_SourcePath);</SourcePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(CudaToolkitLibDir)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\KaruiFlowCUDA\x64\Release;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(CudaToolkitLibDir)</LibraryPath>
+    <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -125,18 +127,19 @@
       </GuardSignedReturns>
     </ClCompile>
     <CudaLink>
-      <AdditionalLibraryDirectories>$(CudaToolkitBinDir)/crt;$(CudaToolkitLibDir)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(CudaToolkitBinDir)/crt;$(CudaToolkitLibDir);$(SolutionDir)\dependencies\cutensor\11.0\lib</AdditionalLibraryDirectories>
       <PerformDeviceLink>true</PerformDeviceLink>
-      <AdditionalDependencies>cudart_static.lib</AdditionalDependencies>
+      <AdditionalDependencies>cudart_static.lib;cutensor_static.lib</AdditionalDependencies>
     </CudaLink>
     <CudaCompile>
       <TargetMachinePlatform>64</TargetMachinePlatform>
+      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
     </CudaCompile>
     <Lib>
-      <AdditionalDependencies>cudart_static.lib</AdditionalDependencies>
+      <AdditionalDependencies>cudart_static.lib;KaruiFlowCUDA.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(CudaToolkitLibDir)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(CudaToolkitLibDir);$(SolutionDir)\KaruiFlowCUDA\x64\Release</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -153,18 +156,19 @@
       </GuardSignedReturns>
     </ClCompile>
     <CudaLink>
-      <AdditionalLibraryDirectories>$(CudaToolkitBinDir)/crt;$(CudaToolkitLibDir)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(CudaToolkitBinDir)/crt;$(CudaToolkitLibDir);$(SolutionDir)\dependencies\cutensor\11.0\lib</AdditionalLibraryDirectories>
       <PerformDeviceLink>true</PerformDeviceLink>
-      <AdditionalDependencies>cudart_static.lib</AdditionalDependencies>
+      <AdditionalDependencies>cudart_static.lib;cutensor_static.lib</AdditionalDependencies>
     </CudaLink>
     <CudaCompile>
       <TargetMachinePlatform>64</TargetMachinePlatform>
+      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
     </CudaCompile>
     <Lib>
-      <AdditionalDependencies>cudart_static.lib</AdditionalDependencies>
+      <AdditionalDependencies>cudart_static.lib;KaruiFlowCUDA.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(CudaToolkitLibDir)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(CudaToolkitLibDir);$(SolutionDir)\KaruiFlowCUDA\x64\Release</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -185,7 +189,9 @@
     <ClCompile Include="operations\matmul\MatMulCPUKernels.cpp" />
     <ClCompile Include="operations\mul\Mul.cpp" />
     <ClCompile Include="operations\mul\MulCPUKernels.cpp" />
-    <ClCompile Include="operations\relu\Relu.cpp" />
+    <CudaCompile Include="operations\relu\Relu.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
     <ClCompile Include="operations\relu\ReluCPUKernels.cpp" />
     <ClCompile Include="operations\sigmoid\Sigmoid.cpp" />
     <ClCompile Include="operations\sigmoid\SigmoidCPUKernels.cpp" />
@@ -196,8 +202,10 @@
     <ClCompile Include="operations\to\To.cpp" />
     <ClCompile Include="operations\to\ToKernel.cpp" />
     <ClCompile Include="utilities\TensorUtils.cpp" />
+    <CudaCompile Include="operations\sum\SumCudaKernels.cu" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="core\headers\CudaContextManager.h" />
     <ClInclude Include="core\headers\Exception.h" />
     <ClInclude Include="core\headers\KaruiFlowCore.h" />
     <ClInclude Include="core\headers\Kernel.h" />
@@ -225,7 +233,9 @@
     <ClInclude Include="operations\matmul\MatMulCPUKernels.h" />
     <ClInclude Include="operations\mul\Mul.h" />
     <ClInclude Include="operations\mul\MulCPUKernels.h" />
-    <ClInclude Include="operations\relu\ReluCUDAKernels.h" />
+    <CudaCompile Include="operations\relu\ReluCUDAKernels.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
     <ClInclude Include="operations\relu\Relu.h" />
     <ClInclude Include="operations\relu\ReluCPUKernels.h" />
     <ClInclude Include="operations\sigmoid\Sigmoid.h" />
@@ -234,14 +244,13 @@
     <ClInclude Include="operations\softmax\SoftmaxCPUKernels.h" />
     <ClInclude Include="operations\sum\Sum.h" />
     <ClInclude Include="operations\sum\SumCPUKernels.h" />
+    <ClInclude Include="operations\sum\SumCUDAKernels.h" />
     <ClInclude Include="operations\to\To.h" />
     <ClInclude Include="operations\to\ToKernel.h" />
     <ClInclude Include="utilities\TensorUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="core\src\DeviceCUDA.cpp" />
-    <CudaCompile Include="core\src\DeviceCudaAdder.cu" />
-    <CudaCompile Include="operations\relu\ReluCUDAKernels.cu" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

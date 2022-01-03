@@ -1,6 +1,6 @@
 #include "Relu.h"
 #include "ReluCPUKernels.h"
-#include "ReluCUDAKernels.h"
+#include "ReluCUDAKernels.cu"
 
 
 namespace karuiflow {
