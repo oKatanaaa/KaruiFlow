@@ -3,6 +3,7 @@
 #include "../../core/headers/LoggingUtils.h"
 #include "Sum.h"
 #include "SumCPUKernels.h"
+#include "SumCUDAKernels.h"
 
 
 
@@ -18,7 +19,7 @@ namespace karuiflow {
 			return new SumNumpyKernel(m_Dim);
 
 		if (device->getDeviceName() == "cuda")
-			throw KF_ERROR(std::runtime_error("Cuda is not supported."));
+			return new SumCudaKernel(m_Dim);
 	}
 
 	bool hasDim(int dim, std::vector<int>& dims) {

@@ -136,10 +136,10 @@
       <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
     </CudaCompile>
     <Lib>
-      <AdditionalDependencies>cudart_static.lib;KaruiFlowCUDA.lib</AdditionalDependencies>
+      <AdditionalDependencies>cudart_static.lib;KaruiFlowCUDA.lib;cutensor_static.lib;cublasLt.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(CudaToolkitLibDir);$(SolutionDir)\KaruiFlowCUDA\x64\Release</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\dependencies\cutensor\11.0\lib;$(CudaToolkitLibDir);$(SolutionDir)\KaruiFlowCUDA\x64\Release</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -165,13 +165,14 @@
       <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
     </CudaCompile>
     <Lib>
-      <AdditionalDependencies>cudart_static.lib;KaruiFlowCUDA.lib</AdditionalDependencies>
+      <AdditionalDependencies>cudart_static.lib;KaruiFlowCUDA.lib;cutensor_static.lib;cublasLt.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(CudaToolkitLibDir);$(SolutionDir)\KaruiFlowCUDA\x64\Release</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\dependencies\cutensor\11.0\lib;$(CudaToolkitLibDir);$(SolutionDir)\KaruiFlowCUDA\x64\Release</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="core\src\CudaContextManager.cpp" />
     <ClCompile Include="core\src\LoggingUtils.cpp" />
     <ClCompile Include="core\src\Device.cpp" />
     <ClCompile Include="core\src\DeviceCPU.cpp" />

@@ -2,6 +2,8 @@
 #include <cuda_runtime.h>
 #include <cutensor.h>
 #include <vector>
+#include <string>
+#include <stdexcept>
 
 
 namespace karuiflow {
@@ -14,7 +16,7 @@ namespace karuiflow {
 	std::string shapeToString(std::vector<int>& shape);
 }
 
- void CudaCheck(cudaError_t error, const char* file, int line) {
+ static void CudaCheck(cudaError_t error, const char* file, int line) {
 	if (error != cudaSuccess)
 	{
 		fprintf(stderr, "Error: %s:%d, ", file, line);
@@ -27,7 +29,7 @@ namespace karuiflow {
 #define CUDA_CHECK( err ) (CudaCheck( err, __FILE__, __LINE__ ))
 
 
- void CuTensorCheck(cutensorStatus_t error, const char* file, int line) {
+ static void CuTensorCheck(cutensorStatus_t error, const char* file, int line) {
 	if (error != CUTENSOR_STATUS_SUCCESS)
 	{
 		fprintf(stderr, "Error: %s:%d, ", file, line);
