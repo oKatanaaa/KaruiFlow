@@ -47,6 +47,16 @@ def get_add_op():
     assert ADD_OP_CLASS is not None, 'No add op has been registered.'
     return ADD_OP_CLASS()
 
+# Transfers tensor from one device to another
+TO_OP_CLASS = None
+
+def register_to_op(cls):
+    global TO_OP_CLASS
+    TO_OP_CLASS = cls
+
+def get_to_op():
+    assert TO_OP_CLASS is not None, 'No to op has been registered.'
+    return TO_OP_CLASS
 
 MUL_OP_CLASS = None
 
