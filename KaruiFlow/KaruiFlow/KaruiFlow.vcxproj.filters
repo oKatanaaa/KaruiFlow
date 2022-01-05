@@ -212,6 +212,12 @@
     <ClInclude Include="core\src\DeviceCudaAdder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\headers\CudaContextManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\sum\SumCUDAKernels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="core\src\DeviceCUDA.cpp" />
@@ -219,5 +225,7 @@
     <CudaCompile Include="operations\relu\Relu.cu">
       <Filter>Source Files</Filter>
     </CudaCompile>
+    <CudaCompile Include="operations\sum\SumCudaKernels.cu" />
+    <CudaCompile Include="operations\matmul\MatMulCUDAKernels.cu" />
   </ItemGroup>
 </Project>
