@@ -9,8 +9,10 @@ The following features are supported:
 3. Batched matrix multiplication (in development).
 4. Softmax.
 5. Summation of tensors along several axes (only forward pass at the moment).
-6. SGD optimizer.
+6. SGD optimizer (with momentum).
 7. Module class for making neural network modules.
+
+Since it is a "PyTorch"-ish Python library, you can implement arbitrary neural networks using the provided components and train them gradient descent. You can also use it for arbitrary computational purposes (on GPU). 
 
 Everything is wrapped into a Python API using Cython and corresponds (almost) to PyTorch API, so please use PyTorch documentation as a reference for functionality available in this project.
 
