@@ -6,9 +6,11 @@ In this assignment we implemented a simple copy of PyTorch deep learning library
 The following features are supported:
 1. Dynamic graphs with backward propagation.
 2. ReLU, Log, Addition (limited support), Multiplication (limited support).
-3. Summation of tensors along several axes.
-4. SGD optimizer.
-5. Module class for making neural network modules.
+3. Batched matrix multiplication (in development).
+4. Softmax.
+5. Summation of tensors along several axes (only forward pass at the moment).
+6. SGD optimizer.
+7. Module class for making neural network modules.
 
 Everything is wrapped into a Python API using Cython and corresponds (almost) to PyTorch API, so please use PyTorch documentation as a reference for functionality available in this project.
 
@@ -30,4 +32,4 @@ The project is compiled via MVSC 2019. First compile KaruiFlow solution, then ru
 
 ## Current state
 
-The project is still in development and has a very limited set of features.
+The project is still in development and has a very limited set of features. Most of the features are implemented in Numpy only at the moment.
