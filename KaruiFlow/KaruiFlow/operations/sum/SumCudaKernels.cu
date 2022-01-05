@@ -150,7 +150,7 @@ namespace karuiflow {
 			CUTENSOR_OP_IDENTITY
 		));
 
-		// Creating a descriptor for the output Tensor
+		// Creating a descriptor for the output Tensora
 		std::vector<int> tensorCDim = output->getShape();
 		std::vector<int> modeC;
 		std::vector<long long> extentC;
