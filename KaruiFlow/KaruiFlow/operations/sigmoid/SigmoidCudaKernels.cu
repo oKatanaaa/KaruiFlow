@@ -19,8 +19,8 @@ namespace karuiflow {
 	};
 }
 
-
-__device__ float sigmoid(float x) {
+template<typename T>
+__device__ T sigmoid(T x) {
 	return 1.0f / (1 + exp(-x));
 }
 
