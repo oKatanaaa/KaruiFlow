@@ -21,7 +21,7 @@ namespace karuiflow {
 
 template<typename T>
 __device__ T sigmoid(T x) {
-	return 1.0f / (1 + exp(-x));
+	return (T)1 / (1 + exp(-x));
 }
 
 template<typename T>
