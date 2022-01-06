@@ -136,7 +136,7 @@
       <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
     </CudaCompile>
     <Lib>
-      <AdditionalDependencies>cudart_static.lib;KaruiFlowCUDA.lib;cutensor_static.lib;cublasLt.lib</AdditionalDependencies>
+      <AdditionalDependencies>cudart_static.lib;cutensor_static.lib;cublasLt.lib</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)\dependencies\cutensor\11.0\lib;$(CudaToolkitLibDir);$(SolutionDir)\KaruiFlowCUDA\x64\Release</AdditionalLibraryDirectories>
@@ -165,7 +165,7 @@
       <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
     </CudaCompile>
     <Lib>
-      <AdditionalDependencies>cudart_static.lib;KaruiFlowCUDA.lib;cutensor_static.lib;cublasLt.lib</AdditionalDependencies>
+      <AdditionalDependencies>cudart_static.lib;cutensor_static.lib;cublasLt.lib</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)\dependencies\cutensor\11.0\lib;$(CudaToolkitLibDir);$(SolutionDir)\KaruiFlowCUDA\x64\Release</AdditionalLibraryDirectories>

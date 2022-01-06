@@ -19,7 +19,7 @@ namespace karuiflow {
 			return new SumNumpyKernel(m_Dim);
 
 		if (device->getDeviceName() == "cuda")
-			return new SumCudaKernel(m_Dim);
+			return new SumCudaKernel(m_Dim, inputs[0].dtype);
 	}
 
 	bool hasDim(int dim, std::vector<int>& dims) {
