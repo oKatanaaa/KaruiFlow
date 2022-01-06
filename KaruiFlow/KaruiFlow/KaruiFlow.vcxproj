@@ -203,6 +203,7 @@
     <ClCompile Include="operations\to\To.cpp" />
     <ClCompile Include="operations\to\ToKernel.cpp" />
     <ClCompile Include="utilities\TensorUtils.cpp" />
+    <CudaCompile Include="operations\sigmoid\SigmoidCUDAKernels.cu" />
     <CudaCompile Include="operations\sum\SumCudaKernels.cu" />
   </ItemGroup>
   <ItemGroup>
