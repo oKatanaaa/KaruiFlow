@@ -36,7 +36,7 @@ template<typename T>
 __global__ void cudaBackwardSigmoid(T* inputData, T* outerGradient, T* outputGradient, size_t nElems) {
 	int tId = blockDim.x * blockIdx.x + threadIdx.x;
 	if (tId < nElems) {
-		outputGradient[tId] = sigmoid(outerGradient[tId])*(1 - sigmoid(outerGradient[tId]))*outerGradient[tId];
+		outputGradient[tId] = sigmoid(inputData[tId])*(1 - sigmoid(inputData[tId]))*outerGradient[tId];
 	}
 }
 
