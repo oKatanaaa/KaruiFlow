@@ -8,13 +8,7 @@
 namespace karuiflow {
 	class CudaContextManager {
 	public:
-		static cutensorHandle_t*  getCuTensorHandle() {
-			if (!s_CuTensorHandleInitialized) {
-				CUTENSOR_CHECK(cutensorInit(&s_CuTensorHandle));
-				spdlog::info("Initialized cuTensor handle.");
-			}
-			return &s_CuTensorHandle;
-		}
+		static cutensorHandle_t* getCuTensorHandle();
 
 		static cublasHandle_t* getCublasHandle() {
 			if (!s_CublasHandleInitialized) {
@@ -29,6 +23,4 @@ namespace karuiflow {
 		static cublasHandle_t s_CublasHandle;
 		static bool s_CublasHandleInitialized;
 	};
-
-	bool CudaContextManager::s_CuTensorHandleInitialized = false;
 }

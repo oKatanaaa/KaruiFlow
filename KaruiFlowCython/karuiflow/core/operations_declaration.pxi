@@ -28,6 +28,9 @@ cdef extern from "KaruiFlowOperations.h" namespace "karuiflow":
     cdef cppclass CppMul "karuiflow::Mul":
         CppMul()
 
+    cdef cppclass CppTo "karuiflow::To":
+        CppTo(Device* device)
+
 
 cdef class PyOp:
     cdef Op* cpp_op
@@ -63,4 +66,8 @@ cdef class Add(PyOp):
 
 
 cdef class Mul(PyOp):
+    pass
+
+
+cdef class To(PyOp):
     pass

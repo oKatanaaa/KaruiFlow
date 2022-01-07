@@ -96,6 +96,9 @@
     <ClCompile Include="operations\to\ToKernel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\src\CudaContextManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KaruiFlow.h">

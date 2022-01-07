@@ -76,3 +76,14 @@ cdef class Add(PyOp):
 cdef class Mul(PyOp):
     def __cinit__(self, *args, **kwargs):
         self.set_op(<Op *> (new CppMul()))
+
+
+cdef class To(PyOp):
+    def __cinit__(self, *args, **kwargs):
+        device_name = kwargs["device"]
+        cdef Device* device
+        if device_name == "cuda":
+            device = <Device*>(new DeviceCUDA())
+        elif device_name == "cpu":
+            device = <Device *> (new DeviceCPU())
+        self.set_op(<Op*>(new CppTo(device)))

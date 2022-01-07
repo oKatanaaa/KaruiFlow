@@ -17,11 +17,10 @@ cdef extern from "KaruiFlowCore.h" namespace "karuiflow":
         string getDeviceName()
 
     cdef cppclass DeviceCPU:
-        void allocateMemory(void **ptr, size_t bytes)
-        void deallocateMemory(void* ptr)
-        void copyDeviceToCpu(void* src, void* dst, size_t bytes)
-        void copyCpuToDevice(void* src, void* dst, size_t bytes)
-        void copyDeviceToDevice(void* src, void* dst, size_t bytes)
+        DeviceCPU()
+
+    cdef cppclass DeviceCUDA:
+        DeviceCUDA()
 
     cdef cppclass DType:
         string getName()

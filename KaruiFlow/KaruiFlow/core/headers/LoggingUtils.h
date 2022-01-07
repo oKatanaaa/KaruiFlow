@@ -3,6 +3,8 @@
 #include <cutensor.h>
 #include <cublas_v2.h>
 #include <vector>
+#include <string>
+#include <stdexcept>
 
 
 namespace karuiflow {

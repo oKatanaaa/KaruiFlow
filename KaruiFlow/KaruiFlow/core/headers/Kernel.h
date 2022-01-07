@@ -20,9 +20,9 @@ namespace karuiflow {
 		/*
 		* Computes the math function.
 		* 
-		* @param inputs
+		* @param[in] inputs
 		* Arguments of the function (the actual data to process). Order matters.
-		* @param output
+		* @param[out] output
 		* Where to store the result.
 		*/
 		virtual void forward(std::vector<Storage*> inputs, Storage* output) = 0;
