@@ -86,4 +86,6 @@ cdef class To(PyOp):
             device = <Device*>(new DeviceCUDA())
         elif device_name == "cpu":
             device = <Device *> (new DeviceCPU())
+        else:
+            raise RuntimeError("Unknown device. Expected cuda or cpu, but received " + device_name)
         self.set_op(<Op*>(new CppTo(device)))
