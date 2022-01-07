@@ -16,7 +16,7 @@ The following features are supported:
 5. Matrix multiplication.
 6. Softmax.
 7. Summation of tensors along several axes.
-- CPU operation:
+- CUDA operation:
 1. ReLU.
 2. Element-wise addition.
 3. Matrix multiplication (only pure matrice, no batch support).
