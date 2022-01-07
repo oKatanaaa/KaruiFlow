@@ -229,5 +229,6 @@
       <Filter>Source Files</Filter>
     </CudaCompile>
     <CudaCompile Include="operations\sum\SumCudaKernels.cu" />
+    <CudaCompile Include="operations\matmul\MatMulCUDAKernels.cu" />
   </ItemGroup>
 </Project>

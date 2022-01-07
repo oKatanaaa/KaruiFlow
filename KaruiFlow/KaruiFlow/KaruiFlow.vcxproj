@@ -190,6 +190,7 @@
     <ClCompile Include="operations\matmul\MatMulCPUKernels.cpp" />
     <ClCompile Include="operations\mul\Mul.cpp" />
     <ClCompile Include="operations\mul\MulCPUKernels.cpp" />
+    <CudaCompile Include="operations\matmul\MatMulCUDAKernels.cu" />
     <CudaCompile Include="operations\relu\Relu.cu">
       <FileType>Document</FileType>
     </CudaCompile>
