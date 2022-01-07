@@ -221,6 +221,9 @@
     <ClInclude Include="operations\sum\SumCUDAKernels.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="operations\matmul\MatMulCUDAKernels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="core\src\DeviceCUDA.cpp" />

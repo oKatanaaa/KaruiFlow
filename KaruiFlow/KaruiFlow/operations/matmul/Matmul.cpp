@@ -1,5 +1,7 @@
 #include "Matmul.h"
 #include "MatMulCPUKernels.h"
+#include "MatMulCUDAKernels.h"
+#include "../../core/headers/LoggingUtils.h"
 
 
 namespace karuiflow {
@@ -13,8 +15,19 @@ namespace karuiflow {
 		if (device->getDeviceName() == "cpu")
 			return new MatMulNumpyKernel();
 
-		if (device->getDeviceName() == "cuda")
-			throw KF_ERROR(std::runtime_error("Cuda is not supported."));
+		auto shapeA = inputs[0].shape;
+		auto shapeB = inputs[1].shape;
+		if (device->getDeviceName() == "cuda" && inputs[0].shape.size() == 2 && inputs[0].shape.size() == 2)
+			return new MatMulCudaKernel();
+		else {
+			int dimA = shapeA.size();
+			int dimB = shapeB.size();
+			std::string msg = getOpName() + " // No cuda kernel supports tensors with dims ";
+			msg += std::to_string(dimA) + " and ";
+			msg += std::to_string(dimB) + ". Only tensors of dim 2 are supported. ";
+			msg += "Please perform this operation on CPU if you need to multiply tensors with higher dimensionality.";
+			throw std::runtime_error(msg);
+		}
 	}
 
 	TensorSpecs MatMul::inferOutputTensorSpecs(std::vector<TensorSpecs> inputs) {

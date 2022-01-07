@@ -136,7 +136,7 @@
       <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
     </CudaCompile>
     <Lib>
-      <AdditionalDependencies>cudart_static.lib;cutensor_static.lib;cublasLt.lib</AdditionalDependencies>
+      <AdditionalDependencies>cudart_static.lib;cutensor_static.lib;cublasLt.lib;cublas.lib</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)\dependencies\cutensor\11.0\lib;$(CudaToolkitLibDir);$(SolutionDir)\KaruiFlowCUDA\x64\Release</AdditionalLibraryDirectories>
@@ -165,7 +165,7 @@
       <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
     </CudaCompile>
     <Lib>
-      <AdditionalDependencies>cudart_static.lib;cutensor_static.lib;cublasLt.lib</AdditionalDependencies>
+      <AdditionalDependencies>cudart_static.lib;cutensor_static.lib;cublasLt.lib;cublas.lib</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)\dependencies\cutensor\11.0\lib;$(CudaToolkitLibDir);$(SolutionDir)\KaruiFlowCUDA\x64\Release</AdditionalLibraryDirectories>
@@ -233,6 +233,7 @@
     <ClInclude Include="operations\log\LogCPUKernels.h" />
     <ClInclude Include="operations\matmul\Matmul.h" />
     <ClInclude Include="operations\matmul\MatMulCPUKernels.h" />
+    <ClInclude Include="operations\matmul\MatMulCUDAKernels.h" />
     <ClInclude Include="operations\mul\Mul.h" />
     <ClInclude Include="operations\mul\MulCPUKernels.h" />
     <CudaCompile Include="operations\relu\ReluCUDAKernels.cu">

@@ -1,84 +1,84 @@
-﻿#pragma once
-#include "Matmul.h"
-#include "MatMulCPUKernels.h"
+﻿#include "MatMulCUDAKernels.h"
+#include "../../core/headers/CudaContextManager.h"
+#include "../../core/headers/LoggingUtils.h"
 #include <cuda_runtime.h>
 #include <cublas_v2.h>
 #include "device_launch_parameters.h"
-#include "../../core/headers/Kernel.h"
-#include "../../core/headers/CudaContextManager.h"
-#include "../../core/headers/LoggingUtils.h"
-
 
 
 namespace karuiflow {
-	class MatMulCudaKernel : public Kernel {
-	public:
-		MatMulCudaKernel() {};
-		void forward(std::vector<Storage*> inputs, Storage* output) override;
-		void backward(std::vector<Storage*> inputs, std::vector<bool> requiresGrad,
-			Storage* outerGradient, std::vector<Storage*> outputGradients) override;
+	/*
+	* Multiplies C-stored matrices: C = A * B. 
+	* For the theory behind the code please refer to https://peterwittek.com/cublas-matrix-c-style.html
+	* 
+	* @param a
+	* Matrix A.
+	* @param transposeA
+	* Whether to transpose matrix A.
+	* @param b
+	* Matrix B.
+	* @param transposeB
+	* Whether to transpose matrix B.
+	* @param c
+	* Matrix to store the multiplication result in.
+	*/
+	void cublasMatmul(Storage* a, bool transposeA, Storage* b, bool transposeB, Storage* c) {
+		float* A = (float*)a->getData();
+		float* B = (float*)b->getData();
+		float* C = (float*)c->getData();
 
-	private:
-		int m_ThreadsPerBlock = 256;
-	};
-}
+		cublasOperation_t opA;
+		if (transposeA)
+			opA = CUBLAS_OP_T;
+		else
+			opA = CUBLAS_OP_N;
 
-namespace karuiflow {
-	void MatMulCudaKernel::forward(std::vector<Storage*> inputs, Storage* output) {
-		// Cuda kernels are guarantied to receive Storages that store their data
-		// on device (cuda device).
-		float* inputA = (float*)inputs[0]->getData();
-		float* inputB = (float*)inputs[1]->getData();
-		float* outputC = (float*)output->getData();
+		cublasOperation_t opB;
+		if (transposeB)
+			opB = CUBLAS_OP_T;
+		else
+			opB = CUBLAS_OP_N;
 
-		std::string dtypeA = inputs[0]->getDtype()->getName();
-		if (dtypeA != "float32") {
-			throw std::runtime_error("MetMulCudaKernel.forward // Expected float32, but received" + dtypeA);
-		}
+		cublasHandle_t* handle = CudaContextManager::getCublasHandle();
 
 		//4. A[m, k]*B[k, n] = C[m, n]
-		// cublas consider that matrices stored incolumn-major format:
+		// cublas considers matrices to be stored in column-major format:
 		// ~ B[n,k]*A[k,m] = C[n,m]
-		Shape shapeA = inputs[0]->getShape();
-		Shape shapeB = inputs[1]->getShape();
-		cublasHandle_t* handle = CudaContextManager::getCublasHandle();
-		int colB = shapeB[1]; //m
-		int rowA = shapeA[0]; //n
-		int colA = shapeA[1]; //k
-		const float alpha = 1;
-		const float beta = 0;
+		std::vector<int> shapeA = a->getShape();
+		std::vector<int> shapeB = b->getShape();
+		std::vector<int> shapeC = c->getShape();
+		int colB = !transposeB ? shapeB[1] : shapeB[0]; //m
+		int rowA = !transposeA ? shapeA[0] : shapeA[1]; //n
+		int colA = !transposeA ? shapeA[1] : shapeA[0]; //k
+		int ldA = shapeA[1];
+		int ldB = shapeB[1];
+		int ldC = shapeC[1];
+		const float alpha = 1.f;
+		const float beta = 0.f;
 		// lda=ldc=colB, ldb=colA
 		//  ..., m, n, k, alpha, A, lda, B, ldb, beta, C, ldc);
-		cublasSgemm(*handle, CUBLAS_OP_N, CUBLAS_OP_N, colB, rowA, colA, &alpha, inputB, colB, inputA, colA, &beta, outputC, colB);
+		CUBLAS_CHECK(cublasSgemm(
+			*handle, 
+			opB, opA,
+			colB, rowA, colA, 
+			&alpha, B, ldB,
+			A, ldA, &beta,
+			C, ldC));
+	}
+
+	void MatMulCudaKernel::forward(std::vector<Storage*> inputs, Storage* output) {
+		cublasMatmul(inputs[0], false, inputs[1], false, output);
 	}
 
 	void MatMulCudaKernel::backward(std::vector<Storage*> inputs, std::vector<bool> requiresGrad,
 		Storage* outerGradient, std::vector<Storage*> outputGradients) {
-		float* inputA = (float*)inputs[0]->getData();
-		float* inputB = (float*)inputs[1]->getData();
-		float* _outerGradient = (float*)outerGradient->getData();
-		float* A_outputGradient = (float*)outputGradients[0]->getData();
-		float* B_outputGradient = (float*)outputGradients[1]->getData();
-		bool A_requires_grad = requiresGrad[0];
-		bool B_requires_grad = requiresGrad[1];
-		Shape shapeA = inputs[0]->getShape();
-		Shape shapeB = inputs[1]->getShape();
-		Shape shapeG = outerGradient->getShape();
-		cublasHandle_t* handle = CudaContextManager::getCublasHandle();
-
-		int colB = shapeB[0]; // transponsed
-		int colA = shapeA[0];  // transponsed
-		int colG = shapeG[1];
-		int rowG = shapeG[0];
-		const float alpha = 1;
-		const float beta = 0;
-
-		if (A_requires_grad) {
-			cublasSgemm(*handle, CUBLAS_OP_N, CUBLAS_OP_T, colB, rowG, colG, &alpha, inputB, colB, _outerGradient, colG, &beta, A_outputGradient, colB);
+		bool aRequiresGrad = requiresGrad[0];
+		bool bRequiresGrad = requiresGrad[1];
+		if (aRequiresGrad) {
+			cublasMatmul(outerGradient, false, inputs[1], true, outputGradients[0]);
 		}
-
-		if (B_requires_grad) {
-			cublasSgemm(*handle, CUBLAS_OP_N, CUBLAS_OP_T, colA, rowG, colG, &alpha, inputA, colA, _outerGradient, colG, &beta, B_outputGradient, colA);
+		if (bRequiresGrad) {
+			cublasMatmul(inputs[0], true, outerGradient, false, outputGradients[1]);
 		}
 	}
 }

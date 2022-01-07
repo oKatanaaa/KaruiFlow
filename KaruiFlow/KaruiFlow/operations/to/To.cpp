@@ -1,11 +1,14 @@
 #include "To.h"
 #include "ToKernel.h"
+#include <spdlog/spdlog.h>
 
 namespace karuiflow {
 	To::To(Device* device) {
+		spdlog::debug("Creating To operation.");
 		if (device == nullptr)
 			throw std::runtime_error(getOpName() + " // Received nullptr as device.");
 		m_Device = device;
+		spdlog::debug("Successfully created To operation.");
 	}
 
 	std::string To::getOpName()  { return "To"; };
