@@ -99,6 +99,12 @@
     <ClCompile Include="core\src\CudaContextManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="operations\reshape\Reshape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\reshape\ReshapeCPUKernels.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KaruiFlow.h">
@@ -227,6 +233,15 @@
     <ClInclude Include="operations\sigmoid\SigmoidCUDAKernels.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="operations\mul\MulCUDAKernels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\reshape\Reshape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\reshape\ReshapeCPUKernels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="core\src\DeviceCUDA.cpp" />
@@ -238,5 +253,6 @@
     <CudaCompile Include="operations\matmul\MatMulCUDAKernels.cu" />
     <CudaCompile Include="operations\sigmoid\SigmoidCUDAKernels.cu" />
     <CudaCompile Include="operations\log\LogCUDAKernels.cu" />
+    <CudaCompile Include="operations\mul\MulCUDAKernels.cu" />
   </ItemGroup>
 </Project>
