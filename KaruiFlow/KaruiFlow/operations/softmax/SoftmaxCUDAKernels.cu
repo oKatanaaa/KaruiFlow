@@ -50,8 +50,4 @@ namespace karuiflow {
 
 		//int nBlocks = (nElems + m_ThreadsPerBlock - 1) / m_ThreadsPerBlock;
 
-		if (requiresGrad[0])
-			cudaBackwardSigmoid << <nBlocks, m_ThreadsPerBlock >> > (inputData, _outerGradient, outputGradient, nElems);
-	}
-
 }
