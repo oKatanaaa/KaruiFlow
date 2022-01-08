@@ -148,6 +148,9 @@ namespace karuiflow {
 		* Ones `outerGrad` is broadcasted, it can be multiplied with `onesLike(input)` elementwise.
 		* The result will be the gradient of the `input` tensor.
 		*/
+		if (!requiresGrad[0])
+			return;
+
 		const int nThreadsPerBlock = 256;
 		int nBlocks = (outputGradients[0]->getSize() + nThreadsPerBlock - 1) / nThreadsPerBlock;
 		
@@ -193,6 +196,6 @@ namespace karuiflow {
 								 d_A, &descA, modeA.data(),
 			CUTENSOR_OP_MUL, m_CuDtype, 0 /* stream */));
 
-		spdlog::debug("SumCudaKernel.forward // Successfully computed sum.");
+		spdlog::debug("SumCudaKernel.forward // Successfully computed gradient.");
 	}
 }

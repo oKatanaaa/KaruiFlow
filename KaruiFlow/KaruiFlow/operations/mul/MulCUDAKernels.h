@@ -32,11 +32,14 @@ namespace karuiflow {
 		* @return modes
 		* Modes computed for the tensor stored in `storage`.
 		*/
-		std::vector<int> initTensorDescriptor(cutensorTensorDescriptor_t& desc, Storage* storage, Storage* notReduced);
+		std::vector<int> initTensorDescriptor(cutensorTensorDescriptor_t& desc, Storage* storage);
 	private:
 		std::vector<int> m_Dim;
 		cudaDataType_t m_CuDtype;
 		cutensorComputeType_t m_ComputeType;
+		const int m_IntScalar = 1;
+		const float m_FloatScalar = 1.f;
+		void* m_Scalar;
 	};
 }
 
