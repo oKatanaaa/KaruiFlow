@@ -13,8 +13,6 @@ IF CIMPORTS == 1:
 DEF CIMPORTS = 2
 
 
-
-
 NUMPY_KERNEL_CLASSES = {}
 NUMPY_KERNEL_INSTANCES = []
 
@@ -54,9 +52,10 @@ def register_to_op(cls):
     global TO_OP_CLASS
     TO_OP_CLASS = cls
 
-def get_to_op():
+def get_to_op(device):
     assert TO_OP_CLASS is not None, 'No to op has been registered.'
-    return TO_OP_CLASS
+    assert isinstance(device, str), f'Device name must be string, but received {type(device)}'
+    return TO_OP_CLASS(device=device)
 
 MUL_OP_CLASS = None
 

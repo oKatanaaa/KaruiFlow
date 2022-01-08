@@ -108,6 +108,10 @@ cdef class Tensor:
         mul_op = get_mul_op()
         return mul_op([self, other])
 
+    def to(self, str device):
+        to_op = get_to_op(device)
+        return to_op([self])
+
     def __dealloc__(self):
         self.tensor.decRefCount()
 
