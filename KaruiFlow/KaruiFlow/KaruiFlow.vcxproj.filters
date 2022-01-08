@@ -224,6 +224,9 @@
     <ClInclude Include="operations\matmul\MatMulCUDAKernels.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="operations\sigmoid\SigmoidCUDAKernels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="core\src\DeviceCUDA.cpp" />
@@ -231,7 +234,7 @@
     <CudaCompile Include="operations\relu\Relu.cu">
       <Filter>Source Files</Filter>
     </CudaCompile>
-    <CudaCompile Include="operations\sum\SumCudaKernels.cu" />
+    <CudaCompile Include="operations\sum\SumCUDAKernels.cu" />
     <CudaCompile Include="operations\matmul\MatMulCUDAKernels.cu" />
     <CudaCompile Include="operations\sigmoid\SigmoidCUDAKernels.cu" />
     <CudaCompile Include="operations\log\LogCUDAKernels.cu" />

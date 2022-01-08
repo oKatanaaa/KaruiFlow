@@ -190,7 +190,6 @@
     <ClCompile Include="operations\matmul\MatMulCPUKernels.cpp" />
     <ClCompile Include="operations\mul\Mul.cpp" />
     <ClCompile Include="operations\mul\MulCPUKernels.cpp" />
-    <CudaCompile Include="operations\log\LogCUDAKernels.cu" />
     <CudaCompile Include="operations\matmul\MatMulCUDAKernels.cu" />
     <CudaCompile Include="operations\relu\Relu.cu">
       <FileType>Document</FileType>
@@ -206,7 +205,7 @@
     <ClCompile Include="operations\to\ToKernel.cpp" />
     <ClCompile Include="utilities\TensorUtils.cpp" />
     <CudaCompile Include="operations\sigmoid\SigmoidCUDAKernels.cu" />
-    <CudaCompile Include="operations\sum\SumCudaKernels.cu" />
+    <CudaCompile Include="operations\sum\SumCUDAKernels.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\headers\CudaContextManager.h" />
@@ -245,6 +244,7 @@
     <ClInclude Include="operations\relu\ReluCPUKernels.h" />
     <ClInclude Include="operations\sigmoid\Sigmoid.h" />
     <ClInclude Include="operations\sigmoid\SigmoidCPUKernels.h" />
+    <ClInclude Include="operations\sigmoid\SigmoidCUDAKernels.h" />
     <ClInclude Include="operations\softmax\Softmax.h" />
     <ClInclude Include="operations\softmax\SoftmaxCPUKernels.h" />
     <ClInclude Include="operations\sum\Sum.h" />
