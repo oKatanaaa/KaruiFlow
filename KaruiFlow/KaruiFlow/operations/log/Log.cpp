@@ -1,5 +1,6 @@
 #include "Log.h"
 #include "LogCPUKernels.h"
+#include "LogCUDAKernels.h"
 
 
 namespace karuiflow {
@@ -13,8 +14,11 @@ namespace karuiflow {
 		if (device->getDeviceName() == "cpu")
 			return new LogNumpyKernel();
 
-		if (device->getDeviceName() == "cuda")
-			throw KF_ERROR(std::runtime_error("Cuda is not supported."));
+		std::string dtype = inputs[0].dtype->getName();
+		if (device->getDeviceName() == "cuda" && dtype == "float32")
+			return new LogCudaKernel();
+		else
+			throw std::runtime_error("No kernel for dtype " + dtype + " is available for operation" + getOpName());
 	}
 
 	TensorSpecs Log::inferOutputTensorSpecs(std::vector<TensorSpecs> inputs) {

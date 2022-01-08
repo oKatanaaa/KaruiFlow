@@ -19,7 +19,7 @@ namespace karuiflow {
 		if (device->getDeviceName() == "cuda" && dtype == "float32")
 			return new SigmoidCudaKernel();
 		else
-			throw std::runtime_error("No kernel for dtype " + dtype + " is available.");
+			throw std::runtime_error("No kernel for dtype " + dtype + " is available for operation" + getOpName());
 	}
 
 	TensorSpecs Sigmoid::inferOutputTensorSpecs(std::vector<TensorSpecs> inputs) {
