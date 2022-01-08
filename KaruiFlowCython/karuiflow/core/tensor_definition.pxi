@@ -8,7 +8,7 @@ cdef void* get_pointer(cnp.ndarray arr, str dtype):
         return <void*>&float_buff[0]
     elif dtype == 'int32':
         int_buff = arr.reshape(-1)
-        return <void*>&float_buff[0]
+        return <void*>&int_buff[0]
 
 
 cdef class Tensor:
