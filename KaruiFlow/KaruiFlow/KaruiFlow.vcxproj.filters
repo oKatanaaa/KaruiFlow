@@ -233,5 +233,7 @@
     </CudaCompile>
     <CudaCompile Include="operations\sum\SumCudaKernels.cu" />
     <CudaCompile Include="operations\matmul\MatMulCUDAKernels.cu" />
+    <CudaCompile Include="operations\sigmoid\SigmoidCUDAKernels.cu" />
+    <CudaCompile Include="operations\log\LogCUDAKernels.cu" />
   </ItemGroup>
 </Project>
