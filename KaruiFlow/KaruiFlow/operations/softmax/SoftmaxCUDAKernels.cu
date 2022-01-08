@@ -49,5 +49,6 @@ namespace karuiflow {
 		size_t nElems = inputs[0]->getSize();
 
 		//int nBlocks = (nElems + m_ThreadsPerBlock - 1) / m_ThreadsPerBlock;
+	}
 
 }
