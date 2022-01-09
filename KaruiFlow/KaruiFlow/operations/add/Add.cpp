@@ -28,10 +28,15 @@ namespace karuiflow {
 		Shape nonBroadcastableShape = inputs[0].shape;
 		Shape broadcastableShape = inputs[1].shape;
 
+		if (broadcastableShape.size() == 0)
+			return TensorSpecs{ inputs[0].dtype->copy(), inputs[0].shape, inputs[0].device };
+
 		if (nonBroadcastableShape.size() != broadcastableShape.size())
 			throwException(std::string("Tensors must have the same number of dimensions, ") +
 				"but received tensors with ndims " + std::to_string(nonBroadcastableShape.size()) + " and " +
-				std::to_string(broadcastableShape.size()));
+				std::to_string(broadcastableShape.size()) + 
+				". If the left tensor is a scalar, please swap the arguments. Scalars can be only on the right side."
+			);
 
 		for (int i = 0; i < nonBroadcastableShape.size(); i++) {
 			if (nonBroadcastableShape[i] != broadcastableShape[i] && broadcastableShape[i] != 1)
