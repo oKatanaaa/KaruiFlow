@@ -17,8 +17,19 @@ namespace karuiflow {
 
 		auto shapeA = inputs[0].shape;
 		auto shapeB = inputs[1].shape;
-		if (device->getDeviceName() == "cuda" && inputs[0].shape.size() == 2 && inputs[0].shape.size() == 2)
+		if (device->getDeviceName() == "cuda" && 
+			inputs[0].shape.size() == 2 && 
+			inputs[0].shape.size() == 2 && 
+			inputs[0].dtype->getName() == "float32")
 			return new MatMulCudaKernel();
+		else if (device->getDeviceName() == "cuda" &&
+			inputs[0].shape.size() == 2 &&
+			inputs[0].shape.size() == 2 &&
+			inputs[0].dtype->getName() != "float32")
+			throw std::runtime_error("No cuda kernel for operation " + getOpName() + " supports data with dtype "
+				+ inputs[0].dtype->getName() +
+				". Please use float32 data or perform computation on CPU."
+			);
 		else {
 			int dimA = shapeA.size();
 			int dimB = shapeB.size();

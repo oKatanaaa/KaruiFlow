@@ -1,7 +1,7 @@
 import numpy as np
 # noinspection PyUnresolvedReferences
 from .cpp_api import Tensor, Parameter, PythonKernel
-from .cpp_api import MatMul, Relu, Sum, Log, Sigmoid, Softmax, Add, Mul, To, save_op
+from .cpp_api import MatMul, Relu, Sum, Log, Sigmoid, Softmax, Add, Mul, To, Reshape, save_op
 from .cpp_api import set_warn_log_level, set_err_log_level
 from .cpp_api import get_numpy_kernels, register_add_op, register_mul_op, register_to_op
 from .numpy_kernels import *

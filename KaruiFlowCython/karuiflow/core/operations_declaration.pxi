@@ -31,6 +31,9 @@ cdef extern from "KaruiFlowOperations.h" namespace "karuiflow":
     cdef cppclass CppTo "karuiflow::To":
         CppTo(Device* device)
 
+    cdef cppclass CppReshape "karuiflow::Reshape":
+        CppReshape(vector[int] newShape)
+
 
 cdef class PyOp:
     cdef Op* cpp_op
@@ -70,4 +73,8 @@ cdef class Mul(PyOp):
 
 
 cdef class To(PyOp):
+    pass
+
+
+cdef class Reshape(PyOp):
     pass

@@ -8,3 +8,4 @@
 #include "add/Add.h"
 #include "mul/Mul.h"
 #include "to/To.h"
+#include "reshape/Reshape.h"

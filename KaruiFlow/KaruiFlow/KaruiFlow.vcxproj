@@ -192,10 +192,13 @@
     <ClCompile Include="operations\mul\MulCPUKernels.cpp" />
     <CudaCompile Include="operations\log\LogCUDAKernels.cu" />
     <CudaCompile Include="operations\matmul\MatMulCUDAKernels.cu" />
+    <CudaCompile Include="operations\mul\MulCUDAKernels.cu" />
     <CudaCompile Include="operations\relu\Relu.cu">
       <FileType>Document</FileType>
     </CudaCompile>
     <ClCompile Include="operations\relu\ReluCPUKernels.cpp" />
+    <ClCompile Include="operations\reshape\Reshape.cpp" />
+    <ClCompile Include="operations\reshape\ReshapeCPUKernels.cpp" />
     <ClCompile Include="operations\sigmoid\Sigmoid.cpp" />
     <ClCompile Include="operations\sigmoid\SigmoidCPUKernels.cpp" />
     <ClCompile Include="operations\softmax\Softmax.cpp" />
@@ -242,8 +245,11 @@
     <CudaCompile Include="operations\relu\ReluCUDAKernels.cu">
       <FileType>Document</FileType>
     </CudaCompile>
+    <ClInclude Include="operations\mul\MulCUDAKernels.h" />
     <ClInclude Include="operations\relu\Relu.h" />
     <ClInclude Include="operations\relu\ReluCPUKernels.h" />
+    <ClInclude Include="operations\reshape\Reshape.h" />
+    <ClInclude Include="operations\reshape\ReshapeCPUKernels.h" />
     <ClInclude Include="operations\sigmoid\Sigmoid.h" />
     <ClInclude Include="operations\sigmoid\SigmoidCPUKernels.h" />
     <ClInclude Include="operations\sigmoid\SigmoidCUDAKernels.h" />

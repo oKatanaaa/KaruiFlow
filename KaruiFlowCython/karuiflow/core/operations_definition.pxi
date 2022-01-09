@@ -89,3 +89,9 @@ cdef class To(PyOp):
         else:
             raise RuntimeError("Unknown device. Expected cuda or cpu, but received " + device_name)
         self.set_op(<Op*>(new CppTo(device)))
+
+
+cdef class Reshape(PyOp):
+    def __cinit__(self, *args, **kwargs):
+        cdef list new_shape = list(kwargs['new_shape'])
+        self.set_op(<Op *> (new CppReshape(new_shape)))
