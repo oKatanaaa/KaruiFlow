@@ -190,6 +190,7 @@
     <ClCompile Include="operations\matmul\MatMulCPUKernels.cpp" />
     <ClCompile Include="operations\mul\Mul.cpp" />
     <ClCompile Include="operations\mul\MulCPUKernels.cpp" />
+    <CudaCompile Include="operations\add\AddCUDAKernels.cu" />
     <CudaCompile Include="operations\log\LogCUDAKernels.cu" />
     <CudaCompile Include="operations\matmul\MatMulCUDAKernels.cu" />
     <CudaCompile Include="operations\mul\MulCUDAKernels.cu" />
@@ -234,6 +235,7 @@
     <ClInclude Include="KaruiFlow.h" />
     <ClInclude Include="operations\add\Add.h" />
     <ClInclude Include="operations\add\AddCPUKernels.h" />
+    <ClInclude Include="operations\add\AddCUDAKernels.h" />
     <ClInclude Include="operations\KaruiFlowOperations.h" />
     <ClInclude Include="operations\log\Log.h" />
     <ClInclude Include="operations\log\LogCPUKernels.h" />

@@ -10,6 +10,7 @@
     <CudaCompile Include="operations\sum\SumCUDAKernels.cu" />
     <CudaCompile Include="operations\relu\ReluCUDAKernels.cu" />
     <CudaCompile Include="core\src\DeviceCUDA.cpp" />
+    <CudaCompile Include="operations\add\AddCUDAKernels.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\src\CudaContextManager.cpp" />
@@ -90,5 +91,6 @@
     <ClInclude Include="operations\to\To.h" />
     <ClInclude Include="operations\to\ToKernel.h" />
     <ClInclude Include="utilities\TensorUtils.h" />
+    <ClInclude Include="operations\add\AddCUDAKernels.h" />
   </ItemGroup>
 </Project>
