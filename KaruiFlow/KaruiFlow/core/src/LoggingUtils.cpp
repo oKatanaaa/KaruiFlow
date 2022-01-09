@@ -2,6 +2,7 @@
 #include <cublas_v2.h>
 #include <cuda_runtime.h>
 #include <cutensor.h>
+#include <cudnn.h>
 
 namespace karuiflow {
 
@@ -76,6 +77,16 @@ namespace karuiflow {
 			fprintf(stderr, "code: %d, reason: %s\n", error,
 				cublasGetErrorString(error));
 			throw std::runtime_error("Error in CUBLAS: " + std::string(cublasGetErrorString(error)));
+		}
+	}
+
+	void CudnnCheck(cudnnStatus_t error, const char* file, int line) {
+		if (error != CUDNN_STATUS_SUCCESS)
+		{
+			fprintf(stderr, "Error: %s:%d, ", file, line);
+			fprintf(stderr, "code: %d, reason: %s\n", error,
+				cudnnGetErrorString(error));
+			throw std::runtime_error("Error in CUBLAS: " + std::string(cudnnGetErrorString(error)));
 		}
 	}
 }

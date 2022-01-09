@@ -233,6 +233,7 @@
     <ClInclude Include="operations\sigmoid\SigmoidCUDAKernels.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="operations\softmax\SoftmaxCUDAKernels.h">
     <ClInclude Include="operations\mul\MulCUDAKernels.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -253,6 +254,7 @@
     <CudaCompile Include="operations\matmul\MatMulCUDAKernels.cu" />
     <CudaCompile Include="operations\sigmoid\SigmoidCUDAKernels.cu" />
     <CudaCompile Include="operations\log\LogCUDAKernels.cu" />
+    <CudaCompile Include="operations\softmax\SoftmaxCUDAKernels.cu" />
     <CudaCompile Include="operations\mul\MulCUDAKernels.cu" />
   </ItemGroup>
 </Project>
