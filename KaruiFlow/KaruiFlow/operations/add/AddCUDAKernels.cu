@@ -95,54 +95,15 @@ namespace karuiflow {
 		spdlog::debug("AddCudaKernel.forward // Successfully computed add.");
 	}
 
-	template<typename T>
-	__global__ void setOnes(T* x, size_t n) {
-		size_t tId = blockDim.x * blockIdx.x + threadIdx.x;
-		x[tId] = (T)1 * (T)(tId < n);
-	}
-
-	void AddCudaKernel::setStorageOnes(Storage* storage) {
-		const int nThreadsPerBlock = 256;
-		int nBlocks = (storage->getSize() + nThreadsPerBlock - 1) / nThreadsPerBlock;
-
-		switch (m_CuDtype)
-		{
-		case CUDA_R_32F:
-			setOnes<float> << <nBlocks, nThreadsPerBlock >> > ((float*)storage->getData(), storage->getSize());
-			break;
-		case CUDA_R_32I:
-			setOnes<int> << <nBlocks, nThreadsPerBlock >> > ((int*)storage->getData(), storage->getSize());
-			break;
-		default:
-			// Impossible case
-			throw std::runtime_error("SumCudaKernel.backward // Expected CUDA_R_32F or CUDA_R_32I, but received " + std::to_string(m_CuDtype));
-		}
-	}
-
 	void AddCudaKernel::backward(std::vector<Storage*> inputs, std::vector<bool> requiresGrad,
 		Storage* outerGradient, std::vector<Storage*> outputGradients) {
-		cutensorHandle_t* handle = CudaContextManager::getCuTensorHandle();
-		void* d_OuterGrad = outerGradient->getData();
-
-		// Creating descriptors
-		spdlog::debug("AddCudaKernel.backward // Creating descriptors for tensors...");
-		
-		cutensorTensorDescriptor_t descOuterGrad;
-		auto modeOuterGrad = initTensorDescriptor(descOuterGrad, outerGradient);
-
-		spdlog::debug("AddCudaKernel.forward // Finished creating descriptors.");
-
-		// Perform compute
-		float alpha = 1.f;
 		if (requiresGrad[0]) {
-			// gradA = B * outerGrad
 			spdlog::debug("AddCudaKernel.forward // Computing gradient for the left tensor...");
 			outputGradients[0]->copyFrom(outerGradient);
 			spdlog::debug("AddCudaKernel.forward // Successfully computed gradient.");
 		}
 
 		if (requiresGrad[1]) {
-			// gradB = sum(A * outerGrad, dim=broadcastDims(B))
 			spdlog::debug("AddCudaKernel.forward // Computing gradient for the right tensor...");
 			// Determine which dimensions to reduce
 			std::vector<int> dimsToReduce;
