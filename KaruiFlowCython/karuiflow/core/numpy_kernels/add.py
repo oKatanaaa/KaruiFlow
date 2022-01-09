@@ -25,8 +25,18 @@ class AddKernel(PythonKernel):
         A_grad, B_grad = outputGradients
 
         if A_requires_grad:
-            np.copyto(A_grad, np.ones_like(A) * outerGradient)
+            dims_to_reduce = []
+            for i, dim in enumerate(A.shape):
+                if dim == 1:
+                    dims_to_reduce.append(i)
+            outerGradient_A = np.sum(outerGradient, axis=tuple(dims_to_reduce), keepdims=True)
+            np.copyto(A_grad, np.ones_like(A) * outerGradient_A)
 
         if B_requires_grad:
-            np.copyto(B_grad, np.ones_like(B) * outerGradient)
+            dims_to_reduce = []
+            for i, dim in enumerate(B.shape):
+                if dim == 1:
+                    dims_to_reduce.append(i)
+            outerGradient_B = np.sum(outerGradient, axis=tuple(dims_to_reduce), keepdims=True)
+            np.copyto(B_grad, np.ones_like(B) * outerGradient_B)
         logging.debug(f'{self.__class__.__name__}.backward successful.')
