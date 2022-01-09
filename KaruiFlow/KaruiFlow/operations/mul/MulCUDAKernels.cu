@@ -39,11 +39,13 @@ namespace karuiflow {
 		}
 		std::vector<long long> updatedExtent;
 		std::vector<int> updatedMode;
+		std::vector<long long> updatedStride;
 		for (int i = 0; i < tensorDim.size(); i++) {
 			if (extent[i] == 1)
 				continue;
 			updatedExtent.push_back(extent[i]);
 			updatedMode.push_back(i);
+			updatedStride.push_back(stride[i]);
 		}
 
 		CUTENSOR_CHECK(cutensorInitTensorDescriptor(
@@ -51,16 +53,16 @@ namespace karuiflow {
 			&desc,
 			updatedMode.size(),
 			updatedExtent.data(),
-			stride.data(),
+			updatedStride.data(),
 			m_CuDtype,
 			CUTENSOR_OP_IDENTITY
 		));
 		std::string msg = "Initialized descriptor for a tensor. ";
 		std::string modeStr = "\nmode=" + shapeToString(updatedMode);
 		std::string extentStr = "\nextent=" + shapeToString(std::vector<int>{ updatedExtent.begin(), updatedExtent.end() });
-		std::string strideStr = "\nstride=" + shapeToString(std::vector<int>{ stride.begin(), stride.end() });
+		std::string strideStr = "\nstride=" + shapeToString(std::vector<int>{ updatedStride.begin(), updatedStride.end() });
 		spdlog::debug(msg + modeStr + extentStr + strideStr);
-		return mode;
+		return updatedMode;
 	}
 
 	void MulCudaKernel::forward(std::vector<Storage*> inputs, Storage* output) {
@@ -97,22 +99,17 @@ namespace karuiflow {
 		Storage* outerGradient, std::vector<Storage*> outputGradients) {
 		cutensorHandle_t* handle = CudaContextManager::getCuTensorHandle();
 		void* d_A = inputs[0]->getData();
-		void* d_GradA = outputGradients[0]->getData();
 		void* d_B = inputs[1]->getData();
-		void* d_GradB = outputGradients[1]->getData();
 		void* d_OuterGrad = outerGradient->getData();
 
 		// Creating descriptors
 		spdlog::debug("MulCudaKernel.backward // Creating descriptors for tensors...");
 		cutensorTensorDescriptor_t descA;
 		auto modeA = initTensorDescriptor(descA, inputs[0]);
-		cutensorTensorDescriptor_t descGradA;
-		auto modeGradA = initTensorDescriptor(descGradA, outputGradients[0]);
-
+		
 		cutensorTensorDescriptor_t descB;
 		auto modeB = initTensorDescriptor(descB, inputs[1]);
-		cutensorTensorDescriptor_t descGradB;
-		auto modeGradB = initTensorDescriptor(descGradB, outputGradients[1]);
+		
 
 		cutensorTensorDescriptor_t descOuterGrad;
 		auto modeOuterGrad = initTensorDescriptor(descOuterGrad, outerGradient);
@@ -123,6 +120,7 @@ namespace karuiflow {
 		float alpha = 1.f;
 		if (requiresGrad[0]) {
 			// gradA = B * outerGrad
+			void* d_GradA = outputGradients[0]->getData();
 			spdlog::debug("MulCudaKernel.forward // Computing gradient for the left tensor...");
 			CUTENSOR_CHECK(cutensorElementwiseBinary(handle,
 				(const void*)&alpha, d_B, &descB, modeB.data(),
@@ -134,6 +132,7 @@ namespace karuiflow {
 
 		if (requiresGrad[1]) {
 			// gradB = sum(A * outerGrad, dim=broadcastDims(B))
+			void* d_GradB = outputGradients[1]->getData();
 			spdlog::debug("MulCudaKernel.forward // Computing gradient for the right tensor...");
 			Storage* buff = outerGradient->createSimilar();
 			CUTENSOR_CHECK(cutensorElementwiseBinary(handle,

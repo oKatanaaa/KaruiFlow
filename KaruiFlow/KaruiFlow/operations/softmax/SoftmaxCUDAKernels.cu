@@ -32,13 +32,13 @@ namespace karuiflow {
 			CUDNN_DATA_FLOAT,
 			n, c, h, w);
 
-		const float alpha = 1, beta = 0;
+		const float alpha = 1.f, beta = 0.f;
 		// Straightforward softmax operation is computed 
 		// per spatial location (H,W) per image (N) across dimension C.
 		cudnnSoftmaxForward(*handle,
 			CUDNN_SOFTMAX_FAST, CUDNN_SOFTMAX_MODE_CHANNEL,
 			&alpha, inputDesc, inputData,
-			&beta,outputDesc, outputData);
+			&beta, outputDesc, outputData);
 	}
 
 	void SoftmaxCudaKernel::backward(std::vector<Storage*> inputs, std::vector<bool> requiresGrad,
@@ -74,7 +74,7 @@ namespace karuiflow {
 			forward(inputs, outputGradients[0]);
 			float* _outerGradient = (float*)outerGradient->getData();
 			float* outputGradient = (float*)outputGradients[0]->getData();
-			const float alpha = 1, beta = 0;
+			const float alpha = 1.f, beta = 0.f;
 	
 			cudnnSoftmaxBackward(*handle,
 				CUDNN_SOFTMAX_FAST, CUDNN_SOFTMAX_MODE_CHANNEL,

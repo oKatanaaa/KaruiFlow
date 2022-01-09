@@ -43,6 +43,8 @@ namespace karuiflow {
 		* The infered TensorSpecs.
 		*/
 		virtual TensorSpecs inferOutputTensorSpecs(std::vector<TensorSpecs> inputs) = 0;
+
+		void throwException(std::string msg);
 	};
 
 	

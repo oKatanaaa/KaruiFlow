@@ -26,18 +26,18 @@ namespace karuiflow {
 			inputs[0].shape.size() == 2 &&
 			inputs[0].shape.size() == 2 &&
 			inputs[0].dtype->getName() != "float32")
-			throw std::runtime_error("No cuda kernel for operation " + getOpName() + " supports data with dtype "
+			throwException("No cuda kernel for operation supports data with dtype "
 				+ inputs[0].dtype->getName() +
 				". Please use float32 data or perform computation on CPU."
 			);
 		else {
 			int dimA = shapeA.size();
 			int dimB = shapeB.size();
-			std::string msg = getOpName() + " // No cuda kernel supports tensors with dims ";
+			std::string msg = "No cuda kernel supports tensors with dims ";
 			msg += std::to_string(dimA) + " and ";
 			msg += std::to_string(dimB) + ". Only tensors of dim 2 are supported. ";
 			msg += "Please perform this operation on CPU if you need to multiply tensors with higher dimensionality.";
-			throw std::runtime_error(msg);
+			throwException(msg);
 		}
 	}
 

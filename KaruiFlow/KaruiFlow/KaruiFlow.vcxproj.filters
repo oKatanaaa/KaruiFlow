@@ -1,260 +1,94 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="core\src\Device.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\src\DeviceCPU.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\src\Op.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\src\PythonKernel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\src\PythonOp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\src\Storage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\src\Tensor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\log\Log.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\log\LogCPUKernels.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\matmul\Matmul.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\matmul\MatMulCPUKernels.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\relu\ReluCPUKernels.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\sigmoid\Sigmoid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\sigmoid\SigmoidCPUKernels.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\softmax\Softmax.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\softmax\SoftmaxCPUKernels.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\sum\Sum.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\sum\SumCPUKernels.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utilities\TensorUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\src\LoggingUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\src\Parameter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\add\Add.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\add\AddCPUKernels.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\mul\Mul.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\mul\MulCPUKernels.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\to\To.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\to\ToKernel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\src\CudaContextManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\reshape\Reshape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\reshape\ReshapeCPUKernels.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="KaruiFlow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\Exception.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\KaruiFlowCore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\Kernel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\Op.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\Parameter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\PythonKernel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\PythonOp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\Tensor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\memory\Device.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\memory\DeviceCPU.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\memory\DType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\memory\Exceptions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\memory\Memory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\memory\Storage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\KaruiFlowOperations.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\log\Log.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\log\LogCPUKernels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\matmul\Matmul.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\matmul\MatMulCPUKernels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\relu\Relu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\relu\ReluCPUKernels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\sigmoid\Sigmoid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\sigmoid\SigmoidCPUKernels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\softmax\Softmax.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\softmax\SoftmaxCPUKernels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\sum\Sum.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\sum\SumCPUKernels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utilities\TensorUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\LoggingUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\add\Add.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\add\AddCPUKernels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\mul\Mul.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\mul\MulCPUKernels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\memory\DeviceCUDA.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\to\To.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\to\ToKernel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\src\DeviceCudaAdder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\headers\CudaContextManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\sum\SumCUDAKernels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\matmul\MatMulCUDAKernels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\sigmoid\SigmoidCUDAKernels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\softmax\SoftmaxCUDAKernels.h">
-    <ClInclude Include="operations\mul\MulCUDAKernels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\reshape\Reshape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\reshape\ReshapeCPUKernels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <CudaCompile Include="core\src\DeviceCUDA.cpp" />
-    <CudaCompile Include="operations\relu\ReluCUDAKernels.cu" />
-    <CudaCompile Include="operations\relu\Relu.cu">
-      <Filter>Source Files</Filter>
-    </CudaCompile>
-    <CudaCompile Include="operations\sum\SumCUDAKernels.cu" />
-    <CudaCompile Include="operations\matmul\MatMulCUDAKernels.cu" />
-    <CudaCompile Include="operations\sigmoid\SigmoidCUDAKernels.cu" />
     <CudaCompile Include="operations\log\LogCUDAKernels.cu" />
-    <CudaCompile Include="operations\softmax\SoftmaxCUDAKernels.cu" />
+    <CudaCompile Include="operations\matmul\MatMulCUDAKernels.cu" />
     <CudaCompile Include="operations\mul\MulCUDAKernels.cu" />
+    <CudaCompile Include="operations\relu\Relu.cu" />
+    <CudaCompile Include="operations\sigmoid\SigmoidCUDAKernels.cu" />
+    <CudaCompile Include="operations\softmax\SoftmaxCUDAKernels.cu" />
+    <CudaCompile Include="operations\sum\SumCUDAKernels.cu" />
+    <CudaCompile Include="operations\relu\ReluCUDAKernels.cu" />
+    <CudaCompile Include="core\src\DeviceCUDA.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="core\src\CudaContextManager.cpp" />
+    <ClCompile Include="core\src\LoggingUtils.cpp" />
+    <ClCompile Include="core\src\Device.cpp" />
+    <ClCompile Include="core\src\DeviceCPU.cpp" />
+    <ClCompile Include="core\src\Op.cpp" />
+    <ClCompile Include="core\src\Parameter.cpp" />
+    <ClCompile Include="core\src\PythonKernel.cpp" />
+    <ClCompile Include="core\src\PythonOp.cpp" />
+    <ClCompile Include="core\src\Storage.cpp" />
+    <ClCompile Include="core\src\Tensor.cpp" />
+    <ClCompile Include="operations\add\Add.cpp" />
+    <ClCompile Include="operations\add\AddCPUKernels.cpp" />
+    <ClCompile Include="operations\log\Log.cpp" />
+    <ClCompile Include="operations\log\LogCPUKernels.cpp" />
+    <ClCompile Include="operations\matmul\Matmul.cpp" />
+    <ClCompile Include="operations\matmul\MatMulCPUKernels.cpp" />
+    <ClCompile Include="operations\mul\Mul.cpp" />
+    <ClCompile Include="operations\mul\MulCPUKernels.cpp" />
+    <ClCompile Include="operations\relu\ReluCPUKernels.cpp" />
+    <ClCompile Include="operations\reshape\Reshape.cpp" />
+    <ClCompile Include="operations\reshape\ReshapeCPUKernels.cpp" />
+    <ClCompile Include="operations\sigmoid\Sigmoid.cpp" />
+    <ClCompile Include="operations\sigmoid\SigmoidCPUKernels.cpp" />
+    <ClCompile Include="operations\softmax\Softmax.cpp" />
+    <ClCompile Include="operations\softmax\SoftmaxCPUKernels.cpp" />
+    <ClCompile Include="operations\sum\Sum.cpp" />
+    <ClCompile Include="operations\sum\SumCPUKernels.cpp" />
+    <ClCompile Include="operations\to\To.cpp" />
+    <ClCompile Include="operations\to\ToKernel.cpp" />
+    <ClCompile Include="utilities\TensorUtils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core\headers\CudaContextManager.h" />
+    <ClInclude Include="core\headers\Exception.h" />
+    <ClInclude Include="core\headers\KaruiFlowCore.h" />
+    <ClInclude Include="core\headers\Kernel.h" />
+    <ClInclude Include="core\headers\LoggingUtils.h" />
+    <ClInclude Include="core\headers\memory\Device.h" />
+    <ClInclude Include="core\headers\memory\DeviceCPU.h" />
+    <ClInclude Include="core\headers\memory\DeviceCUDA.h" />
+    <ClInclude Include="core\headers\memory\DType.h" />
+    <ClInclude Include="core\headers\memory\Exceptions.h" />
+    <ClInclude Include="core\headers\memory\Memory.h" />
+    <ClInclude Include="core\headers\memory\Storage.h" />
+    <ClInclude Include="core\headers\Op.h" />
+    <ClInclude Include="core\headers\Parameter.h" />
+    <ClInclude Include="core\headers\PythonKernel.h" />
+    <ClInclude Include="core\headers\PythonOp.h" />
+    <ClInclude Include="core\headers\Tensor.h" />
+    <ClInclude Include="core\src\DeviceCudaAdder.h" />
+    <ClInclude Include="KaruiFlow.h" />
+    <ClInclude Include="operations\add\Add.h" />
+    <ClInclude Include="operations\add\AddCPUKernels.h" />
+    <ClInclude Include="operations\KaruiFlowOperations.h" />
+    <ClInclude Include="operations\log\Log.h" />
+    <ClInclude Include="operations\log\LogCPUKernels.h" />
+    <ClInclude Include="operations\matmul\Matmul.h" />
+    <ClInclude Include="operations\matmul\MatMulCPUKernels.h" />
+    <ClInclude Include="operations\matmul\MatMulCUDAKernels.h" />
+    <ClInclude Include="operations\mul\Mul.h" />
+    <ClInclude Include="operations\mul\MulCPUKernels.h" />
+    <ClInclude Include="operations\mul\MulCUDAKernels.h" />
+    <ClInclude Include="operations\relu\Relu.h" />
+    <ClInclude Include="operations\relu\ReluCPUKernels.h" />
+    <ClInclude Include="operations\reshape\Reshape.h" />
+    <ClInclude Include="operations\reshape\ReshapeCPUKernels.h" />
+    <ClInclude Include="operations\sigmoid\Sigmoid.h" />
+    <ClInclude Include="operations\sigmoid\SigmoidCPUKernels.h" />
+    <ClInclude Include="operations\sigmoid\SigmoidCUDAKernels.h" />
+    <ClInclude Include="operations\softmax\Softmax.h" />
+    <ClInclude Include="operations\softmax\SoftmaxCPUKernels.h" />
+    <ClInclude Include="operations\softmax\SoftmaxCUDAKernels.h" />
+    <ClInclude Include="operations\sum\Sum.h" />
+    <ClInclude Include="operations\sum\SumCPUKernels.h" />
+    <ClInclude Include="operations\sum\SumCUDAKernels.h" />
+    <ClInclude Include="operations\to\To.h" />
+    <ClInclude Include="operations\to\ToKernel.h" />
+    <ClInclude Include="utilities\TensorUtils.h" />
   </ItemGroup>
 </Project>

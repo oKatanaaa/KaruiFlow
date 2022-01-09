@@ -5,8 +5,8 @@
 
 namespace karuiflow {
 	cutensorHandle_t* CudaContextManager::getCuTensorHandle() {
-		spdlog::info("Initializzing cuTensor handle...");
 		if (!s_CuTensorHandleInitialized) {
+			spdlog::info("Initializzing cuTensor handle...");
 			CUTENSOR_CHECK(cutensorInit(&s_CuTensorHandle));
 			spdlog::info("Initialized cuTensor handle.");
 			s_CuTensorHandleInitialized = true;
@@ -15,8 +15,8 @@ namespace karuiflow {
 	}
 
 	cublasHandle_t* CudaContextManager::getCublasHandle() {
-		spdlog::info("Initializzing Cublas handle...");
 		if (!s_CublasHandleInitialized) {
+			spdlog::info("Initializzing Cublas handle...");
 			CUBLAS_CHECK(cublasCreate(&s_CublasHandle));
 			spdlog::info("Initialized Cublas handle.");
 		}
@@ -24,8 +24,8 @@ namespace karuiflow {
 	}
 
 	cudnnHandle_t* CudaContextManager::getCudnnHandle() {
-		spdlog::info("Initializzing Cudnn handle...");
 		if (!s_CudnnHandleInitialized) {
+			spdlog::info("Initializzing Cudnn handle...");
 			CUDNN_CHECK(cudnnCreate(&s_CudnnHandle));
 			spdlog::info("Initialized Cudnn handle.");
 		}

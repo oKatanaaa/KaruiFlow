@@ -18,7 +18,7 @@ namespace karuiflow {
 		if (device->getDeviceName() == "cuda" && inputs[0].dtype->getName() == "float32")
 			return new MulCudaKernel(inputs[0].dtype->copy());
 		else
-			throw std::runtime_error("No cuda kernel for operation " + getOpName() + " supports data with dtype " 
+			throwException("No cuda kernel for operation supports data with dtype " 
 				+ inputs[0].dtype->getName() +
 				". Please use float32 data or perform computation on CPU."
 			);
@@ -29,13 +29,13 @@ namespace karuiflow {
 		Shape broadcastableShape = inputs[1].shape;
 		
 		if (nonBroadcastableShape.size() != broadcastableShape.size())
-			throw std::runtime_error(getOpName() + " // Tensors must have the same number of dimensions, " +
+			throwException(std::string("Tensors must have the same number of dimensions, ") +
 				"but received tensors with ndims " + std::to_string(nonBroadcastableShape.size()) + " and " +
 				std::to_string(broadcastableShape.size()));
 
 		for (int i = 0; i < nonBroadcastableShape.size(); i++) {
 			if (nonBroadcastableShape[i] != broadcastableShape[i] && broadcastableShape[i] != 1)
-				throw std::runtime_error(std::string("The second tensor is not broadcastable to the first tensor. ") +
+				throwException(std::string("The second tensor is not broadcastable to the first tensor. ") +
 					"Received tensors with dimensions " + shapeToString(nonBroadcastableShape) + " and " +
 					shapeToString(broadcastableShape) + 
 					"\nAn example of broadcastable pair of tensors: [3, 4, 5] and [1, 4, 1]. "
