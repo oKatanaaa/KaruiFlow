@@ -38,7 +38,7 @@ class SGD(Optimizer):
                     continue
 
                 # Update buffer
-                b_update = b * tensor(momentum, dtype='float32') + tensor(1 - momentum, dtype='float32') * p.grad
+                b_update = b * tensor(momentum, dtype='float32') + p.grad * tensor(1 - momentum, dtype='float32')
                 b.assign(b_update)
 
                 # Perform gradient step

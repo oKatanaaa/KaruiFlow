@@ -19,12 +19,14 @@ cdef class Tensor:
         return obj
 
     def __init__(self, data: np.ndarray, requires_grad=False):
+        assert isinstance(data, np.ndarray), f'Expected np.ndarray, but received {type(data)}'
         cdef:
-            vector[int] shape = data.shape
+            vector[int] shape
             float[:] float_data
             int[:] int_data
             CppTensor* tensor
 
+        shape = data.shape
         if data.dtype == np.float32:
             float_data = data.reshape(-1)
             self.tensor = toTensor(<float *> &float_data[0], shape, <bool> requires_grad)

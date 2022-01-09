@@ -31,8 +31,9 @@ class Module:
         pass
 
     def to(self, device: str):
-        # TODO
-        pass
+        for name, param in self.named_parameters(recurse=True):
+            param = Parameter.from_tensor(param.to(device))
+            self.register_parameter(name, param)
 
     def named_modules(self, memo: Optional[Set['Module']] = None, prefix: str = '', remove_duplicate: bool = True):
         r"""Returns an iterator over all modules in the network, yielding
@@ -155,7 +156,7 @@ class Module:
             self._parameters[name] = None
         elif not isinstance(param, Parameter):
             raise TypeError(f"Cannot assign {param} object to parameter {name} "
-                            "(torch.nn.Parameter or None required)")
+                            "(karuiflow.Parameter or None required)")
 
         self._parameters[name] = param
 

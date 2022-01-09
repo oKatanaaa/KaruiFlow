@@ -1,6 +1,7 @@
 # distutils: language = c++
 # Cython: language_level=3
-# cython: profile=True
+# Cython: profile=True
+# Cython: cpp_locals=True
 
 DEF CIMPORTS = 1
 
@@ -11,6 +12,8 @@ IF CIMPORTS == 1:
 
 DEF CIMPORTS = 2
 
+cdef class TestClass:
+    pass
 
 cdef extern from "KaruiFlowCore.h" namespace "karuiflow":
     cdef cppclass Device:
