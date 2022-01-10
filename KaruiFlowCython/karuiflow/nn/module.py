@@ -23,17 +23,16 @@ class Module:
         self._modules = OrderedDict()
 
     def cuda(self, device=None):
-        # TODO
-        pass
+        for name, param in self.named_parameters(recurse=True):
+            param.to('cuda', inplace=True)
 
     def cpu(self):
-        # TODO
-        pass
+        for name, param in self.named_parameters(recurse=True):
+            param.to('cpu', inplace=True)
 
     def to(self, device: str):
         for name, param in self.named_parameters(recurse=True):
-            param = Parameter.from_tensor(param.to(device))
-            self.register_parameter(name, param)
+            param.to(device, inplace=True)
 
     def named_modules(self, memo: Optional[Set['Module']] = None, prefix: str = '', remove_duplicate: bool = True):
         r"""Returns an iterator over all modules in the network, yielding

@@ -13,9 +13,7 @@ IF CIMPORTS == 1:
 
 DEF CIMPORTS = 2
 
-cdef class TestClass:
-    def __init__(self):
-        raise RuntimeError("test")
+
 
 NUMPY_KERNEL_CLASSES = {}
 NUMPY_KERNEL_INSTANCES = []

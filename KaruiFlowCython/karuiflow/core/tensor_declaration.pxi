@@ -1,4 +1,9 @@
 cdef extern from "KaruiFlowCore.h" namespace "karuiflow":
+    cdef struct TensorSpecs:
+        DType * dtype;
+        vector[int] shape;
+        Device * device;
+
     cdef cppclass CppTensor "karuiflow::Tensor":
         CppTensor* clone()
         TensorSpecs getTensorSpecs()
@@ -16,6 +21,7 @@ cdef extern from "KaruiFlowCore.h" namespace "karuiflow":
         void copyGradientTo(void* data) except +
         void copyTo(void* data)
         void copyFrom(void* data)
+        void to(Device* device) except +
 
         void decRefCount()
 

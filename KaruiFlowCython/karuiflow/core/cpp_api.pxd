@@ -12,8 +12,7 @@ IF CIMPORTS == 1:
 
 DEF CIMPORTS = 2
 
-cdef class TestClass:
-    pass
+
 
 cdef extern from "KaruiFlowCore.h" namespace "karuiflow":
     cdef cppclass Device:
@@ -33,11 +32,6 @@ cdef extern from "KaruiFlowCore.h" namespace "karuiflow":
 
     cdef cppclass Int32:
         Int32()
-
-    cdef struct TensorSpecs:
-        DType * dtype;
-        vector[int] shape;
-        Device * device;
 
     cdef cppclass Storage:
         void setZero();

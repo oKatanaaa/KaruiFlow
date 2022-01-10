@@ -12,13 +12,7 @@ cdef void* get_pointer(cnp.ndarray arr, str dtype):
 
 
 cdef class Tensor:
-    @staticmethod
-    cdef Tensor from_pointer(CppTensor* tensor):
-        cdef Tensor obj = Tensor.__new__(Tensor)
-        obj.tensor = tensor
-        return obj
-
-    def __init__(self, data: np.ndarray, requires_grad=False):
+    def __init__(self, data, requires_grad=False):
         assert isinstance(data, np.ndarray), f'Expected np.ndarray, but received {type(data)}'
         cdef:
             vector[int] shape
@@ -35,6 +29,13 @@ cdef class Tensor:
             self.tensor = toTensor(<int *> &int_data[0], shape, <bool> requires_grad)
         else:
             raise RuntimeError(f'Unknown data type. Expected int32 or float32, but received {data}')
+
+    @staticmethod
+    cdef Tensor from_pointer(CppTensor * tensor):
+        cdef Tensor obj = Tensor.__new__(Tensor)
+        obj.tensor = tensor
+        return obj
+
 
     def backward(self):
         cdef:
@@ -106,14 +107,29 @@ cdef class Tensor:
         return add_op([self, other])
 
     def __mul__(self, other):
-        assert isinstance(other, Tensor), f"Can multiply Tensor only with Tensor, but received {type(other)}"
+        assert isinstance(other, (Tensor, float)), f"Can multiply Tensor with Tensor or float, but received {type(other)}"
+        if isinstance(other, float):
+            other = np.array(other, dtype='float32')
+            other = Tensor(other).to(self.device.decode('utf'), inplace=True)
         mul_op = get_mul_op()
         return mul_op([self, other])
 
-    def to(self, str device):
+    def to(self, str device, bint inplace=False):
+        cdef Device* _device
+        if inplace:
+            if device == 'cuda':
+                _device = <Device*>new DeviceCUDA()
+            elif device == 'cpu':
+                _device = <Device*>new DeviceCPU()
+            else:
+                raise RuntimeError(f'Expected cuda or cpu, be received {device}')
+            self.tensor.to(_device)
+            return self
+
         to_op = get_to_op(device)
         return to_op([self])
 
     def __dealloc__(self):
-        self.tensor.decRefCount()
+        if self.tensor != NULL:
+            self.tensor.decRefCount()
 
