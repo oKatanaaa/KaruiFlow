@@ -53,6 +53,13 @@ namespace karuiflow {
 		void copyGradientTo(void* data);
 		void copyTo(void* data);
 
+		/*
+		* Copies tensor to the specified device's memory.
+		* Must not be called on non leaf tensors since it may cause crashes on forward and backward
+		* passes.
+		*/
+		void to(Device* device);
+
 		/* 
 		* Objects is Python are being deleted all the time and in the case of Tensor
 		* we cannot tie its lifetime to the lifetime of its Python wrapper. The reason

@@ -19,6 +19,7 @@ namespace karuiflow {
 			spdlog::info("Initializzing Cublas handle...");
 			CUBLAS_CHECK(cublasCreate(&s_CublasHandle));
 			spdlog::info("Initialized Cublas handle.");
+			s_CublasHandleInitialized = true;
 		}
 		return &s_CublasHandle;
 	}
@@ -28,6 +29,7 @@ namespace karuiflow {
 			spdlog::info("Initializzing Cudnn handle...");
 			CUDNN_CHECK(cudnnCreate(&s_CudnnHandle));
 			spdlog::info("Initialized Cudnn handle.");
+			s_CudnnHandleInitialized = true;
 		}
 		return &s_CudnnHandle;
 	}

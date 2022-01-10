@@ -145,6 +145,16 @@ namespace karuiflow {
 		m_Data->copyTo(data);
 	}
 
+	void Tensor::to(Device* device) {
+		if (!isLeaf())
+			throw std::runtime_error("Called `to` on a non-leaf Tensor.");
+		m_Data->to(device);
+		if (m_GradInitialized)
+			m_Gradient->to(device);
+		// We cannot delete the device as it can be used by other objects.
+		m_Specs.device = device;
+	}
+
 	void Tensor::incRefCount() {
 		spdlog::debug("Increased reference count.");
 		m_ReferenceCounter++;

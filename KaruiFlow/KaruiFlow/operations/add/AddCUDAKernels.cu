@@ -98,13 +98,13 @@ namespace karuiflow {
 	void AddCudaKernel::backward(std::vector<Storage*> inputs, std::vector<bool> requiresGrad,
 		Storage* outerGradient, std::vector<Storage*> outputGradients) {
 		if (requiresGrad[0]) {
-			spdlog::debug("AddCudaKernel.forward // Computing gradient for the left tensor...");
+			spdlog::debug("AddCudaKernel.backward // Computing gradient for the left tensor...");
 			outputGradients[0]->copyFrom(outerGradient);
-			spdlog::debug("AddCudaKernel.forward // Successfully computed gradient.");
+			spdlog::debug("AddCudaKernel.backward // Successfully computed gradient.");
 		}
 
 		if (requiresGrad[1]) {
-			spdlog::debug("AddCudaKernel.forward // Computing gradient for the right tensor...");
+			spdlog::debug("AddCudaKernel.backward // Computing gradient for the right tensor...");
 			// Determine which dimensions to reduce
 			std::vector<int> dimsToReduce;
 			std::vector<int> bGradShape = outputGradients[1]->getShape();
@@ -114,7 +114,7 @@ namespace karuiflow {
 
 			SumCudaKernel sumKernel(dimsToReduce, outerGradient->getDtype());
 			sumKernel.forward({ outerGradient }, outputGradients[1]);
-			spdlog::debug("AddCudaKernel.forward // Successfully computed gradient.");
+			spdlog::debug("AddCudaKernel.backward // Successfully computed gradient.");
 		}
 	}
 

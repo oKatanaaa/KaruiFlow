@@ -79,6 +79,11 @@ namespace karuiflow {
 		*/
 		void assignAdd(void* data, DType* dtype);
 
+		/*
+		* Copies storage's data to the specified device's memory.
+		*/
+		void to(Device* device);
+
 		void setZeros();
 	
 	private:

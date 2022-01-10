@@ -40,7 +40,6 @@ namespace karuiflow {
 			opB = CUBLAS_OP_N;
 
 		cublasHandle_t* handle = CudaContextManager::getCublasHandle();
-
 		//4. A[m, k]*B[k, n] = C[m, n]
 		// cublas considers matrices to be stored in column-major format:
 		// ~ B[n,k]*A[k,m] = C[n,m]

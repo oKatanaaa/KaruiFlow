@@ -114,14 +114,14 @@ namespace karuiflow {
 		cutensorTensorDescriptor_t descOuterGrad;
 		auto modeOuterGrad = initTensorDescriptor(descOuterGrad, outerGradient);
 
-		spdlog::debug("MulCudaKernel.forward // Finished creating descriptors.");
+		spdlog::debug("MulCudaKernel.backward // Finished creating descriptors.");
 
 		// Perform compute
 		float alpha = 1.f;
 		if (requiresGrad[0]) {
 			// gradA = B * outerGrad
 			void* d_GradA = outputGradients[0]->getData();
-			spdlog::debug("MulCudaKernel.forward // Computing gradient for the left tensor...");
+			spdlog::debug("MulCudaKernel.backward // Computing gradient for the left tensor...");
 			CUTENSOR_CHECK(cutensorElementwiseBinary(handle,
 				(const void*)&alpha, d_B, &descB, modeB.data(),
 				(const void*)&alpha, d_OuterGrad, &descOuterGrad, modeOuterGrad.data(),
@@ -133,7 +133,7 @@ namespace karuiflow {
 		if (requiresGrad[1]) {
 			// gradB = sum(A * outerGrad, dim=broadcastDims(B))
 			void* d_GradB = outputGradients[1]->getData();
-			spdlog::debug("MulCudaKernel.forward // Computing gradient for the right tensor...");
+			spdlog::debug("MulCudaKernel.backward // Computing gradient for the right tensor...");
 			Storage* buff = outerGradient->createSimilar();
 			CUTENSOR_CHECK(cutensorElementwiseBinary(handle,
 				(const void*)&alpha, d_A, &descA, modeA.data(),
@@ -152,7 +152,7 @@ namespace karuiflow {
 			sumKernel.forward({ buff }, outputGradients[1]);
 
 			delete buff;
-			spdlog::debug("MulCudaKernel.forward // Successfully computed gradient.");
+			spdlog::debug("MulCudaKernel.backward // Successfully computed gradient.");
 		}
 	}
 

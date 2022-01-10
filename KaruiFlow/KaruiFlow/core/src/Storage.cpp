@@ -68,6 +68,17 @@ namespace karuiflow {
 		m_Device->copyDeviceToCpu(m_Data, data, getSizeBytes());
 	}
 
+	void Storage::to(Device* device) {
+		void* buff = (void*)new char[getSizeBytes()];
+		m_Device->copyDeviceToCpu(m_Data, buff, getSizeBytes());
+		m_Device->deallocateMemory(m_Data);
+
+		device->allocateMemory(&m_Data, getSizeBytes());
+		device->copyCpuToDevice(buff, m_Data, getSizeBytes());
+		// We cannot delete the device as might be used by other object.
+		m_Device = device;
+	}
+
 	void Storage::setZeros() {
 		spdlog::debug("setZero in storage with shape " + shapeToString(m_Shape));
 		m_Device->setZeros(m_Data, getSizeBytes());
