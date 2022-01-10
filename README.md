@@ -57,5 +57,5 @@ The project is still in development and has a very limited set of features (it i
 
 ## Authors
 
-Igor Kilbas - https://github.com/oKatanaaa (KaruiFlow design)
-Yulia Bogdanova - https://github.com/AlexRikka (CUDA kernels)
+- Igor Kilbas - https://github.com/oKatanaaa (KaruiFlow design)
+- Yulia Bogdanova - https://github.com/AlexRikka (CUDA kernels)
