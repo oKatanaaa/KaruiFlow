@@ -70,7 +70,7 @@ namespace karuiflow {
 		/*
 		* Adds values stored in `data` to the values stored in the storage. It is assumed
 		* that the `data` is located on CPU side. The storage can be located on any device.
-		* WARNING! It is assumed that `data` has as many elements as the storage has!
+		* WARNING! It is assumed that `data` has as many elements as the storage does!
 		* 
 		* @param data
 		* Pointer to the data array which to add with the storage's data.
